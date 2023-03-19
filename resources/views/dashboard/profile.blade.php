@@ -6,13 +6,13 @@
         $relations = [
             'exams' => function ( $query) { //exams:id,title,icon,user_id
                         $query->with([
-                            'project_submits'=> function ( $query) { 
+                            'project_submits'=> function ( $query) {
                                 $query->with('student')->latest();
-                            }, 
+                            },
                             'coupons'
                         ])->latest();
             },
-            'groups' => function ( $query) { 
+            'groups' => function ( $query) {
                 $query->withCount(['followers', 'exams'])->latest();
             },
             'solved' => function ( $query) use($id) { //groups:id,image,title,private,password,user_id
@@ -28,13 +28,13 @@
         $relations = [
             'exams' => function ( $query) { //exams:id,title,icon,user_id
                         $query->with([
-                            'project_submits'=> function ( $query) { 
+                            'project_submits'=> function ( $query) {
                                 $query->with('student')->latest();
-                            }, 
+                            },
                             'coupons'
                         ])->latest();
             },
-            'groups' => function ( $query) { 
+            'groups' => function ( $query) {
                 $query->withCount(['followers', 'exams'])->latest();
             },
         ];
@@ -48,7 +48,7 @@
     $user_submitted_projects = $user->project_submits;
     $solved_exams = $user->solved;
     $default_grp_img = url('images/placeholder.jpeg');
-    
+
 @endphp
 
 @extends('dashboard.layouts.master')
@@ -67,7 +67,7 @@
         .qsTxt5 img {
             width: 20px;
         }
-        
+
     </style>
     @if (count($project_submits->pluck('pending')->filter()->toArray()) >= 1)
         <style>
@@ -108,7 +108,7 @@
                 display: none;
                 height: 0px;
             }
-        </style>        
+        </style>
     @endif
 @endsection
 
@@ -134,7 +134,7 @@
 <section class="pgTop">
     <div class="ptBox1">
         <div class="ptb1">
-            <?php 
+            <?php
             ?>
             <div class="ptbImg"><img style="width: 100%" src="{{ $user_avatar }}" /></div>
             <div class="ptbTxt">{{ $user->name }}</div>
@@ -166,7 +166,7 @@
             <!-- TODO: try to figure out what clone is -->
             <li class="actv" onclick="tabMove(this,'my_quest')">
                 <a href="#" style="color:#511285">
-                    <span class="icnm icni"></span><span class="icnTxt">My quests</span>
+                    <span class="icnm icni"></span><span class="icnTxt">Lessons</span>
                 </a>
             </li>
             <li onclick="tabMove(this,'my_group')" class="group_li">
@@ -174,7 +174,7 @@
                     <span class="icng icni"></span><span class="icnTxt">My groups</span>
                 </a>
             </li>
-            @if ($id == Auth::id()) 
+            @if ($id == Auth::id())
                 <li onclick="tabMove(this,'history')" class="history_li">
                     <a href="#history" style="color:#511285"><span
                             class="icnh icni"></span><span class="icnTxt">History</span>
@@ -289,7 +289,7 @@
                         </div>
                     </li>
                 @endforeach
-                
+
 
             </ul>
             <div class="gloader"></div>
@@ -307,7 +307,7 @@
             <input type="hidden" id="q_pageno" value="1">
             <ul id="quest_list">
                 @foreach ($exams as $exam)
-                    
+
                     <li>
                         <div class="qsWbx" style="padding: 0 10px 0 0;">
 
@@ -351,13 +351,13 @@
                                                 <a href="<?=$base_url?>enable-chat-exam/{{ $exam->id }}">
                                                     <span class="dtmi dt_chat"></span>
                                                     <span style="color: #511285">Chat on</span>
-                                                </a> 
+                                                </a>
                                                 @else
                                                 <a href="<?=$base_url?>disable-chat-exam/{{ $exam->id }}">
                                                             <span class="dtmi dt_chat"></span>
                                                             <span style="color: #511285">Chat off</span>
-                                                        </a> 
-                                                    
+                                                        </a>
+
                                                 </li>
                                                 @endif
                                                 <li onclick="exportExam({{ $exam->id }})">
@@ -386,7 +386,7 @@
                         </div>
                     </li>
                 @endforeach
-                
+
             </ul>
             <div class="qloader"></div>
         </aside>
@@ -586,7 +586,7 @@
                         @endif
 
                         @elseif (!isset($hItm->marked_by_me))
-                            @php 
+                            @php
                                 $project = $hItm;
                                 $parent_exam = $project->exam;
                             @endphp
@@ -607,11 +607,11 @@
                                     </div>
                                     <div class="qsTxt4">
                                         <div class="qsTxt5">
-                                        
+
                                             <!-- <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star_b.svg') }}"> -->
                                         </div>
                                         <div class="qsTxt6">
-                                        
+
                                         </div>
                                     </div>
                                 </div>
@@ -623,7 +623,7 @@
                                     </div>
                                 </div>
                                 <div class="qs2Rbx">
-                                    
+
                                 @if($project->remark_== 2 || $project->remark == null)
                                     <span class="pasT" style="background: #B0B0B0" >Pending</span>
                                 @elseif($project->remark==1)
@@ -645,7 +645,7 @@
                             </div>
                         </div>
                     </li>
-                    
+
                         @endif
 
                     @endforeach
@@ -682,13 +682,13 @@
                                         <div class="prjPs"><a href="#" onclick="markSubmission(1, '{{ route('exams.project_submits.update', ['exam' => $exam->id, 'project_submit' => $project->id]) }}')" style="color:#ffff">PASS</a></div>
                                 </div>
                             </div>
-                        
+
                         </li>
 
                         @endif
                     @endforeach
                 @endforeach
-                
+
 
                     <!--//cehck if user has any clone project-->
             </ul>
@@ -720,9 +720,9 @@
     </div>
 </footer>
 
-<!-- 
+<!--
 <div id="mask" class="mask" style="display: none;"></div>
-<div class="popBttom" id="popP1"> 
+<div class="popBttom" id="popP1">
     <div class="popSet1">
         <div class="mxWd2">
         <ul class="newBtnLst">
@@ -898,7 +898,7 @@
             </div>
             <div class="rpBx3T2">
                 <!-- ALL New Content Here -->
-                <?php 
+                <?php
                 //$get_my = mysqli_query($conn,"SELECT * FROM onc_insistutions WHERE id='".mysqli_real_escape_string($conn,\Auth::user()->id)."'");//$_SESSION['user_login']
                 //$result_my = mysqli_fetch_assoc($get_my);
                 //
@@ -910,7 +910,7 @@
                 //
                 //$get = mysqli_query($conn,"SELECT * FROM onc_reward_history WHERE hist_id='".mysqli_real_escape_string($conn,\Auth::user()->id)."'");//$_SESSION['linces_id']
                 //$result_hstry = mysqli_fetch_assoc($get);
-                
+
                 // echo "SELECT * FROM onc_reward_history WHERE hist_id='".mysqli_real_escape_string($conn,$_SESSION['linces_id'])."'";
                 // echo $result_hstry['reaward_type'];
                 $result_hstry['re_type'] = null;
@@ -945,7 +945,7 @@
                                 <div class="crLne1 " style="margin: 0 auto 20px; width: 25%; float: right">
                                     <img src="{{ url('images/logo5.svg') }}" style="max-width: 100%;">
                                 </div>
-                                
+
                                 <div class="crLne2">CERTIFICATE</div>
                                 <div class="crLne3" style="color: #6422A1; font-size: 18px; margin: 0 0 20px 0;">OF
                                     ACHIEVEMENT</div>
@@ -1141,7 +1141,7 @@
 
         var img = new Image();
         img.onload = function () {
-            
+
         }
         img.src = blb;
         var div = document.createElement('div');
