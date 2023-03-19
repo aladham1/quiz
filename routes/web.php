@@ -99,9 +99,7 @@ Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () 
         return view('group.discover');
     })->name('discover');
 
-    Route::get('/profile', function () {
-        return view('dashboard.profile', ['id' => Auth::user()->id]);
-    })->name('profile');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
 
     Route::get('/edit-profile', function () {
         return view('dashboard.edit_profile');

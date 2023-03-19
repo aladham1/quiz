@@ -28,7 +28,17 @@
         left: 10px;
         top: 6px;
     }
-
+.google{
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 15px 20px;
+}
+    .google img{
+        padding-right: 10px;
+    }
+    .google span{
+        color: #5d1688;
+    }
 </style>
 @endsection
 
@@ -46,8 +56,14 @@
         </div>
         @endif
         <div class="lgin2">
-{{--            <span class="g-signin2 " data-onsuccess="onSignIn">Login with Google</span>--}}
-            <a href="{{route('guest.redirectToGoogle')}}">Login</a>
+{{--            <a href="{{route('guest.redirectToGoogle')}}">Login with Google</a>--}}
+            <a class="google" href="{{route('guest.redirectToGoogle')}}">
+                               <span class="content-svg">
+                                 <img width="30" src="{{asset('images/google.png')}}" alt="">
+                               </svg>
+                               </span>
+                <span>Login with Google</span>
+            </a>
         </div>
 
         <div class="lgin3">

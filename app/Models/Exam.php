@@ -19,7 +19,9 @@ use Staudenmeir\LaravelUpsert\Eloquent\HasUpsertQueries;
 class Exam extends Model
 {
     use SoftDeletes, HasUpsertQueries;
-    
+
+
+    protected $appends = ['have_preq_exam'];
     public function resolveRouteBinding($value, $field = null)
     {
         $value2 = $value;
@@ -55,11 +57,11 @@ class Exam extends Model
     public function WordGame() {
         return $this->hasMany(WordGame::class);
     }
-    
+
     public function Puzzle() {
         return $this->hasMany(Puzzle::class);
     }
-    
+
     public function Project() {
         return $this->hasMany(Project::class);
     }
@@ -104,5 +106,14 @@ class Exam extends Model
     public function news()
     {
         return $this->morphMany(Notification::class, 'notifiable');
+    }
+
+    public function getHavePreqExamAttribute()
+    {
+        $exam_requirement = json_decode($this->preq, true);
+
+        if ($exam_requirement['type'] == 1){
+            return $exam_requirement['value'];
+        }
     }
 }

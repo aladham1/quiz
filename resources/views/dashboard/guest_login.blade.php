@@ -15,11 +15,11 @@
     </div>
 
     <div class="rgtIcn">
-        
+
     </div>
 </header>
 
-<section class="pageBody" style="height: calc(100% - 50px);"> 
+<section class="pageBody" style="height: calc(100% - 50px);">
     <div style="margin: auto; max-width: 600px !important">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -73,5 +73,5 @@
         });
       }, false);
     })();
-</script>    
+</script>
 @endsection

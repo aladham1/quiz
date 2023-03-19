@@ -12,20 +12,20 @@
         }
         .swal-overlay--show-modal {
             z-index: 9999999;
-        }   
+        }
 
         .project_title {
             line-height: 25px;
             height: 250px !important;
-        }   
+        }
 
         .rew_text {
-            line-height: 25px;  
+            line-height: 25px;
 
-        }   
-		html, body {    
-			height: 100% !important;    
-		}   
+        }
+		html, body {
+			height: 100% !important;
+		}
         .audicn_btn {
             display: inline-block;
             width: 60px;
@@ -36,31 +36,31 @@
             border-radius: 50%;
             transition: all ease-in-out 0.05s;
         }
-    </style>    
+    </style>
     <style>
         .pushed {
           transition: margin-left 200ms ease 100ms;
           height: 0px;
           visibility: hidden;
         }
-    
+
         .pulled {
           transition: margin-left 200ms ease 100ms;
           height: 0px;
           visibility: hidden;
         }
-    
+
         .trns {
           transition: left 400ms ease, height 20ms ease ;
         }
-    
+
         .relaxed {
           transition: margin-left 200ms ease 100ms;
           height: 100%;
         }
-    
+
         .neutral-bg {
-          min-height: 100px; 
+          min-height: 100px;
           background-color: #c3c3c3;
           border: 1px solid #b6b6b6;
           border-radius: 4px;
@@ -68,7 +68,7 @@
         .no-bg {
           background-color: none;
           border: none;
-        }  
+        }
 
         @import 'nib';
         button{
@@ -117,11 +117,11 @@
         .piece-selected {
           border: 3px solid var(--indigo) !important;
         }
-    
+
         .piece-selected .show-when-piece-selected {
           display: unset !important;
         }
-    </style>    
+    </style>
     <style>
         .imgPopBx {
             position: fixed;
@@ -132,12 +132,12 @@
             background: #000;
             overflow-y: auto;
             padding: 50px 0;
-        }   
+        }
 
         .imgPopBx .imgbx {
             height: 100%;
             text-align: center;
-        }   
+        }
 
         .imgPopBx .imgbx img {
             max-width: 100%;
@@ -244,15 +244,15 @@
                                 <label for="set2"><span>Can retake exam</span> <span class="qinfo">?</span></label>
                             </li>
                             <li style="">
-                                <input type="checkbox" id="set3" value="1" name="is_chat"> 
-                                <label for="set3"><span>Enable chat</span> <span class="qinfo">?</span></label> 
+                                <input type="checkbox" id="set3" value="1" name="is_chat">
+                                <label for="set3"><span>Enable chat</span> <span class="qinfo">?</span></label>
                             </li>
                             <li style="">
-                                <input type="checkbox" value="1" id="set5" name="is_private"> 
-                                <label for="set5"><span>Private</span> <span class="qinfo">?</span></label> 
+                                <input type="checkbox" value="1" id="set5" name="is_private">
+                                <label for="set5"><span>Private</span> <span class="qinfo">?</span></label>
                             </li>
                             <li style="">
-                                <input type="checkbox" value="1" id="set6" class="login_checkBox" name="is_login_required" onclick="toggleFieldsBox()" checked> 
+                                <input type="checkbox" value="1" id="set6" class="login_checkBox" name="is_login_required" onclick="toggleFieldsBox()" checked>
                                 <label for="set6"><span>Login Required</span></label>
                                 <br />
                                 <div class="fieldsBox">
@@ -429,7 +429,7 @@
 
                                 <ul class="rvwChk xm_settings">
                                     <li style="">
-                                        <input disabled type="checkbox"  id="rvchk5" name="rev_check"> 
+                                        <input disabled type="checkbox"  id="rvchk5" name="rev_check">
                                         <label for="rvchk5"><span>Private</span></label>
                                     </li>
                                     <li>
@@ -445,7 +445,7 @@
                                         <label for="rvchk3"><span class="xm_time">Time limit ( 00 minuts )</span></label>
                                     </li>
                                     <li>
-                                        <input disabled type="checkbox" id="rvchk4" name="rev_check"> 
+                                        <input disabled type="checkbox" id="rvchk4" name="rev_check">
                                         <label for="rvchk4"><span>Enable chat</span></label>
                                     </li>
                                 </ul>
@@ -803,13 +803,13 @@
             <aside class="wgAudBx prAudBx" style="display:none">
                 <div class="wgBxHdlne"> Question audio</div>
                 <div class="wgaudTag praudTag center">
-                    
+
                 </div>
             </aside>
             <aside class="wgVdoBx prVdoBx" style="display:none">
                 <div class="wgBxHdlne">Question video</div>
                 <div class="wgvdoTag prvdoTag center">
-                   
+
                 </div>
             </aside>
 
@@ -886,13 +886,13 @@
                 <aside class="wgAudBx mcAudBx" style="display:none">
                     <div class="wgBxHdlne"> Question audio</div>
                     <div class="wgaudTag mcaudTag center">
-                        
+
                     </div>
                 </aside>
                 <aside class="wgVdoBx mcVdoBx" style="display: none">
                     <div class="wgBxHdlne">Question video</div>
                     <div class="wgvdoTag mcvdoTag center">
-                        
+
                     </div>
                 </aside>
 
@@ -932,7 +932,7 @@
                         <!-- <span class="notTxt qs_ans1_mx">* Max length 40</span> -->
                     </div>
                     <div class="ansImgArea_1" style="display:none">
-                        
+
                     </div>
                     <div class="ansAud_1" style="display:none">
 
@@ -1011,7 +1011,7 @@
                         <!-- <span class="notTxt qs_ans3_mx">* Max length 40</span> -->
                     </div>
                     <div class="ansImgArea_3" style="display:none">
-                        
+
                     </div>
                     <div class="ansAud_3" style="display:none">
 
@@ -1051,7 +1051,7 @@
                         <!-- <span class="notTxt qs_ans4_mx">* Max length 40</span> -->
                     </div>
                     <div class="ansImgArea_4" style="display:none">
-                        
+
                     </div>
                     <div class="ansAud_4" style="display:none">
 
@@ -1134,13 +1134,13 @@
             <aside class="wgAudBx" style="display:none; ">
                 <div class="wgBxHdlne"> Question audio</div>
                 <div class="wgaudTag center">
-                    
+
                 </div>
             </aside>
             <aside class="wgVdoBx" style="display:none">
                 <div class="wgBxHdlne">Question video</div>
                 <div class="wgvdoTag center">
-                    
+
                 </div>
             </aside>
 
@@ -1180,7 +1180,7 @@
         </div>
     </div>
     @php
-     $max_count = env('MAX_COUNT', 4);   
+     $max_count = env('MAX_COUNT', 4);
     @endphp
     @include('puzzle.new-game')
 
@@ -1219,7 +1219,7 @@
         <div id="" class="canBtn2 pcancel" onclick="javascript: $('.cropperJsPop').hide(); cropper.destroy();">Cancel</div>
         <div class="donBtn2 cropDImage" onclick="cropImage()">Done</div>
     </div>
-</div> 
+</div>
 
 <!-- video popup -->
 <div class="txtFldPop" id="vdoPop" style="display: none; z-index:99999999">
@@ -1280,7 +1280,7 @@
                     <p class="my-1">OR</p>
                 </div>
                 <button class="btn font-weight-bold" style="background-color: #F232A4; color: white;" role="button" onclick="$('#audio_file_upload').trigger('click')"><i class="fas fa-upload"></i> Upload</button>
-                <input type="file" accept="audio/*" style="display: none" id="audio_file_upload" 
+                <input type="file" accept="audio/*" style="display: none" id="audio_file_upload"
                 onchange="recorded_audio = this.files[0]; $('#hide_on_audio_upload').hide(); $('#audio_file_name').text(this.files[0].name);">
                 <p><b id="audio_file_name"></b></p>
             </div>
@@ -1366,15 +1366,12 @@
     var getFileURL = '{{ route('storage.getfile', ['file' => 'file_path']) }}';
     var offlineDBname = route_is_update ? "questions_edit" : "questions";
     localStorage.setItem('offline_DB', offlineDBname);
-    
+
     $(function () {
         $('.sidMnu').show();
         if (typeof pbtn != 'undefined') {
             clearInterval(pbtn);
         }
-        console.log("calling1");
-        
-        console.log("calling ready");
         window.onbeforeunload = function() {
             return "Are you sure?";
         }
@@ -1423,7 +1420,7 @@
 </script>
 @endsection
 @section('scripts')
-    
+
     <script>
         $('.base_url').val(rootURL);
         var submitURL = "{{ Request::route()->named('exams.create') ? route('exams.store') : route('exams.update', ['exam' => $exam]) }}";
@@ -1451,7 +1448,7 @@
             }
         }
     </script>
-    <script> 
+    <script>
         swiper = new Swiper('.swiper-container', {
 
             pagination: {
@@ -1649,7 +1646,7 @@
                             }
 
                             if (type == 'wg') {
-                            
+
                                 var html = '<li class="wgimg wgonly" data="' + hash + '"> <span class="wgIdlt" onclick="deleteWgTmpImg(&#039;wg&#039;,&#039;' + hash + '&#039;,' + hash + ')">X</span>' +
                                     '<div class="wgImgCrop"> ' +
                                         '<img src="' + file + '">' +
@@ -1675,9 +1672,9 @@
                                 // if image choose make blank other two
                                 $('.quest_video').val('');
                                 $('.quest_audio').val('');
-                            
+
                             } else if (type == 'mc') {
-                            
+
                                 var html = '<li class="wgimg mcimg" data="' + hash + '"> <span class="wgIdlt" onclick="deleteWgTmpImg(&#039;mc&#039;,&#039;' + hash + '&#039;,' + hash + ')">X</span>' +
                                     '<div class="wgImgCrop"> ' +
                                     '<img src="' + file + '">' +
@@ -1695,10 +1692,10 @@
                                         '</li>';
                                     $('.mc_img_list').append(placeHolderImg);
                                 }
-                            
+
                                 // $('.mc_img_list').append(html);
                                 $('.mcImgBx').slideDown();
-                            
+
                                 var quest_img = $('.quest_image').val();
                                 quest_img = quest_img + ',' + hash;
                                 $('.quest_image').val(quest_img);
@@ -1709,7 +1706,7 @@
                                 $('.quest_audio').val('');
                                 $('.mcaudTag').html('');
                                 $('.mcAudBx').slideUp();
-                            
+
                             } else if (type == 'pr') {
                                 var html = '<li class="wgimg primg" data="' + hash + '"> <span class="wgIdlt" onclick="deleteWgTmpImg(&#039;pr&#039;,&#039;' + hash + '&#039;,' + hash + ')">X</span>' +
                                     '<div class="wgImgCrop"> ' +
@@ -1728,13 +1725,13 @@
                                 $('.quest_audio').val('');
                                 $('.praudTag').html('');
                                 $('.prAudBx').slideUp();
-                                } 
+                                }
                             /*else if (type == 'dd') {
                                 console.log("image=", obj.filename);
                                 $('.quest_image').val(obj.filename);
                                 $('.ddImageDisplay').html('<span class="wgIdlt" onclick="removeDDQsnImg()">X</span>' +
                                     '<img src="api/uploads/' + obj.filename + '">');
-                            
+
                                 var tmpImg = new Image();
                                 tmpImg.src = 'api/uploads/' + obj.filename; //or  document.images[i].src;
                                 $(tmpImg).one('load', function() {
@@ -1743,9 +1740,9 @@
                                 });
                             }*/
                             //URL.revokeObjectURL(file);
-                        
-                        
-                        
+
+
+
                 } else { //xm img
                     var file = URL.createObjectURL(input.files[0]);
                     $('#imgInp').val('');
@@ -1960,7 +1957,7 @@ function deleteWgTmpImg(type = '', id, name) {
                 target.src = this.result;
             };
             src.addEventListener("change", function() {
-                // fill fr with image data    
+                // fill fr with image data
                 fr.readAsDataURL(src.files[0]);
             });
         }
@@ -1974,7 +1971,7 @@ function deleteWgTmpImg(type = '', id, name) {
 <script>
     var paragraph_editor
     var project_editor
-    $(function() {    
+    $(function() {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -1986,9 +1983,9 @@ function deleteWgTmpImg(type = '', id, name) {
         project_editor = CKEDITOR.replace( 'project_title' );
         project_editor.config.baseFloatZIndex = 99999999;
         $('#0').prop('disabled', true);
-    
+
         $('#0_wrapper').popover({content: 'You must choose a question image first'});
-    
+
       $('#newGameForm').validate({
         ignore: [],
         rules: {
@@ -2053,12 +2050,12 @@ function deleteWgTmpImg(type = '', id, name) {
           form.submit();
         },
       });
-    
+
     });
 </script>
 
 <script>
-    
+
       var puzzle_canvas, originalWidth, originalHeight, stage;
       var puzzle_keys = {};
       var counter = 0;
@@ -2066,16 +2063,16 @@ function deleteWgTmpImg(type = '', id, name) {
         id: "background",
       });
       var layer = new Konva.Layer();
-    
+
       var selectionRectangle = new Konva.Rect({
         fill: 'rgba(0,0,255,0.5)',
       });
-      
+
       layerback.add(selectionRectangle);
-    
+
       var canvasw = document.getElementById('canvas-wrapper');
       var active_selector;
-      
+
       function resetDDGame() {
         //stage !== undefined && removeAllChoices();
         stage !== undefined && resetKonva();
@@ -2106,12 +2103,12 @@ function deleteWgTmpImg(type = '', id, name) {
         }
         minimizeChoice();
       }
-    
+
       function hideAnswerCol (id) {
         document.getElementById("a_preview_col"+id).style.display = 'unset';
         document.getElementById("a_col"+id).style.display = 'none';
       }
-    
+
       function showAnswerCol (id) {
         document.getElementById("a_preview_col"+id).style.display = 'none';
         document.getElementById("a_col"+id).style.display = 'unset';
@@ -2119,9 +2116,9 @@ function deleteWgTmpImg(type = '', id, name) {
         document.getElementById(selector).getElementsByClassName('preview')[0].toBlob(function (blob) {
             //updateImg(blob, selector, 'preview');
         });
-        
+
       }
-    
+
       function deleteChoice(id) {
         document.getElementById('col_for_piece_' + id).classList.remove('piece-selected');
         showAnswerCol(id);
@@ -2136,7 +2133,7 @@ function deleteWgTmpImg(type = '', id, name) {
         delete puzzle_keys[selector];
         counter = getLeastUnaddedTransformer();
       }
-    
+
       function showTransformers() {
         for (let i = 0; i < layer.find("Transformer").length; i++) {
           if (stage.findOne(".selector"+i) != undefined) {
@@ -2147,7 +2144,7 @@ function deleteWgTmpImg(type = '', id, name) {
           }
         }
       }
-    
+
       function hideTransformers(id) {
         for (let i = 0; i < layer.find("Transformer").length; i++) {
           if (i == id && stage.findOne('.selector'+i) != undefined) {
@@ -2156,7 +2153,7 @@ function deleteWgTmpImg(type = '', id, name) {
             stage.findOne('.trans'+i).enabledAnchors(['top-left', 'top-center', 'top-right', 'middle-right', 'middle-left', 'bottom-left', 'bottom-center', 'bottom-right']);
             layer.batchDraw();
             continue;
-    
+
           }
           if (stage.findOne(".selector"+i) != undefined) {
             var selector = stage.findOne(".selector"+i);
@@ -2166,7 +2163,7 @@ function deleteWgTmpImg(type = '', id, name) {
           }
         }
       }
-    
+
       var canRestore = false;
       var restoreData = [];
       var currentScrollPos = 0;
@@ -2190,7 +2187,7 @@ function deleteWgTmpImg(type = '', id, name) {
           restoreData = [];
         }
       }
-    
+
       function minimizeChoice() {
         showTransformers();
         document.body.style.overflow = 'auto';
@@ -2201,9 +2198,9 @@ function deleteWgTmpImg(type = '', id, name) {
         document.getElementsByClassName('control-btns-div')[0].style.display = 'none';
         fitStageIntoParentContainer();
       }
-    
+
       function create(x1, y1, x2, y2, cb = null, piece, current) {
-        if(layer.find("Transformer").length < {{ intval($max_count) }}) { 
+        if(layer.find("Transformer").length < {{ intval($max_count) }}) {
           if (Math.abs(x2 - x1) >= 10 && Math.abs(y2 - y1) >= 10){
             addSelector(x1, y1, x2, y2);
             counter = getLeastUnaddedTransformer();
@@ -2216,7 +2213,7 @@ function deleteWgTmpImg(type = '', id, name) {
           toastr.error('Allowed Maximum of {{$max_count}} pieces is reached')
         }
       }
-    
+
       function previewThumb(file) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -2224,19 +2221,19 @@ function deleteWgTmpImg(type = '', id, name) {
           document.getElementById('thumbPreview').src = reader.result;
         }
       }
-    
+
       function getRelativePointerPosition(node) {
             var transform = node.getAbsoluteTransform().copy();
             // to detect relative position we need to invert transform
             transform.invert();
-    
+
             // get pointer (say mouse or touch) position
             var pos = node.getStage().getPointerPosition();
-    
+
             // now we can find relative point
             return transform.point(pos);
       }
-      
+
       function getLeastUnaddedTransformer() {
         for (let index = 0; index < {{ intval($max_count) }}; index++) {
           if (stage.findOne('.selector'+index) == undefined) {
@@ -2245,21 +2242,21 @@ function deleteWgTmpImg(type = '', id, name) {
           }
         }
       }
-    
+
       function showCnvs() {
         puzzle_canvas = document.getElementById("puzzle_canvas");
         originalWidth = puzzle_canvas.offsetWidth;
         originalHeight = puzzle_canvas.offsetHeight;
-    
+
         stage = new Konva.Stage({
-          container: 'puzzle_canvas', 
+          container: 'puzzle_canvas',
           width: originalWidth,
           height: originalHeight,
         });
-    
+
         stage.add(layerback);
         stage.add(layer);
-    
+
         var x1, y1, x2, y2;
         stage.on('mousedown touchstart', (e) => {
             // do nothing if we mousedown on eny shape
@@ -2270,14 +2267,14 @@ function deleteWgTmpImg(type = '', id, name) {
             y1 = getRelativePointerPosition(stage.findOne("#puzzleImg")).y;
             x2 = getRelativePointerPosition(stage.findOne("#puzzleImg")).x;
             y2 = getRelativePointerPosition(stage.findOne("#puzzleImg")).y;
-    
+
             selectionRectangle.visible(true);
             selectionRectangle.moveToTop();
             selectionRectangle.width(0);
             selectionRectangle.height(0);
             layerback.batchDraw();
         });
-    
+
         stage.on('mousemove touchmove', () => {
             // no nothing if we didn't start selection
             if (!selectionRectangle.visible()) {
@@ -2285,7 +2282,7 @@ function deleteWgTmpImg(type = '', id, name) {
             }
             x2 = getRelativePointerPosition(stage.findOne("#puzzleImg")).x;
             y2 = getRelativePointerPosition(stage.findOne("#puzzleImg")).y;
-    
+
             selectionRectangle.setAttrs({
               x: Math.min(x1, x2),
               y: Math.min(y1, y2),
@@ -2294,11 +2291,11 @@ function deleteWgTmpImg(type = '', id, name) {
             });
             layerback.batchDraw();
         });
-    
+
         stage.on('mouseup touchend', () => {
             initiate_selection(x1, y1, x2, y2);
         });
-    
+
         fitStageIntoParentContainer();
         window.addEventListener('resize', function () {
           if($(window).width() != w_width || $(window).height() != w_height){
@@ -2306,7 +2303,7 @@ function deleteWgTmpImg(type = '', id, name) {
             }
         });
       }
-      
+
       function initiate_selection(x1, y1, x2, y2) {
         // Do nothing if we didn't start selection
         if (!selectionRectangle.visible()) {
@@ -2324,7 +2321,7 @@ function deleteWgTmpImg(type = '', id, name) {
       function start_puzzle_creation() {
         /*var btn = document.getElementById('0');
          btn.disabled = false;
-        $('#0_wrapper').popover('disable'); 
+        $('#0_wrapper').popover('disable');
         btn.click(); */
         var btn = $('.photoSelection button').first();
         if (btn.hasClass('btn-primary')) {
@@ -2349,15 +2346,15 @@ function deleteWgTmpImg(type = '', id, name) {
 
       var base64img;
       function addImg(blob) {
-        
+
         //step(1);
         //document.getElementById('dynamicContainer').className = document.getElementById('dynamicContainer').className.replace('col-lg-9', 'col-lg-12');
         setTimeout(continue_add, 300);//setTimeout(continue_add, 700);
-    
+
         function continue_add() {
-        
+
           var img = blob;
-          
+
           var reader = new FileReader();
           var puzzleImg = new Image();
           puzzleImg.crossOrigin = "Anonymous";
@@ -2373,12 +2370,12 @@ function deleteWgTmpImg(type = '', id, name) {
             puzzle_canvas.style.height = puzzleImg.height + "px";
             originalHeight = puzzleImg.height;
             fitStageIntoParentContainer(false);
-  
+
             //puzzle_keys['original_size'] = {
             //  width: originalWidth,
             //  height: originalHeight,
             //}
-  
+
             var cnvsimg = new Konva.Image({
               x: 0,
               y: 0,
@@ -2390,11 +2387,11 @@ function deleteWgTmpImg(type = '', id, name) {
             fitStageIntoParentContainer(false);
             layerback.batchDraw();
           }
-          
+
           puzzleImg.src = URL.createObjectURL(img);
-        }   
-      } 
-    
+        }
+      }
+
       function move(current, direction) {
         var goto = parseInt(current) + parseInt(direction);
         document.getElementById("step_"+goto).style.height = '100%';
@@ -2405,7 +2402,7 @@ function deleteWgTmpImg(type = '', id, name) {
         document.getElementById("step_"+current).style.height = '0px';
         document.getElementById("step_"+goto).style.left = '0%';
       }
-    
+
       var ds = document.getElementById('drawingCnvs');
       var ds_ctx = ds.getContext('2d');
       function getKey(x11, y11, x12, y12, selectorNum) {
@@ -2424,7 +2421,7 @@ function deleteWgTmpImg(type = '', id, name) {
             updateJSON(selectorNum, Math.min(x11, x12), Math.min(y11, y12), Math.abs(x12 - x11), Math.abs(y12 - y11), blob);
           })
       }
-    
+
       function updateJSON(selector, x, y, width, height, blob) {
         selector = "piece"+selector.toString();
         var current_key = {};
@@ -2442,7 +2439,7 @@ function deleteWgTmpImg(type = '', id, name) {
         //console.log(puzzle_keys[selector]);
         updateImg(blob, selector);
       }
-    
+
       function previewPiece(selector, dataURL, img='preview') {
         var selector2 = selector.indexOf('piece_') == -1 ? selector.replace('piece', 'piece_') : selector;
         var hide = document.getElementById(selector2).getElementsByClassName('placeholder')[0];
@@ -2466,12 +2463,12 @@ function deleteWgTmpImg(type = '', id, name) {
             }
           show.src = tmpobj;
         }
-      
+
       //show.width = stage.findOne(selector.replace("piece_", ".trans")).width();
       //var parent = document.getElementById(selector).getElementsByClassName('neutral-bg')[0];
       //parent.className = parent.className.replace('neutral-bg', 'no-bg');
     }
-    
+
     function hidePiece(selector) {
       var show = document.getElementById(selector.replace('piece', 'piece_')).getElementsByClassName('placeholder')[0];
       var hide = document.getElementById(selector.replace('piece', 'piece_')).getElementsByClassName('preview')[0];
@@ -2481,18 +2478,18 @@ function deleteWgTmpImg(type = '', id, name) {
       //var parent = document.getElementById(selector).getElementsByClassName('no-bg')[0];
       //parent.className = parent.className.replace('no-bg', 'neutral-bg');
     }
-    
+
       function updateImg(blob, selector, img='preview') {
         create_json();
         previewPiece(selector.toString(), blob, img);
       }
-      
+
       function updateImgfromFile(file, selector, img='a_preview') {
         var id = 'Puzzle' + getQuestionsListCount('.question_lists') + '_pieces_piece'+selector.replace('selector', '').replace('.', '');
-        options_media[id] = 'image'; //options_media is a global variable defined in index.js above function updateQuestionIfExists 
+        options_media[id] = 'image'; //options_media is a global variable defined in index.js above function updateQuestionIfExists
         updateImg(file, selector, img);
       }
-    
+
       function updateTxt(txt, selector, img='a_preview') {
         puzzle_keys[selector]['text'] = txt;
         create_json();
@@ -2519,7 +2516,7 @@ function deleteWgTmpImg(type = '', id, name) {
           updateImg(blob, selector, img);
         });
       }
-    
+
       function rectCvr(checked, selector) {
         if (checked) {
             puzzle_keys[selector]['hide_origin'] = true;
@@ -2533,7 +2530,7 @@ function deleteWgTmpImg(type = '', id, name) {
           stage.batchDraw();
         }
       }
-    
+
       function create_json() {
         for (const key in puzzle_keys) {
           var inputClass = parseInt(key.replace('piece', '')) + 1;
@@ -2549,13 +2546,13 @@ function deleteWgTmpImg(type = '', id, name) {
         }
         document.getElementById('keys').textContent = JSON.stringify(puzzle_keys);
       }
-    
+
       function step(direction) {
         var relaxedeles = document.getElementsByClassName("relaxed");
         var hiddeneles;
         var newCls = "pushed";
         var assignCls = "pulled";
-        
+
         if (direction == 1) {
           hiddeneles = document.getElementsByClassName("pushed");
           newCls = "pushed";
@@ -2565,14 +2562,14 @@ function deleteWgTmpImg(type = '', id, name) {
           newCls = "pulled";
           assignCls = "pushed";
         }
-    
+
         for (let i = 0; i < relaxedeles.length; i++) {
           relaxedeles[i].style.marginLeft = "0%";
           //relaxedeles[i].className = relaxedeles[i].className.replace('relaxed', assignCls);
           setTimeout( function() {
             relaxedeles[i].style.marginLeft = "-200%";
             relaxedeles[i].className = relaxedeles[i].className.replace('relaxed', assignCls);
-            
+
           }, 320);
         }
         for (let i = 0; i < hiddeneles.length; i++) {
@@ -2583,7 +2580,7 @@ function deleteWgTmpImg(type = '', id, name) {
               }, 310);
             }
       }
-    
+
       function checkSelectionState() {
         if (canvasw.classList.contains('canvas-wrapper')) {
           if (stage.findOne('.trans'+active_selector) != undefined) {
@@ -2596,11 +2593,11 @@ function deleteWgTmpImg(type = '', id, name) {
           return counter;
         }
       }
-    
+
       function addSelector(x1, y1, x2, y2) {
-    
+
         var current_transformer = checkSelectionState();
-    
+
         var rect1 = new Konva.Rect({
           x: Math.min(x1, x2),
           y: Math.min(y1, y2),
@@ -2614,26 +2611,26 @@ function deleteWgTmpImg(type = '', id, name) {
           rotateEnabled: false,
           name: 'trans'+current_transformer,
         });
-        
+
         var current = parseInt(rect1.name().replace("selector", ""));
-    
+
         for (let i = 0; i < layer.find("Transformer").length; i++) {
           layer.find("Transformer")[i].resizeEnabled(false);
           layer.find("Rect")[i].draggable(false);
         }
-    
+
         rect1.on('mouseover', function () {
           document.body.style.cursor = 'pointer';
         });
-    
+
         rect1.on('mouseout', function () {
           document.body.style.cursor = 'default';
         });
-    
+
         rect1.on('mousedown touchmove touchstart drag dragstart ', function (evt) {
           evt.cancelBubble = true;
         });
-    
+
         rect1.on('click tap', function (evt) {
           evt.cancelBeubble = true;
           for (var i = 0; i < layer.find("Transformer").length; i++) {
@@ -2646,17 +2643,17 @@ function deleteWgTmpImg(type = '', id, name) {
           tr.enabledAnchors(['top-left', 'top-center', 'top-right', 'middle-right', 'middle-left', 'bottom-left', 'bottom-center', 'bottom-right']);
           layer.draw();
         });
-    
+
         rect1.on('dragend touchend', function (evt) {
           evt.cancelBubble = true;
           getKey(tr.position().x, tr.position().y, tr.width() + tr.position().x, tr.height() + tr.position().y, current);
         });
-    
+
         rect1.on('transformend', function (evt) {
             evt.cancelBubble = true;
             getKey(tr.position().x, tr.position().y, tr.width() + tr.position().x, tr.height() + tr.position().y, current);
         });
-        
+
         tr.anchorCornerRadius(25);
         tr.borderDash([6,2]);
         tr.on('mousedown touchstart touchmove touchend drag dragstart dragend', function (evt) {
@@ -2667,7 +2664,7 @@ function deleteWgTmpImg(type = '', id, name) {
           tr.resizeEnabled(true);
           rect1.strokeWidth(0);
         });
-    
+
         // add the shape to the layer
         layer.add(rect1);
         tr.nodes([rect1]);
@@ -2696,7 +2693,7 @@ function deleteWgTmpImg(type = '', id, name) {
         document.getElementById('col_for_piece_' + current_transformer).classList.add('piece-selected');
         getKey(tr.position().x, tr.position().y, tr.position().x + tr.width(), tr.position().y + tr.height(), current);
       }
-    
+
       var scale;
       var w_width = $(window).width()
       var w_height = $(window).height();

@@ -1,56 +1,3 @@
-
-
-@php //loading user relations
-    $relations = new \Illuminate\Support\Collection;
-    if ($id == Auth::id()) {
-        $relations = [
-            'exams' => function ( $query) { //exams:id,title,icon,user_id
-                        $query->with([
-                            'project_submits'=> function ( $query) {
-                                $query->with('student')->latest();
-                            },
-                            'coupons'
-                        ])->latest();
-            },
-            'groups' => function ( $query) {
-                $query->withCount(['followers', 'exams'])->latest();
-            },
-            'solved' => function ( $query) use($id) { //groups:id,image,title,private,password,user_id
-                $query->with(['owner', 'project_submits' => function ( $query) use($id) {
-                    $query->where('student_id', '=', $id)->latest();
-                },])->withCount(['MultipleChoiceQuestion','WordGame','Puzzle','Project'])->latest();
-            },
-            'project_submits' => function ( $query) {
-                $query->with('exam')->latest();
-            },
-        ];
-    } else {
-        $relations = [
-            'exams' => function ( $query) { //exams:id,title,icon,user_id
-                        $query->with([
-                            'project_submits'=> function ( $query) {
-                                $query->with('student')->latest();
-                            },
-                            'coupons'
-                        ])->latest();
-            },
-            'groups' => function ( $query) {
-                $query->withCount(['followers', 'exams'])->latest();
-            },
-        ];
-    }
-
-    $user = \App\User::find($id)->load($relations)->loadCount('following');
-    $user_avatar = isset($user->avatar) ? url(Storage::url($user->avatar)) : url('images/user.svg');
-    $exams = $user->exams;
-    $groups = $user->groups;
-    $project_submits = $exams[0]->project_submits ?? new \Illuminate\Support\Collection;
-    $user_submitted_projects = $user->project_submits;
-    $solved_exams = $user->solved;
-    $default_grp_img = url('images/placeholder.jpeg');
-
-@endphp
-
 @extends('dashboard.layouts.master')
 
 @section('css')
@@ -318,11 +265,19 @@
                                 </div>
                                 <div class="qs1Rbx">
                                     <div class="qsTxt2 q4a" style="color:#000">
+
                                         CODE: <b>{{ $exam->id + 1000 }}</b>
                                         <span class="badge badge-pill badge-danger">{{ $exam->draft ? 'DRAFT' : '' }}</span>
                                     </div>
-                                    <div class="qsTxt3 q4b">
+                                    <div class="qsTxt3 q4b" style="margin-bottom: 5px">
                                         {{ $exam->title }}
+
+                                    </div>
+                                    <div class="exam-pass">
+                                        @if($exam->have_preq_exam)
+                                            <img src="{{asset('images/lock.png')}}" width="20" alt="">
+                                            <span style="font-size: 12px">Exam number: {{$exam->have_preq_exam}}</span>
+                                        @endif
                                     </div>
 
                                 </div>
@@ -1137,7 +1092,9 @@
 </script>
 <script>
     $(function () {
-        var blb = "{!!  'data:image/png;base64,' . base64_encode(QrCode::format('png')->mergeString(isset($user->avatar) ? Storage::disk('public')->get($user->avatar) : Storage::disk('public')->get('users/default.png') )->size(200)->generate(Request::url())); !!}";
+        var blb = "{!!  'data:image/png;base64,' . base64_encode(QrCode::format('png')->mergeString(isset($user->avatar) ?
+                    Storage::disk('public')->get($user->avatar) :
+                    asset('users/default.png') )->size(200)->generate(Request::url())); !!}";
 
         var img = new Image();
         img.onload = function () {
