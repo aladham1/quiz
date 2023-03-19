@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="58" viewBox="0 0 65 58">
+  <defs>
+    <filter id="Ellipse_2" x="30" y="32" width="26" height="26" filterUnits="userSpaceOnUse">
+      <feOffset dx="3" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.8"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="drag_drop" transform="translate(-293.993 -490)">
+    <path id="Path_8" data-name="Path 8" d="M69,0H24A10,10,0,0,0,14,10V40A10,10,0,0,0,24,50H69A10,10,0,0,0,79,40V10A10,10,0,0,0,69,0Z" transform="translate(279.993 490)" fill="#5939c6"/>
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="11" cy="11" r="11" transform="translate(305.993 496)" stroke-dasharray="4 4" stroke="#fff" stroke-linejoin="round" stroke-miterlimit="1.305" stroke-width="2" fill="#5939c6"/>
+    <g transform="matrix(1, 0, 0, 1, 293.99, 490)" filter="url(#Ellipse_2)">
+      <circle id="Ellipse_2-2" data-name="Ellipse 2" cx="10" cy="10" r="10" transform="translate(30 33)" fill="#f232a4"/>
+    </g>
+  </g>
+</svg>

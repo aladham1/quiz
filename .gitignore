@@ -1,0 +1,31 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+resources/views/certificates/error
+resources/views/auth/temp
+vendor.tar.xz
+temp
+questanya_DB.txt
+public_data.tar.gz
+new-game.html
+DropboxServiceProvider.php
+2.json
+.vscode/launch.json
+public/js/index (old).js
+2020_09_08_055205_create_games_table.php
+resources/views/old
+resources/views/puzzle/new-game.blade copy.php
+bacon.tar.xz
+resources/views/dashboard/home.blade with_original_php_code.php
+resources/views/dashboard/user_profile.blade.php
+resources/views/dashboard/user_profile.blade.php
+resources/views/puzzle/new-game(old).blade.php

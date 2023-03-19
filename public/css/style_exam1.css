@@ -1,0 +1,389 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:400,500,700');
+@import url('../font/stylesheet.css');
+
+/* CSS Document 
+font-family: 'cocogoosedemibold';
+font-family: 'Open Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
+
+html {
+    -webkit-user-select: none;
+}
+
+body {width:100%; height:auto; margin:0 auto; padding:0; font-family: 'Open Sans', sans-serif; min-height: 100vh;}
+/* for iOS only*/
+body{
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+}
+
+img {border:thin none #0066FF; max-width:100%;}
+p, h1, h2, h3, h4, h5, h6, ul, li {margin:0px;padding:0px;list-style-type:none;}
+a {text-decoration:none}
+select {-webkit-appearance:none;}
+
+
+.magic {clear:both; padding:0px; margin:0px;  height:0px; width:0px;}
+.page {width:1000px; height:auto; margin:0 auto; font-family: 'Open Sans', sans-serif;}
+
+.tcenter {text-align: center;}
+
+.pgebg1 {background:#F4F4F4; min-height:100vh; }
+
+header {
+  background: #511285;
+  padding: 10px 0;
+}
+header img {
+  height: 30px;
+}
+
+.boxA1 {color: #000000;}
+
+.set1 {    margin: 25px auto;}
+.set1 img {}
+
+.set2 {font-size: 18px;
+  line-height: 34px;}
+
+.set3 {font-size: 24px;font-weight: bold;
+  line-height: 45px;}
+
+.set4 {margin:40px 0 0 0;}
+
+  .set5 {max-width: 300px;margin:0 auto 10px;}
+  .set5 label {font-size: 18px;
+    line-height: 34px;
+    text-align: right; box-sizing: border-box;
+    padding:0 20px; display: inline-block;  width:100%;
+    color: #F232A4;}
+  .infld1 {width:100%; outline: none;
+    height: 50px; display:block; margin:0 auto;
+    padding: 0 20px;
+    font-size: 16px;
+    background: #FFFFFF;
+    border: 2px solid #CCCCCC;
+    box-sizing: border-box;
+    border-radius: 25px;}
+    .note1 {box-sizing: border-box;text-align: right; font-size: 10px;
+      line-height: 19px;
+      padding:2px 20px; display: inline-block;  width:100%;}
+  
+  .set6 {    margin: 60px 0 0 0;}
+  .btn1 {width: 250px; color: #FFFFFF;
+    height: 80px;    font-weight: bold;
+    font-size: 24px; border:0; border-bottom: 8px solid #511285;
+    background: #5939C6;
+    border-radius: 20px;}
+
+  .set7 {font-weight: bold; margin:25px 0 0 0;
+    font-size: 18px;
+    line-height: 34px;
+    text-align: center;    
+    color: #511285;
+  }
+  
+.qpgHdr {  font-weight: bold;  color: #F232A4;
+  border: 2px solid #F232A4;
+  width: 250px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 8px 10px;
+  border-radius: 20px;}
+
+.boxB {height:calc(100vh - 50px - 62px - 122px);
+  overflow: auto;}
+
+
+.exmFtr {background-color:#511285;color: #fff;padding: 20px 20px 10px;}
+
+.btnBr1 {display: inline-block; width:100%;}
+  .backBtn, .nextBtn {
+    width: 80px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 0;
+}
+.backBtn {
+    float: left;
+    background: url('../images/back 2.svg') no-repeat center left 20px #fff;
+    background-size: 16px;
+}
+.quesnmbr {
+    width: calc(100% - 160px);
+    float: left;
+    text-align: center;
+    font-size: 36px;
+}
+.nextBtn {
+    float: right;
+    background: url('../images/next 2.svg') no-repeat right 20px center #fff;
+    background-size: 16px;
+}
+
+.set8 {
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+
+.qsimg1 {margin:15px 0; height: 190px;}
+.qsimg1 img {height: 190px;}
+
+.qsTxt1 {color:#511285; font-size: 18px; font-weight: bold; padding:10px 20px; margin: 0 0 30px 0;}
+
+.qsimg2 {
+  font-size: 0;
+  padding: 0 10px;
+}
+.qsimg4 {height:120px;
+  display: inline-block;
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.qsimg2 img {max-height:120px;}
+
+
+
+/*---*/
+.ansrlst {margin:20px 0 0 0; padding:0 20px; position:relative;}
+
+  .ansbx {
+  border-radius: 2px;
+  margin:0 0 12px 0;
+  padding:12px 8px 12px 8px;
+  box-sizing:border-box;
+  box-shadow: none;
+  background-color: #5939C6;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border-bottom: 4px solid #511285;
+  border-radius: 6px;
+  }
+
+  .ansrlst input[type=radio]:checked + label.ansbx {
+    background:#F232A4;
+    border-bottom: 4px solid #F232A4;
+} 
+
+.ansnmbr {
+          position: absolute;
+          right: 8px;
+          top:10px;
+          width:25px;
+          height:25px;
+          display:inline-block;
+          border-radius:50%;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 25px;
+          color: #ffffff;
+        }
+
+.anstxt {color: #ffffff;font-size:16px;font-weight:600;padding:0px 28px 0px 32px;}
+    .xanslct {
+      position: absolute;
+    right: 0;
+    top: 0;}
+    .ansin {opacity:0; position: relative; width: 0; height: 0; }
+    .xanslct label {}
+
+.grnchk { position: absolute;
+    right: 8px;
+    top: 13px;
+  display:inline-block; border-radius:50%;  width: 20px;
+  height: 20px; opacity:0; 
+  background:url('../images/checked2.svg') no-repeat center 6px #00a44e;
+
+  transform: scale(0.2);    transition: all ease-in-out 0.2s;}
+
+
+.ansPhvw {margin:10px 0 0 0;  }
+.ansPhvw img {max-width:100%; }
+
+
+.xmbtnset {position:relative; text-align: center;}
+
+
+
+/*---2----*/
+
+.wgBx3 {max-width: 375px;
+  box-sizing: border-box;
+  margin:0 auto 0; padding:10px 0;}
+
+.wrd1 {text-align: center; font-size:0;}
+
+.w1Ltr {
+  display: inline-block;
+  width: 8.33%;
+  padding: 0 1px 2px;
+  box-sizing: border-box;
+}
+
+.w1Ltr span {     width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding:7px 0;
+  margin: 0;
+  display: inline-block;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: bold;
+  vertical-align: top;
+  border: 2px solid #511285;
+}
+.w1Ltr.txtin span {background:#F232A4;border: 2px solid #F232A4;}
+.rershBtn {background:url(../images/reload.svg) no-repeat center center #F232A4; cursor: pointer;
+  width:42px; height:42px; box-sizing: border-box; font-size:18px; margin:0px 0 0 2px;
+  display: inline-block; color:#fff; border-radius:2px; vertical-align:top; }
+
+
+.wgBx4 {max-width: 375px;
+  box-sizing: border-box;
+  margin:0 auto 0; padding:10px 0;}
+.wrd2 {text-align: center; font-size:0;}
+
+.ltrBtn {display: inline-block;}
+.ltrBtn span {cursor: pointer; background:#5939C6;
+  width:42px; height:42px; box-sizing: border-box; font-size:18px; margin:7px; padding:6px 0; font-weight:bold;
+  display: inline-block; color:#fff; border-radius:4px 4px; vertical-align:top; border-bottom:4px solid #511285; }
+  
+
+
+  .pgebg2 {
+    min-height: 100vh;
+    background: radial-gradient(281.39% 50% at 49.87% 100%, #5939C6 0%, #511285 100%);
+    color: #fff;
+  }
+
+  .sucBx1 {
+    font-size: 18px;
+    line-height: 34px;
+    padding: 40px 0 10px;
+}
+  
+  .sucBx2 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 45px;
+}
+  
+  .sucBx3 {
+    margin: 25px 0;
+}
+  .sucBx3 img {
+    border-radius: 50%;
+    border: 5px solid #F232A4;
+}
+  
+  .sucBx4 {
+    font-size: 36px;
+    line-height: 42px;
+}
+  
+  .sucBx5 {
+    font-size: 48px;
+    line-height: 90px;
+}
+  
+  .sucBx6 {
+    font-size: 24px;
+    line-height: 45px;
+}
+  
+  .sucBx7 {
+    margin: 120px 0 0 0;
+}
+  
+  .sucBx8 {
+    margin: 15px auto 10px;
+}
+  
+  a.btn2 {
+    background:url(../images/instagram-sketched.svg) no-repeat center left 15px #F232A4;
+    display: inline-block;
+    line-height: 48px;
+    color: #fff;
+    padding: 0 30px 0 45px;
+    border-radius: 14px;
+    border-bottom: 6px solid #C91881;
+    background-size: 22px;
+}
+
+
+.sucBx9 {font-size: 24px;}
+
+.sucBx10 {margin:60px 0 90px;}
+
+.prjBtn {background: #F232A4;
+  border-radius: 20px;
+  color: #fff;
+  text-align: center;
+  max-width: 250px;
+  display: inline-block;
+  width: 100%;
+  padding: 18px 0;
+  font-weight: bold;
+  font-size: 18px;}
+
+
+  .sucBx11 {padding:0 0 40px 0;}
+  .sucBx11 ul {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      max-width: 350px;
+  }
+  
+  .sucBx11 ul li {
+      width: 33.3333%;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 4px;
+  }
+  
+  .sb11icn {}
+  .sb11icn img {
+      width: 48px;
+  }
+  
+  .sb11txt {
+      font-size: 14px;
+      font-weight: bold;
+      padding: 4px 0 0 0;
+  }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
