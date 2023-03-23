@@ -27,9 +27,9 @@ class ExamController extends Controller
     {
         $this->middleware(function (Request $request, $next) {
             $exam = $request->route('exam');
-            
-            if($request->route()->named('exams.intro')) {
-                if( ($exam->login_required && (!auth()->check() && $request->cookie('guest_fields', false)) ) || (!$request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && (!auth()->check() && $request->cookie('guest_fields', false))) ) {
+
+            if ($request->route()->named('exams.intro')) {
+                if (($exam->login_required && (!auth()->check() && $request->cookie('guest_fields', false))) || (!$request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && (!auth()->check() && $request->cookie('guest_fields', false)))) {
                     if ($request->input('guest_fields', false) && $request->method() == 'POST') {
                         //dd($request->cookie('guest_fields'));
 
@@ -39,7 +39,7 @@ class ExamController extends Controller
                         $guest_fields = $request->input('guest_fields', false);
                         //special guest_naem cookie for guest_naem field. It will also be named specially in the guest login forms
                         return $response->cookie('guest_fields', json_encode($guest_fields), $six_months);
-    
+
                     } elseif (isset($exam->login_fields)) {
                         return response()->view('dashboard.guest_login', ['exam' => $exam]);
                     } else {
@@ -48,13 +48,13 @@ class ExamController extends Controller
                 }
             }
 
-            $exam_requirement = json_decode($exam->preq, true); 
+            $exam_requirement = json_decode($exam->preq, true);
             if (($exam_requirement['type'] == 2 && auth()->user()->stars < $exam_requirement['value'])) {
                 return;
             }
 
             if ($exam_requirement['type'] == 1) {
-                $user = User::where('id', auth()->id())->with(['solved_percentage' => function($q) use ($exam_requirement) {
+                $user = User::where('id', auth()->id())->with(['solved_percentage' => function ($q) use ($exam_requirement) {
                     $q->where('exams.id', 7)->select('pass_percentage');
                 }])->first();
                 $exam_passed = $user->solved->toArray();
@@ -87,7 +87,7 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -97,7 +97,7 @@ class ExamController extends Controller
         //print_r($validated['Exams']['Exam1']);
 
         $this->map_files_to_columns($request, $validated);
-        
+
         //dd($validated['Exams']);
         //Done Below (TODO: extract the exam model, insert it then insert relation through relation function in exam model named after related model)
         $exams = $validated['Exams'];
@@ -114,8 +114,8 @@ class ExamController extends Controller
                 $exam_model->Intro()->create($exam['Intro']);
                 unset($exam['Intro']);
             }
-            
-            foreach($exam as $relation_name => $relation_data) {
+
+            foreach ($exam as $relation_name => $relation_data) {
                 foreach ($relation_data as $k => $model) {
                     //print_r($relation_data[$k]);
                     $relation_data[$k] = array_map(array($this, 'json_array_vars'), $relation_data[$k]);
@@ -130,7 +130,7 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function show(Exam $exam, ResultsDataTable $dataTable)
@@ -151,21 +151,21 @@ class ExamController extends Controller
     /**
      * Display the exam reward.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function showReward(Exam $exam)
     {
         $reward_type = $exam->reward_type;
         $reward_data = ['coupon_list' => $exam->coupon_list,
-         'hardware_name' => $exam->hardware_name,
-         'special_control_char' => $exam->special_control_char,
-         "reward_message" => $exam->reward_message,
-         'reward_video' => $exam->reward_video, 
-         'reward_image' => isset($exam->reward_message) ? Storage::url($exam->reward_message): null, 
-         'cert_lang' => $exam->cert_lang, 
-         'sponser' => isset($exam->sponser) ? Storage::url($exam->sponser) : null,
-         
+            'hardware_name' => $exam->hardware_name,
+            'special_control_char' => $exam->special_control_char,
+            "reward_message" => $exam->reward_message,
+            'reward_video' => $exam->reward_video,
+            'reward_image' => isset($exam->reward_message) ? Storage::url($exam->reward_message) : null,
+            'cert_lang' => $exam->cert_lang,
+            'sponser' => isset($exam->sponser) ? Storage::url($exam->sponser) : null,
+
         ];
         if ($reward_type == 4) {
             $reward_data['user_name'] = auth()->user()->name;
@@ -185,7 +185,7 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function edit(Exam $exam)
@@ -200,25 +200,25 @@ class ExamController extends Controller
         $intro_items = $intro_items == null ? [] : $intro_items->toArray();
         $this->order_with_type($intro_items, $intro_items, null);
         $this->order_with_type($questions_tmp, $questions_tmp, null);
-        
+
         $exam_copy = clone $exam;// paths without urls (original values in DB)
-        
+
         $exam->icon = (isset($exam->icon) && Storage::exists($exam->icon)) ? Storage::url($exam->icon) : null;
         $exam->reward_image = (isset($exam->reward_image) && Storage::exists($exam->reward_image)) ? Storage::url($exam->reward_image) : null;
         $exam->sponser = (isset($exam->sponser) && Storage::exists($exam->sponser)) ? Storage::url($exam->sponser) : null;
-        
+
         $intro_items_copy = $intro_items; // paths without urls (original values in DB)
         $questions_tmp_copy = $questions_tmp;// paths without urls (original values in DB)
 
         foreach ($intro_items as $key => $item) {
-            if(Str::contains($key, ['image', 'audio', 'file'])) {
+            if (Str::contains($key, ['image', 'audio', 'file'])) {
                 $intro_items[$key] = Storage::url($intro_items[$key]);
             }
         }
 
         foreach ($questions_tmp as $key => $item) {
             foreach ($item as $column => $value) {
-                if(Str::contains($column, ['image', 'audio', 'file'])) {
+                if (Str::contains($column, ['image', 'audio', 'file'])) {
                     if (isset($item[$column])) {
                         $item[$column] = json_decode($item[$column], true) || $item[$column];
                         if (is_array($item[$column])) {
@@ -229,7 +229,7 @@ class ExamController extends Controller
                                     $questions_tmp[$key][$column][$key2] = Storage::url($item[$column][$key2]);
                                 }
                             }
-                            
+
                         } else {
                             $questions_tmp[$key][$column] = Storage::url($item[$column]);
                         }
@@ -245,8 +245,8 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Exam  $exam
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Exam $original_exam)
@@ -259,16 +259,20 @@ class ExamController extends Controller
         $media_to_be_deleted = [];
         $empty_array = [];
         $exams = $validated['Exams'];
+
         foreach ($exams as $i => $exam) {
             $exam['Exam'] = array_map(array($this, 'json_array_vars'), $exam['Exam']);
             $exam['Exam']['user_id'] = Auth::id();
             //$exam_model = Exam::upsert(array_diff_key($exam['Exam'], ['created_at' => null, 'updated_at' => null, 'deleted_at' => null]), 'id', array_diff(array_keys($exam['Exam']), ['id', 'created_at', 'updated_at', 'deleted_at']));
             $exam_model = Exam::findOrFail($exam['Exam']['id']);
+
             foreach ($exam['Exam'] as $column => $value) {
-                $exam_model->$column = $value;
-                if ($column == 'icon' || $column == 'reward_image' || $column == 'sponser') {
-                    if ($exam_model->$column != $exam_model->getOriginal($column)) {
-                        $media_to_be_deleted[] = $exam_model->getOriginal($column);
+                if ($column != "have_preq_exam") {
+                    $exam_model->$column = $value;
+                    if ($column == 'icon' || $column == 'reward_image' || $column == 'sponser') {
+                        if ($exam_model->$column != $exam_model->getOriginal($column)) {
+                            $media_to_be_deleted[] = $exam_model->getOriginal($column);
+                        }
                     }
                 }
                 continue;
@@ -296,15 +300,15 @@ class ExamController extends Controller
 
             } else {
                 $exam_model->loadCount('Intro');
-                if ($exam_model->intro_count == 1 ) {
+                if ($exam_model->intro_count == 1) {
                     $media = $exam_model->Intro()->select('image', 'audio', 'file')->first()->toArray();
                     $exam_model->Intro()->forceDelete();
                     $this->order_with_type($media, $media, null);
                     $this->check_discarded($empty_array, $media, $media_to_be_deleted);
                 }
             }
-            
-            foreach($exam as $relation_name => $relation_data) {
+
+            foreach ($exam as $relation_name => $relation_data) {
                 $updated_models = [];
                 $new_models = [];
                 foreach ($relation_data as $k => $model) {
@@ -318,69 +322,75 @@ class ExamController extends Controller
 
                 $options_exists = $this->search_for_keys($relation_data, 'options');
                 $pieces_exists = $this->search_for_keys($relation_data, 'pieces');
-                $to_fetch =['id', 'image', 'audio'];
+                $to_fetch = ['id', 'image', 'audio'];
                 if ($options_exists) $to_fetch[] = 'options';
-                if ($pieces_exists) $to_fetch = ['id','pieces'];
-                $exam_model->load($relation_name.':'.implode(',', $to_fetch).',exam_id');
+                if ($pieces_exists) $to_fetch = ['id', 'pieces'];
+                $exam_model->load($relation_name . ':' . implode(',', $to_fetch) . ',exam_id');
                 $old_models_ids_with_media = $exam_model->$relation_name;
 
                 //$old_models_ids_with_media->get();
 
                 //collect removed questions by deferring new ids from old ids retrieved by load method on $exam_model
-                    $old_ids = $old_models_ids_with_media->map(function($item, $key) {return $item->only(['id']);})->flatten()->all();
-                    $updated_models_ids = array_column($updated_models, 'id');
-                    $deleted_models_ids = array_diff($old_ids, $updated_models_ids);
-                    $deleted_models_media = [];
-                    if (count($deleted_models_ids) > 0) {
-                        $deleted_models_media = $old_models_ids_with_media->whereIn('id', $deleted_models_ids)->map(function($item, $key) {return $item->only(['image', 'audio']);})->flatten()->filter()->all();
-                    }
-                
+                $old_ids = $old_models_ids_with_media->map(function ($item, $key) {
+                    return $item->only(['id']);
+                })->flatten()->all();
+                $updated_models_ids = array_column($updated_models, 'id');
+                $deleted_models_ids = array_diff($old_ids, $updated_models_ids);
+                $deleted_models_media = [];
+                if (count($deleted_models_ids) > 0) {
+                    $deleted_models_media = $old_models_ids_with_media->whereIn('id', $deleted_models_ids)->map(function ($item, $key) {
+                        return $item->only(['image', 'audio']);
+                    })->flatten()->filter()->all();
+                }
+
                 //check deleted media
-                    $old_media = $old_models_ids_with_media->whereIn('id', $updated_models_ids)->map(function($item, $key) {return $item->only(['image', 'audio']);})->flatten()->filter()->all();
-                    $new_media = array_filter(array_merge(array_column($updated_models, 'image'), array_column($updated_models, 'audio')));
-                    //dd($new_media, $old_media);
+                $old_media = $old_models_ids_with_media->whereIn('id', $updated_models_ids)->map(function ($item, $key) {
+                    return $item->only(['image', 'audio']);
+                })->flatten()->filter()->all();
+                $new_media = array_filter(array_merge(array_column($updated_models, 'image'), array_column($updated_models, 'audio')));
+                //dd($new_media, $old_media);
 
-                    $this->decode_flatten($old_media);
-                    $this->decode_flatten($new_media);
-                    $this->decode_flatten($deleted_models_media);
+                $this->decode_flatten($old_media);
+                $this->decode_flatten($new_media);
+                $this->decode_flatten($deleted_models_media);
 
-                    //dd($new_media, $old_media, $deleted_models_media);
+                //dd($new_media, $old_media, $deleted_models_media);
 
-                    if($options_exists) {
-                        $options_files = $this->get_options_or_pieces_media_from_collection($old_models_ids_with_media, array_merge($updated_models_ids, $deleted_models_ids), 'options');
-                        $updated_models_options_files = array_column($updated_models, 'options');
-                        array_walk($updated_models_options_files, array($this, 'decode'));
-                        $this->extract_media($updated_models_options_files);
-                        $this->check_discarded($updated_models_options_files, $options_files, $media_to_be_deleted);
-                    }
-                    
-                    if($pieces_exists) {
-                        $pieces_files = $this->get_options_or_pieces_media_from_collection($old_models_ids_with_media, array_merge($updated_models_ids, $deleted_models_ids), 'pieces');
-                        $updated_models_pieces_files = array_column($updated_models, 'pieces');
-                        array_walk($updated_models_pieces_files, array($this, 'decode'));
-                        $this->extract_media($updated_models_pieces_files);
-                        $this->check_discarded($updated_models_pieces_files, $pieces_files, $media_to_be_deleted);
-                    }
+                if ($options_exists) {
+                    $options_files = $this->get_options_or_pieces_media_from_collection($old_models_ids_with_media, array_merge($updated_models_ids, $deleted_models_ids), 'options');
+                    $updated_models_options_files = array_column($updated_models, 'options');
+                    array_walk($updated_models_options_files, array($this, 'decode'));
+                    $this->extract_media($updated_models_options_files);
+                    $this->check_discarded($updated_models_options_files, $options_files, $media_to_be_deleted);
+                }
 
-                    $this->check_discarded($new_media, $old_media, $media_to_be_deleted);
-                    $this->check_discarded($empty_array, $deleted_models_media, $media_to_be_deleted); // delete the media of deleted questions as well
+                if ($pieces_exists) {
+                    $pieces_files = $this->get_options_or_pieces_media_from_collection($old_models_ids_with_media, array_merge($updated_models_ids, $deleted_models_ids), 'pieces');
+                    $updated_models_pieces_files = array_column($updated_models, 'pieces');
+                    array_walk($updated_models_pieces_files, array($this, 'decode'));
+                    $this->extract_media($updated_models_pieces_files);
+                    $this->check_discarded($updated_models_pieces_files, $pieces_files, $media_to_be_deleted);
+                }
+
+                $this->check_discarded($new_media, $old_media, $media_to_be_deleted);
+                $this->check_discarded($empty_array, $deleted_models_media, $media_to_be_deleted); // delete the media of deleted questions as well
 
                 //update questions and insert new and discard deleted
-                    //print_r($relation_data);
-                    if(count($deleted_models_ids) > 0) {
-                        $exam_model->$relation_name()->whereIn('id', $deleted_models_ids)->forceDelete();
-                    }
+                //print_r($relation_data);
+                if (count($deleted_models_ids) > 0) {
+                    $exam_model->$relation_name()->whereIn('id', $deleted_models_ids)->forceDelete();
+                }
 
-                    if (count($updated_models) > 0) {
+                if (count($updated_models) > 0) {
 
-                        $columns_to_update = array_diff(array_keys($updated_models[array_key_first($updated_models)]), ['id', 'created_at', 'updated_at', 'deleted_at']);
-                        $exam_model->$relation_name()->upsert($updated_models, 'id', $columns_to_update);
-                    }
+                    $columns_to_update = array_diff(array_keys($updated_models[array_key_first($updated_models)]), ['id', 'created_at', 'updated_at', 'deleted_at']);
+                    $exam_model->$relation_name()->upsert($updated_models, 'id', $columns_to_update);
+                }
 
-                    if (count($new_models) > 0) {
-                        $exam_model->$relation_name()->createMany($new_models);
-                    }
-            }   
+                if (count($new_models) > 0) {
+                    $exam_model->$relation_name()->createMany($new_models);
+                }
+            }
         }
         print_r($media_to_be_deleted);
         Storage::delete($media_to_be_deleted);
@@ -389,7 +399,7 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function destroy(Exam $exam)
@@ -400,7 +410,7 @@ class ExamController extends Controller
     /**
      * Attend the specified exam.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function attend(Request $request, Exam $exam = null)
@@ -408,10 +418,18 @@ class ExamController extends Controller
         $intro = $questions = [];
         $questions_sum = 0;
         if (isset($exam)) {
-
+            $user = \auth()->user();
+            // TODO Check exam number
+            $result = $user->solved->where('exam_id', $exam->id)->first();
+            if ($exam->have_preq_exam) {
+                dd($exam->have_preq_exam);
+                if (!$result) {
+                    abort(404);
+                }
+            }
             $questions = $this->get_available_question_types($exam);
 
-            if( ($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && url()->previous() == route('guest.exams.intro', ['exam' => $exam->id])) ) {
+            if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && url()->previous() == route('guest.exams.intro', ['exam' => $exam->id]))) {
                 $questions_tmp = [];
                 foreach ($questions as $key => $q) {
                     //$question_method_name = Str::snake($q);
@@ -420,13 +438,13 @@ class ExamController extends Controller
                     }
                 }
                 $keys_order = [];
-                if($exam->random) {
+                if ($exam->random) {
                     $collector = [];
                     //dd($questions_tmp);
                     foreach ($questions_tmp as $key => $qs_array) {
-                        $qs_array = array_map(function($e) use ($key) { 
+                        $qs_array = array_map(function ($e) use ($key) {
                             $e['type'] = $key;
-                            return $e; 
+                            return $e;
                         }, $qs_array);
                         $collector = array_merge($collector, $qs_array);
                         unset($questions_tmp[$key]);
@@ -441,18 +459,18 @@ class ExamController extends Controller
                     //dd($questions_tmp);
                 }
 
-                $keys_order = array_map(function($key, $value) {
+                $keys_order = array_map(function ($key, $value) {
                     return $value['id'] . '_' . ($value['type'] ?? explode('_', $key)[1]);
                 }, array_keys($questions_tmp), $questions_tmp);
 
                 session(['questions_keys_order' => $keys_order]);
                 //deferring guest from user
-                if ( Auth::check() ) {
+                if (Auth::check()) {
                     return view('exam.attend', ['questions' => $questions_tmp, 'exam' => $exam]);
                 } else {
                     $six_months = 6 * 43800;
                     $guest_ticket = Str::random(12);
-                    if ( $request->cookie('guest_ticket', false) ) {
+                    if ($request->cookie('guest_ticket', false)) {
                         $guest_ticket = $request->cookie('guest_ticket');
                     }
 
@@ -460,11 +478,11 @@ class ExamController extends Controller
                 }
 
             } elseif ($request->route()->named('exams.intro', ['exam' => $exam->id]) || $request->route()->named('guest.exams.intro', ['exam' => $exam->id])) {
-                
+
                 $exam->loadCount($questions);
-            
+
                 foreach ($questions as $key => $q) {
-                    $q_prop = Str::snake($q.'_count');
+                    $q_prop = Str::snake($q . '_count');
                     if ($q_prop != 'project_count') $questions_sum += $exam->$q_prop;
                 }
                 $questions_sum == 0 ? session(['no_questions' => 'true']) : false;
@@ -475,7 +493,7 @@ class ExamController extends Controller
                 return /* Auth::check() ? redirect(route('exams.intro', ['exam' => $exam->id])) : */ redirect(route('exams.intro', ['exam' => $exam->id]));
             }
         }
-        
+
         //dd($intro);
         return view('intro.exam_intro', ['intro_items' => $intro, 'exam' => $exam, 'questions_sum' => $questions_sum]);
     }
@@ -483,22 +501,22 @@ class ExamController extends Controller
     /**
      * Mark the specified exam.
      *
-     * @param  \App\Models\Exam  $exam
+     * @param \App\Models\Exam $exam
      * @return \Illuminate\Http\Response
      */
     public function mark(Request $request, Exam $exam)
     {
         //redirect if didn't attend exam
-        if ( url()->previous() != route('exams.attend', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.attend', ['exam' => $exam->id]) ) {
+        if (url()->previous() != route('exams.attend', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.attend', ['exam' => $exam->id])) {
             return /* Auth::check() ? redirect(route('exams.intro', ['exam' => $exam->id])) : */ redirect(route('exams.intro', ['exam' => $exam->id]));
         }
 
         //STEP 0 : Preparation
-        $user_id = Auth::user()->id ?? 
-                   User::where('email', 'guest_tickettemp_user_'.$request->cookie('guest_ticket'))->first()->id ?? 
-                   User::create(['name' => $request->cookie('guest_name', 'guest user'), 'email' => 'guest_tickettemp_user_'.$request->cookie('guest_ticket'), 'password' => Hash::make(Str::random())])->id;
-        
-        $attempts = $exam->students()->wherePivot('student_id','=', $user_id)->count();
+        $user_id = Auth::user()->id ??
+            User::where('email', 'guest_tickettemp_user_' . $request->cookie('guest_ticket'))->first()->id ??
+            User::create(['name' => $request->cookie('guest_name', 'guest user'), 'email' => 'guest_tickettemp_user_' . $request->cookie('guest_ticket'), 'password' => Hash::make(Str::random())])->id;
+
+        $attempts = $exam->students()->wherePivot('student_id', '=', $user_id)->count();
         $attempts++;
         $questions = $this->get_available_question_types($exam);
         $questions['project_submits'] = function ($query) use ($user_id) {
@@ -506,7 +524,7 @@ class ExamController extends Controller
         };
         $exam->load($questions);
 
-        $correct_answers= 0;
+        $correct_answers = 0;
         $false_questions = [];
         $input = $request->all();
         $total = 0;
@@ -514,7 +532,7 @@ class ExamController extends Controller
         foreach ($input as $question => $student_answer) {
             $id_with_type = explode('_', $question);
             $model_name = $id_with_type[1];
-            if ( isset($model_name) && in_array($model_name, $questions) ) {
+            if (isset($model_name) && in_array($model_name, $questions)) {
                 $total++;
                 if ($model_name == 'Puzzle') {
                     $answers = json_decode($exam->$model_name->firstWhere('id', $id_with_type[0])->pieces, true);
@@ -525,11 +543,10 @@ class ExamController extends Controller
                         $answers[$key]['Y'] = ($answers[$key]['Y'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
                         $answers[$key]['width'] = ($answers[$key]['width'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
                         $answers[$key]['height'] = ($answers[$key]['height'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
-                        if(
-                            ($answers[$key]['X'] - 20) <= $student_answer[$key]['X'] && $student_answer[$key]['X'] <= ($answers[$key]['X'] + 20) 
-                            && ($answers[$key]['Y'] - 20) <= $student_answer[$key]['Y'] && $student_answer[$key]['Y'] <= ($answers[$key]['Y'] + 20) 
-                        )
-                        {
+                        if (
+                            ($answers[$key]['X'] - 20) <= $student_answer[$key]['X'] && $student_answer[$key]['X'] <= ($answers[$key]['X'] + 20)
+                            && ($answers[$key]['Y'] - 20) <= $student_answer[$key]['Y'] && $student_answer[$key]['Y'] <= ($answers[$key]['Y'] + 20)
+                        ) {
                             $correct_pieces++;
                         }
                     }
@@ -540,13 +557,13 @@ class ExamController extends Controller
                     }
                 } else {
                     $student_answer = trim($student_answer);
-                    
+
                     $answer = $exam->$model_name->firstWhere('id', $id_with_type[0])->answer;
                     if ($model_name == 'WordGame') {
                         //dd($student_answer, $answer,  mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$student_answer)), mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$answer)));
-                        mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$student_answer)) == mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$answer)) ? $correct_answers++ : $false_questions[$question] = $student_answer;
+                        mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'], $student_answer)) == mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'], $answer)) ? $correct_answers++ : $false_questions[$question] = $student_answer;
                     } else { //MCQ or any other future type
-                        mb_strtoupper($student_answer) == mb_strtoupper($answer) ? $correct_answers++ : $false_questions[$question] = $student_answer; 
+                        mb_strtoupper($student_answer) == mb_strtoupper($answer) ? $correct_answers++ : $false_questions[$question] = $student_answer;
                     }
                 }
             }
@@ -556,13 +573,15 @@ class ExamController extends Controller
         $percentage = round(($correct_answers / $total) * 100);
         $pass = true;
         $stars = 0;
-        if($percentage>=90 && $percentage<=100){
-            $stars=3;
-        }else if($percentage>=75 && $percentage<=89){
-            $stars=2;
-        }else if($percentage>=60 && $percentage<=74){
-            $stars=1;
-        } else { $pass = false; }
+        if ($percentage >= 90 && $percentage <= 100) {
+            $stars = 3;
+        } else if ($percentage >= 75 && $percentage <= 89) {
+            $stars = 2;
+        } else if ($percentage >= 60 && $percentage <= 74) {
+            $stars = 1;
+        } else {
+            $pass = false;
+        }
         //updating stars count if necessary
         if ($pass && Auth::check()) {
             $user = User::find($user_id);
@@ -575,14 +594,14 @@ class ExamController extends Controller
         $cert_serial = null;
         $exam->reward_type == 4 ? $analysis_data['cert_serial'] = Str::random(12) : false;
         //if (Auth::check()) {
-            $exam->students()->attach($user_id, $analysis_data);
-        //} 
-        
+        $exam->students()->attach($user_id, $analysis_data);
+        //}
+
         /*else {
             $analysis_data['guest_id'] = $user_id;
             // passing null as array to stop type casting happening on attach method: createAttachRecords
             //https://laravel.io/forum/06-29-2014-custom-pivot-table-that-accepts-null-values-using-attach-does-not-work-with-null-values-why-how-to-work-around
-            $exam->students()->attach([null], $analysis_data); 
+            $exam->students()->attach([null], $analysis_data);
         }*/
         //dd($request, $exam->project_submits, $analysis_data, $total, $correct_answers);
 
@@ -592,15 +611,15 @@ class ExamController extends Controller
     /**
      * analyze the specified exam.
      *
-     * @param  \App\Models\Exam  $exam
-     * 
+     * @param \App\Models\Exam $exam
+     *
      * @return \Illuminate\Http\Response
      */
     public function analyze(Request $request, Exam $exam, int $attempt)
     {
-        $user_id = Auth::user()->id ?? 
-                   User::where('email', 'guest_tickettemp_user_'.$request->cookie('guest_ticket'))->first()->id;
-        $analysis_data = User::find($user_id)->solved()->wherePivot('exam_id','=', $exam->id)->wherePivot('attempt','=', $attempt)->get();
+        $user_id = Auth::user()->id ??
+            User::where('email', 'guest_tickettemp_user_' . $request->cookie('guest_ticket'))->first()->id;
+        $analysis_data = User::find($user_id)->solved()->wherePivot('exam_id', '=', $exam->id)->wherePivot('attempt', '=', $attempt)->get();
         //dd($user_id, User::find($user_id)->solved()->get());
         $wrong_questions = json_decode($analysis_data->first()->analysis->questions, true);
 
@@ -614,12 +633,12 @@ class ExamController extends Controller
             }
         }
 
-        if(session('questions_keys_order')) {
+        if (session('questions_keys_order')) {
             $order_keys = session('questions_keys_order');
             foreach ($order_keys as $key => $value) {
                 $id_with_model = explode('_', $value);
                 foreach ($questions_tmp[$id_with_model[1]] as $key2 => $q) {
-                    if($q['id'] == $id_with_model[0]) {
+                    if ($q['id'] == $id_with_model[0]) {
                         $questions_tmp[$value] = $q;
                         unset($questions_tmp[$id_with_model[1]][$key2]);
                         break;
@@ -628,10 +647,12 @@ class ExamController extends Controller
             }
             $questions_tmp = array_filter($questions_tmp);
         } else {
-            if($exam->random) {
+            if ($exam->random) {
                 $collector = [];
                 foreach ($questions_tmp as $key => $qs_array) {
-                    $qs_array = array_map(function($e) use ($key) { return $e['type'] = $key; }, $qs_array);
+                    $qs_array = array_map(function ($e) use ($key) {
+                        return $e['type'] = $key;
+                    }, $qs_array);
                     $collector = array_merge($collector, $qs_array);
                     unset($questions_tmp[$key]);
                 }
@@ -643,14 +664,14 @@ class ExamController extends Controller
             }
         }
 
-        $view_data =  ['questions' => $questions_tmp, 'exam' => $exam, 'ans' => true, 'wrong_questions' => $wrong_questions];
-        if ( Auth::check() ) {
+        $view_data = ['questions' => $questions_tmp, 'exam' => $exam, 'ans' => true, 'wrong_questions' => $wrong_questions];
+        if (Auth::check()) {
             return view('exam.attend', $view_data);
 
         } else {
             $six_months = 6 * 43800;
             $guest_ticket = Str::random(12);
-            if ( $request->cookie('guest_ticket', false) ) {
+            if ($request->cookie('guest_ticket', false)) {
                 $guest_ticket = $request->cookie('guest_ticket');
             }
 
@@ -660,10 +681,11 @@ class ExamController extends Controller
 
     /**
      * Convert array elements in model array to json
-     * 
-     * @param any $element 
+     *
+     * @param any $element
      */
-    protected function json_array_vars($element) {
+    protected function json_array_vars($element)
+    {
         if (is_array($element)) {
             return json_encode($element);
         } else {
@@ -671,37 +693,39 @@ class ExamController extends Controller
         }
     }
 
-    protected function map_files_to_columns($request, &$validated) {
+    protected function map_files_to_columns($request, &$validated)
+    {
         foreach ($validated as $key => $value) {
-            if ( $key != 'Exams' && $request->file($key) != null) {
+            if ($key != 'Exams' && $request->file($key) != null) {
                 $levels = explode('_', $key);
                 $model = preg_replace('/\d+/', '', $levels[0]);
                 //print_r([$model, $currentLevel]);
-                $fullName = Str::random(12).'.'.$request->file($key)->guessExtension();
+                $fullName = Str::random(12) . '.' . $request->file($key)->guessExtension();
                 $fullPath = $request->file($key)->storeAs(preg_replace('/\d+/', '', $levels[1]), $fullName, 'public');
                 if (strstr($key, 'Intro')) {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, true, $key);
                 } else {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, false, $key);
                 }
-                
+
             }
         }
     }
 
     /**
      * RECURSIVE: Enter dynamic (of unknown depth) multidimensional array until reaching the desired key to assign to
-     * 
+     *
      * @param array &$array the array of unknown depth
-     * @param array $levels: the array of keys to loop over recursively until reaching the last one (will be considered the desired key to assign to)
-     * @param any $value: value to be assigned
+     * @param array $levels : the array of keys to loop over recursively until reaching the last one (will be considered the desired key to assign to)
+     * @param any $value : value to be assigned
      */
-    protected function dynamic_assign(&$array, $levels, $value, $intro = false, $levels_original_str) {
+    protected function dynamic_assign(&$array, $levels, $value, $intro = false, $levels_original_str)
+    {
         $element = array_shift($levels);
         $element = str_replace("-", "_", $element);
         //print_r($element);
         //print_r($array);
-        if ( count($levels) > 0) {
+        if (count($levels) > 0) {
             if (array_key_exists($element, $array)) { //for exam
                 $this->dynamic_assign($array[$element], $levels, $value, $intro, $levels_original_str);
             } else {
@@ -710,9 +734,9 @@ class ExamController extends Controller
                     //if ($intro) {
                     //    $this->dynamic_assign($array[$element2][$element], $levels, $value, $intro, $levels_original_str);
                     //} else {
-                        $this->dynamic_assign($array[$element2][$element], $levels, $value, $intro, $levels_original_str);
+                    $this->dynamic_assign($array[$element2][$element], $levels, $value, $intro, $levels_original_str);
                     //}
-                } /*else { 
+                } /*else {
                     $element2 = intval(preg_replace('/\D+/i', '', $element)) - 1;
                     //$id = intval(preg_replace('/\d/i', '', $element)) - 1;
                     $val = false;
@@ -760,54 +784,61 @@ class ExamController extends Controller
     /**
      * searching for the order element
      */
-    protected function order_with_type(&$array, &$original, $type_in_key) {
+    protected function order_with_type(&$array, &$original, $type_in_key)
+    {
         //echo "<pre>";
-            //var_dump($array);
-            //echo "</pre><br>";
-        
+        //var_dump($array);
+        //echo "</pre><br>";
+
         foreach ($array as $column => $subarray) {
-            if(!isset($subarray) || $subarray == []) {
+            if (!isset($subarray) || $subarray == []) {
                 unset($array[$column]);
                 continue;
             }
             $subarray = is_array($subarray) ? $subarray : json_decode($subarray, true);
             //echo "before: <pre>";
-                //print_r($subarray);
-                //echo "</pre><br>";
+            //print_r($subarray);
+            //echo "</pre><br>";
 
             $data = $this->r($subarray);
             //echo "before: <pre>";
-                //print_r($data);
-                //echo "</pre><br>";
+            //print_r($data);
+            //echo "</pre><br>";
             foreach ($data as $key => $item) {
                 $str_part_of_key = $type_in_key ?? $column;
                 $num = $item['o'] ?? $item['order'];
-                $original[$num.'_'.$str_part_of_key] = $item['data'] ?? $item;
+                $original[$num . '_' . $str_part_of_key] = $item['data'] ?? $item;
             }
             unset($array[$column]);
             //echo "result: <pre>";
-                //print_r($data);
-                //echo "</pre><br>";
+            //print_r($data);
+            //echo "</pre><br>";
         }
         ksort($array, 1);
     }
 
-    protected function r(&$array) {
+    protected function r(&$array)
+    {
         foreach ($array as $key => $subarray) {
             $subarray = is_array($subarray) ? $subarray : json_decode($subarray, true);
             if (isset($subarray['o']) || isset($subarray['order'])) {
                 return $array;
-            } else { $this->r($subarray); }
+            } else {
+                $this->r($subarray);
+            }
         }
     }
 
     /**
-     * Auotmated way to get the exam question types available 
+     * Auotmated way to get the exam question types available
      */
-    protected function get_available_question_types(&$exam) {
+    protected function get_available_question_types(&$exam)
+    {
         $related_questions = get_class_methods($exam);
         $questions = array_diff(scandir(app_path('Models/Questions')), ['.', '..']);
-        $questions = array_map(function($e) { return str_replace('.php', '', $e); }, $questions);
+        $questions = array_map(function ($e) {
+            return str_replace('.php', '', $e);
+        }, $questions);
         $questions = array_intersect($questions, $related_questions);
         return $questions;
     }
@@ -815,31 +846,36 @@ class ExamController extends Controller
     /**
      * Detecting any discarded media. Passing $new as an empty array to remove all media on removing its owning model
      */
-    protected function check_discarded(&$new, &$original, &$collector) {
+    protected function check_discarded(&$new, &$original, &$collector)
+    {
         $discarded = array_diff($original, $new);
         $collector = array_merge($collector, $discarded);
     }
 
     /**
-    * RECURSIVE: search dynamic (of unknown depth) multidimensional array until finding the desired key 
-    * NOTE: the array elements must be uniform i.e: same structure e.g.: questions array
-    * 
-    * @param array &$array the array of unknown depth
-    * @param array $key: the key to search for
-    */
-    protected function search_for_keys(&$array, $key) {
+     * RECURSIVE: search dynamic (of unknown depth) multidimensional array until finding the desired key
+     * NOTE: the array elements must be uniform i.e: same structure e.g.: questions array
+     *
+     * @param array &$array the array of unknown depth
+     * @param array $key : the key to search for
+     */
+    protected function search_for_keys(&$array, $key)
+    {
         $array_keys = array_keys($array);
         if (in_array($key, $array_keys)) {
             return true;
-        } elseif(is_array($array[$array_keys[0]])) {
+        } elseif (is_array($array[$array_keys[0]])) {
             return $this->search_for_keys($array[$array_keys[0]], $key);
         } else {
             return false;
         }
     }
 
-    protected function get_options_or_pieces_media_from_collection(&$original_collection, $ids, $column = 'options') {
-        $options = $original_collection->whereIn('id', $ids)->map(function($item, $key) use($column) {return $item->only([$column]);})->flatten()->filter()->all();
+    protected function get_options_or_pieces_media_from_collection(&$original_collection, $ids, $column = 'options')
+    {
+        $options = $original_collection->whereIn('id', $ids)->map(function ($item, $key) use ($column) {
+            return $item->only([$column]);
+        })->flatten()->filter()->all();
         //dd($options);
         array_walk($options, array($this, 'decode'));
         //dd($options);
@@ -849,11 +885,13 @@ class ExamController extends Controller
         return $options;
     }
 
-    protected function decode(&$value, &$key) {
+    protected function decode(&$value, &$key)
+    {
         $value = json_decode($value, true);
     }
 
-    protected function extract_media(&$array) {
+    protected function extract_media(&$array)
+    {
         $temp_array = [];
         foreach ($array as $key => $value) {
             $temp_array = array_filter(array_merge($temp_array, array_column($value, 'image'), array_column($value, 'audio')));
@@ -863,12 +901,13 @@ class ExamController extends Controller
     }
 
     /**
-     * decode array items and flatten it in one walk... primary use is for collecting media files paths in JSON form 
+     * decode array items and flatten it in one walk... primary use is for collecting media files paths in JSON form
      */
-    protected function decode_flatten(&$array) {
+    protected function decode_flatten(&$array)
+    {
         $new_array = [];
         foreach ($array as $k => $value) {
-            $new_array = array_merge($new_array,json_decode($array[$k], true) ?? [$array[$k]]);
+            $new_array = array_merge($new_array, json_decode($array[$k], true) ?? [$array[$k]]);
             unset($array[$k]);
         }
         $array = $new_array;

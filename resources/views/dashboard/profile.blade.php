@@ -259,7 +259,8 @@
                         <div class="qsWbx" style="padding: 0 10px 0 0;">
 
                             <div class="qsRow1 q4c">
-                                <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}"> <span class="clqBx"></span></a>
+{{--                                <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}"> <span class="clqBx"></span></a>--}}
+                                <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span class="clqBx"></span></a>
                                 <div class="qs1img" style="border-radius: 5px 0 0 5px;">
                                     <img src="@if ($exam->icon != null || $exam->icon != ''){{ Storage::url($exam->icon, true) }}@else{{ $default_grp_img }}@endif">
                                 </div>
@@ -290,9 +291,9 @@
                                         <div class="dtMlst">
                                             <ul class="dmlist">
                                                 <li>
-                                                    <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}">
-                                                        <span class="dtmi dt_play"></span>
-                                                        <span style="color: #511285">Play</span>
+                                                    <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}">
+                                                      <span class="dtmi dt_play" style="background: url({{ url('images/edtGrp.svg') }}) no-repeat center center; background-size: contain;"></span>
+                                                        <span style="color: #511285">Edit</span>
                                                     </a>
                                                 </li>
                                                 <li>

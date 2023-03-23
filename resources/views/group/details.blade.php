@@ -73,7 +73,7 @@
         {{ $followers->links() }}
         <!-- <div class="hloader"></div> -->
     </section>
-    
+
     <aside class="nwsLst nhLst" style="display:none">
             <ul>
                 @foreach ($news as $item)
@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="qsRow1 q4c">
-                            <a href="{{ $item->link }}"> <span class="clqBx"></span> </a>  
+                            <a href="{{ $item->link }}"> <span class="clqBx"></span> </a>
                                 <div class="qs1Rbx">
                                     <div class="nhT2">
                                        {{ $item->body }}
@@ -116,7 +116,7 @@
                 @foreach ($exams as $exam)
                     <li>
                         <div class="nhlBx">
-                        
+
                             <div class="nhRw1">
                                 <!-- TODO: change route to teachers.show after addign security -->
                                 <a href="{{ route('profile', ['id' => $exam->owner->id]) }}" style="color:#000">
@@ -129,7 +129,7 @@
                                 <div class="magic"></div>
                             </div>
                             <div class="qsRow1 q4c">
-                            <a href="{{ route('exams.show', ['exam' => $exam->id]) }}"> <span class="clqBx"></span> </a>  
+                            <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span class="clqBx"></span> </a>
                                 <div class="nh1img">
                                     <img src="{{ isset($exam->icon) ? Storage::url($exam->icon, true) : url('images/placeholder.jpeg') }}">
                                 </div>
@@ -142,49 +142,49 @@
                                 <aside class="nhT1">
                                     CODE: <b>{{ $exam->id + 1000 }}</b>
                                 </aside>
-                            
-                                <aside class="setRnew q4d">
-                                    <span class="btnIc" onclick="shareData('{{ $exam->title }}','{{ $exam->title }} - {{ $exam->owner->id }}','{{ route('exams.show', ['exam' => $exam->id]) }}')"><img src="{{ url('images/share_v.svg') }}"></span>
-                                    <span class="btnIc q4Dot"><img src="{{ url('images/dot_vio.svg') }}">
-                                        <div class="dtMlst">
-                                            <ul class="dmlist">
-                                                @if($exam->owner->id == Auth::user()->id)
-                                                     <li>
-                                                        <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}" style="color:#511285">
-                                                            <span class="dtmi dt_play" style="background: url({{ url('images/edtGrp.svg') }}) no-repeat center center; background-size: contain;"></span> 
-                                                            <span>Edit</span>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                               <!-- <li>
-                                                    <span class="dtmi dt_info"></span>
-                                                    <span>Info</span>
-                                                </li>
-                                                <li>
-                                                    <span class="dtmi dt_chat"></span>
-                                                    <span>Chat on</span>
-                                                </li>
-                                                <li>
-                                                    <span class="dtmi dt_expo"></span>
-                                                    <span>Export</span>
-                                                </li>
-                                                <li>
-                                                    <span class="dtmi dt_grup"></span>
-                                                    <span>To group</span>
-                                                </li>
-                                                <li>
-                                                    <span class="dtmi dt_dlt"></span>
-                                                    <span>Delete</span>
-                                                </li> -->
-                                            </ul>
-                                        </div>
-                                    </span>
-                                </aside>
+
+{{--                                <aside class="setRnew q4d">--}}
+{{--                                    <span class="btnIc" onclick="shareData('{{ $exam->title }}','{{ $exam->title }} - {{ $exam->owner->id }}','{{ route('exams.show', ['exam' => $exam->id]) }}')"><img src="{{ url('images/share_v.svg') }}"></span>--}}
+{{--                                    <span class="btnIc q4Dot"><img src="{{ url('images/dot_vio.svg') }}">--}}
+{{--                                        <div class="dtMlst">--}}
+{{--                                            <ul class="dmlist">--}}
+{{--                                                @if($exam->owner->id == Auth::user()->id)--}}
+{{--                                                     <li>--}}
+{{--                                                        <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}" style="color:#511285">--}}
+{{--                                                            <span class="dtmi dt_play" style="background: url({{ url('images/edtGrp.svg') }}) no-repeat center center; background-size: contain;"></span> --}}
+{{--                                                            <span>Edit</span>--}}
+{{--                                                        </a>--}}
+{{--                                                    </li>--}}
+{{--                                                @endif--}}
+{{--                                               <!-- <li>--}}
+{{--                                                    <span class="dtmi dt_info"></span>--}}
+{{--                                                    <span>Info</span>--}}
+{{--                                                </li>--}}
+{{--                                                <li>--}}
+{{--                                                    <span class="dtmi dt_chat"></span>--}}
+{{--                                                    <span>Chat on</span>--}}
+{{--                                                </li>--}}
+{{--                                                <li>--}}
+{{--                                                    <span class="dtmi dt_expo"></span>--}}
+{{--                                                    <span>Export</span>--}}
+{{--                                                </li>--}}
+{{--                                                <li>--}}
+{{--                                                    <span class="dtmi dt_grup"></span>--}}
+{{--                                                    <span>To group</span>--}}
+{{--                                                </li>--}}
+{{--                                                <li>--}}
+{{--                                                    <span class="dtmi dt_dlt"></span>--}}
+{{--                                                    <span>Delete</span>--}}
+{{--                                                </li> -->--}}
+{{--                                            </ul>--}}
+{{--                                        </div>--}}
+{{--                                    </span>--}}
+{{--                                </aside>--}}
                                 <div class="magic"></div>
                                 </div>
-                            
+
                             </div>
-                        
+
                         </div>
                     </li>
                 @endforeach
