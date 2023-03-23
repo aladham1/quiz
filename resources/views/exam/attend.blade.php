@@ -12,23 +12,23 @@
 		  transition: margin-left 200ms ease 100ms;
 		  height: 0px;
 		}
-	  
+
 		.pulled {
 		  transition: margin-left 200ms ease 100ms;
 		  height: 0px;
 		}
-	  
+
 		.trns {
 		  transition: left 100ms ease, height 20ms ease ;
 		}
-	  
+
 		.relaxed {
 		  transition: margin-left 200ms ease 100ms;
 		  height: 100%;
 		}
-	  
+
 		.neutral-bg {
-		  min-height: 100px; 
+		  min-height: 100px;
 		  background-color: #c3c3c3;
 		  border: 1px solid #b6b6b6;
 		  border-radius: 4px;
@@ -36,7 +36,7 @@
 		.no-bg {
 		  background-color: none;
 		  border: none;
-		}  
+		}
 		button{
 		  border: 0;
 		  outline: @border;
@@ -49,21 +49,21 @@
 		  border-bottom: 4px solid lighten(gray, 70%);
 		  font-size: 16px !important;
 		}
-	  
+
 		button:hover{
 			box-shadow: 2px 2px 4px 0px black !important;
 			transform: scale(1.03);
 		}
-	  
+
 		button:focus{
 			box-shadow: none !important;
 		}
-			
+
 		button:active{
 			box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
 			transform: scale(.98);
 		}
-	  
+
 	</style>
 	<script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
 	@if(isset($ans))
@@ -85,7 +85,7 @@
 @php
 	$englsh_array=array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
 	$arabic_array=array('ء','ؤ','ي','و','ه','ن','م','ل','ك','ق','ف','غ','ع','ظ','ط','ض','ص','ش','س','ز','ر','ذ','د','خ','ح','ج','ث','ت','ب','ا');
-	$turkish_array = array('A','B','C','Ç','D','E','F','G','Ğ','H','I','İ','J','K','L','M','N','O','Ö','P','R','S','Ş','T','U','Ü','V','Y','Z');			
+	$turkish_array = array('A','B','C','Ç','D','E','F','G','Ğ','H','I','İ','J','K','L','M','N','O','Ö','P','R','S','Ş','T','U','Ü','V','Y','Z');
 	$number_array = array('1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9');
 	$option_letter = ['A', 'B', 'C', 'D'];
 	$arabic_range ='[\x{0600}-\x{06FF}]';
@@ -108,7 +108,7 @@
     </div>
 </header>
 <div class="pgebg1">
-	
+
 	<div class="hdr2">
 		<div class="qpgHdr">
 			@if (isset($exam->time_limit) && $exam->time_limit != -1)<span class="prgBr" style="width:100%"></span>@endif
@@ -128,7 +128,7 @@
 			@endphp
 
 			<div class="qsn_section qsn_{{ $loop->iteration }} serial_{{ $loop->iteration }}" id='tid_{{ $q['id']."_".$type }}' style="@if($loop->iteration!=1)display: none;@endif">
-			
+
 				<section class="boxB tcenter">
 					@if ( Str::contains($type, 'Puzzle') )
 						{!! $qtitle !!}
@@ -157,7 +157,7 @@
 											<img src="{{ Storage::url($img) }}"/>
 										</div>
 									@endforeach
-									
+
 								@else
 									<img src="{{ Storage::url($q['image']) }}"/>
 
@@ -171,12 +171,12 @@
 										<iframe src="https://www.youtube.com/embed/{{ $video['video_id'] ?? $video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $video['width'] ?? '100%' }}' height='{{ $video['height'] ?? '' }}' allowfullscreen></iframe>
 									</div>
 								@endforeach
-							@else 
+							@else
 								<div class="qsimg1" style="height: 190px;">
 									<iframe src="https://www.youtube.com/embed/{{ $q['video']['video_id'] ?? $q['video'] }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $q['video']['width'] ?? '100%' }}' height='{{ $q['video']['height'] ?? '' }}' allowfullscreen></iframe>
 								</div>
-							@endif 
-							
+							@endif
+
 
 						@elseif (isset($q['audio']))
 							@if ( is_array($q['audio']))
@@ -188,14 +188,14 @@
 										</audio>
 									</div>
 								@endforeach
-							@else 
+							@else
 								<div class="qsimg1" style="height: 50px;">
 									<audio controls>
 										<source src="{{ Storage::url($q['audio']) }}">
 										Your browser does not support the audio element.
 									</audio>
-								</div>	
-							@endif 
+								</div>
+							@endif
 						@endif
 
 						{!! $qtitle !!}
@@ -209,27 +209,27 @@
 								shuffle($arabic_array);
 								shuffle($number_array);
 								shuffle($turkish_array);
-								
+
 								$length_ans = mb_strlen($q['answer'],"UTF-8");
 								//if space is there counting that
 								$space_index=[];
 								$ans_bx = '';
-								if ( !isset($ans) ) 
+								if ( !isset($ans) )
 								{
 
 									if($q['answer']!=null && $q['answer']!=''){
 										if( mb_ereg('[\x{0600}-\x{06FF}]', $q['answer']) > 0 ){
 											$q['answer'] = implode('' ,array_reverse(mb_str_split($q['answer']))); // reversing because answer boxes are right to left
 										}
-										for($m=0;$m<$length_ans;$m++){ 
+										for($m=0;$m<$length_ans;$m++){
 											if(mb_substr($q['answer'], $m, 1, 'utf8')==' '){
 												$space_index[]=$m;
 											}else{
 												$answ_array[] = mb_strtoupper( str_replace(['i', 'ı'], ['İ', 'I'], mb_substr($q['answer'], $m, 1, 'utf8')) );
 											}
 										}
-									}									
-								
+									}
+
 									//print_r($answ_array); echo count($answ_array);
 									for($j=0;$j<$length_ans;$j++){
 										if(in_array($j,$space_index)){
@@ -239,10 +239,10 @@
 										}
 									}
 									$ans_bx .= '<div class="rershBtn" onclick="resetAnsArea('.$loop->iteration.')"></div>';
-								
+
 									$filter_ans = implode('', $answ_array);
-								
-									$needed_extra = (12 - count($answ_array)); 
+
+									$needed_extra = (12 - count($answ_array));
 									if(is_numeric($q['answer'])){
 										for($k=0;$k<$needed_extra;$k++){
 											$answ_array[] = $number_array[$k];
@@ -263,8 +263,8 @@
 												}
 												$answ_array[] = '.';
 												$identifier_lang=3;
-											} 
-										}else{ //this is a string 
+											}
+										}else{ //this is a string
 											$len_answ = mb_strlen($q['answer'],"UTF-8");
 											if(mb_ereg($arabic_range, $q['answer'])){  // arabic string
 												for($k=0;$k<$needed_extra;$k++){ //echo $arabic_array[$k].' - '.$needed_extra;
@@ -275,7 +275,7 @@
 												for($k=0;$k<$needed_extra;$k++){
 													$answ_array[] = $englsh_array[$k];
 												}
-											}else{  
+											}else{
 												for($k=0;$k<$needed_extra;$k++){
 													//$identifier_lang = 1; // turkish write like english
 													$answ_array[] = $turkish_array[$k];
@@ -284,14 +284,14 @@
 										}
 									}
 									shuffle($answ_array);
-								} 
-								else 
+								}
+								else
 								{
 									$user_ans = $wrong_questions[$order_with_type] ?? $q['answer'];
-									
+
 									$ans = $q['answer'];
 									if( mb_ereg('[\x{0600}-\x{06FF}]', $q['answer']) > 0 ){
-										$ans= implode('' ,array_reverse(mb_str_split($ans))); 
+										$ans= implode('' ,array_reverse(mb_str_split($ans)));
 										$user_ans= implode('' ,array_reverse(mb_str_split($user_ans)));
 									}
 									$right_ans_html = '';
@@ -330,7 +330,7 @@
 									)
 										{!! $ans_bx !!}
 									@endif
-										
+
 									</div>
 									<br>
 									<div class="wrd1">
@@ -341,7 +341,7 @@
 
 						@elseif ( Str::contains($type, 'MultipleChoiceQuestion') )
 							<aside class="ansrlst">
-								@php 
+								@php
 									$q['options'] = is_array($q['options']) ? $q['options'] : json_decode($q['options'], true);
 									shuffle($q['options']);
 								@endphp
@@ -359,9 +359,9 @@
 										}
 									@endphp
 									@if (isset($option[$option['type']]))
-									<input class="ansin" type="radio" id="xans_{{ $q['id'] }}_{{ $option['index'] }}" value="{{ $option['index'] }}" name="{{ $q['id'] }}_MultipleChoiceQuestion"> 
+									<input class="ansin" type="radio" id="xans_{{ $q['id'] }}_{{ $option['index'] }}" value="{{ $option['index'] }}" name="{{ $q['id'] }}_MultipleChoiceQuestion">
 									<label for="xans_{{ $q['id'] }}_{{ $option['index'] }}" class="ansbx @if (isset($ans)) {{ $className }} @endif">
-										
+
 										<span class="ansnmbr">{{ $option_letter[$loop->index] }}</span>
 
 										@if ($option['type'] == 'text')
@@ -371,7 +371,7 @@
 											<aside class="anstxt">&nbsp;</aside>
 											@if(isset($option['image']))
 												<div class="ansPhvw"><img src="{{ Storage::url($option['image']) }}"></div>
-											@else 
+											@else
 												<aside class="anstxt">{{ $option['text'] ?? $option['index'] }}</aside>
 											@endif
 										@elseif ($option['type'] == 'audio')
@@ -381,11 +381,11 @@
 													<source src="{{ Storage::url($option['audio']) }}" type="audio/wav">
 													Your browser does not support the audio element.
 												</audio>
-											@else 
+											@else
 												<aside class="anstxt">{{ $option['text'] ?? $option['index'] }}</aside>
 											@endif
 										@endif
-										
+
 									</label>
 									@endif
 								@endforeach
@@ -416,7 +416,7 @@
 	$(document).ready(function(){
 		base_url = $('.base_url').val();
 		var exam_start_time = new Date().getTime();
-        localStorage.setItem("exam_start_time",exam_start_time); 
+        localStorage.setItem("exam_start_time",exam_start_time);
 		$(document).on("keydown", disableF5);
 		$('.qsimg1').on("touchend", function(e) {
             var offset = $(this).offset();
@@ -448,7 +448,7 @@
 				$('.qsn_section').each(function(i) {
 					var qid = $(this).attr('id');
 					if( qid.indexOf('WordGame') != -1 ){
-							var selected_ans=''; 
+							var selected_ans='';
 							$('.usr_ans_'+qsn_id).each(function(){
 								selected_ans += $(this).text();
 							});
@@ -466,7 +466,7 @@
 							}
 							console.log("ans stored="+store_response);
 					}else if( qid.indexOf('Puzzle') != -1 ) {
-						
+
 							var dd_ans_correct = get_ans_poses(i + 1);
 							console.log(dd_ans_correct);
 					} else if( qid.indexOf('MultipleChoiceQuestion') != -1 ) {
@@ -475,7 +475,7 @@
 						console.log("qsn_id = "+qsn_id);
 						console.log(store_response);
 					}
-					
+
 				})
 				$.post(base_url+"getQsnList",{exam_id:{{ $exam->id }}},function(rs){ console.log(rs); hideLoader();
 					var list = $.parseJSON(rs);
@@ -484,8 +484,8 @@
 					var store_response='';
 					for(var i=0;i<list.records.length;i++){
 						var qsn_id = list.records[i].quest_id; console.log("qsn id="+qsn_id);
-						
-						
+
+
 
 						localStorage.setItem("correct",total_correct);
  	       				localStorage.setItem("user_response",store_response);
@@ -494,12 +494,12 @@
 					}
 					var exam_end_time = new Date().getTime();
 					//total time taken to complete the exam
-					var start_time = localStorage.getItem("exam_start_time"); 
-					var difference_time = (exam_end_time - start_time); 
+					var start_time = localStorage.getItem("exam_start_time");
+					var difference_time = (exam_end_time - start_time);
 					//alert(store_response);
 					var percentage_got = ((parseInt(total_correct) * 100) / parseInt(list.exam_info['count']));
 						$.post(base_url+"saveExamData",{difference_time:difference_time,percentage_got:percentage_got,total_correct:total_correct,exam_started:1,exam_id:{{ $exam->id }},store_response:store_response},function(rss){
-							if(rss==1){ 
+							if(rss==1){
 								window.location.href=base_url+"thankyou";
 							}else{
 								console.log(rss);
@@ -525,9 +525,9 @@
 	function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
 
 	function showAnsInBox(obj,index,value,identifier){ console.log("index="+index);
- 
+
 			if(identifier==1){ //arabic text
-				$($('.serial_'+index).find('.w1Ltr').get().reverse()).each(function(i){ console.log($(this).find('span').text());		
+				$($('.serial_'+index).find('.w1Ltr').get().reverse()).each(function(i){ console.log($(this).find('span').text());
 					if($(this).hasClass('whitespace') == false && ($(this).find('span').text()=='' || $(this).find('span').text()==' ') ){
 							$(this).find('span').text(value);
 							var inpt = $('#'+index+'_WordGame');
@@ -541,7 +541,7 @@
 					}else{
 						console.log("this situation");
 					}
-				}); 
+				});
 
 			}else{
 				$('.serial_'+index).find('.w1Ltr').each(function(i){
@@ -597,7 +597,7 @@
 						top: y
 					},"slow");
 					$(this).find('span').text(theAnsTxt);
-					
+
 					if(arabic.test(theAnsTxt)){
 						identifier_lang=1;
 					}else{
@@ -607,7 +607,7 @@
 					return false;
 				}
 			});
-				
+
 		}
 	}
 
@@ -678,9 +678,9 @@
 
       originalWidth = canvas.offsetWidth;
       originalHeight = canvas.offsetHeight;
-  
+
       stage = new Konva.Stage({
-        container: elId, 
+        container: elId,
         width: originalWidth,
         height: originalHeight,
       });
@@ -693,7 +693,7 @@
         id: "keysLayer",
       });
       stage.add(keysLayer);
-      
+
       window.addEventListener('resize', function() {
         if($(window).width() != w_width || $(window).height() != w_height){
           fitStageIntoParentContainer(id);
@@ -706,7 +706,7 @@
       window['originalWidth_'+id] = originalWidth;
       window['originalHeight_'+id] = originalHeight;
     }
-  
+
     function getRelativePointerPosition(node) {
         var transform = node.getAbsoluteTransform().copy();
         // to detect relative position we need to invert transform
@@ -745,13 +745,13 @@
         var oheights = [];
         var addition = 0;
         heights.push(puzzleImg.height + 10);
-        
+
         for (const key in original_piece_coordintes) {
           if (piecesOfPuzzle[key]['piece'] !== '/') {
             oheights.push(original_piece_coordintes[key]['height']);
           }
         }
-        
+
         for (var i = 0; i < oheights.length; i += 2) {
           var w1 = oheights[i] * scaleW;
           var y = i + 1;
@@ -768,7 +768,7 @@
         });
         originalHeight = parseInt(puzzleImg.height) + addition;
         canvas.style.height = originalHeight + "px";
-        
+
         layerback.add(cnvsimg);
         layerback.draw();
         stage.draw();
@@ -805,9 +805,9 @@
             }
           }, 10);
         @endif
-      } 
-    } 
-  
+      }
+    }
+
     /*
     function move(current, direction) {
       document.getElementById("step_"+'1').style.height = '100%';
@@ -816,7 +816,7 @@
       document.getElementById("step_"+'1').style.left = '0%';
     }
     */
-    
+
     var ds = document.getElementById('drawingCnvs');
     var ctx = ds.getContext('2d');
     function getKey(piece, id) {
@@ -836,7 +836,7 @@
       } else {
         if (piecesOfPuzzle[piece]['image'] != undefined && piecesOfPuzzle[piece]['image'] != '') {
           addKey(piecesOfPuzzle[piece], piece, piecesOfPuzzle[piece]['image'], id);
-          
+
         } else {
           var scaleW = window['original_size_'+id]['width'] / original_image.naturalWidth;
           ctx.clearRect(0, 0, ds.width, ds.height);
@@ -873,8 +873,8 @@
           strokeWidth: 4,
           draggable: true,
           dragBoundFunc: function (pos) {
-            setTimeout(function() { 
-				document.getElementById('puzzle_ans_'+id).value = get_ans_poses(id);	 
+            setTimeout(function() {
+				document.getElementById('puzzle_ans_'+id).value = get_ans_poses(id);
 			});
             if (Math.abs(pos.x - piece['X']) <= 30 && Math.abs(pos.y - piece['Y']) <= 30) {
               // snapping feature
@@ -888,9 +888,9 @@
             }
           },
         });
-        
+
         URL.revokeObjectURL(this.src);
-        
+
         pieceImg.on('mouseover', function () {
           document.body.style.cursor = 'pointer';
         });
@@ -899,7 +899,7 @@
         });
         pieceImg.on('dragmove', function () {
         });
-        
+
         if (piece['hide_origin']) {
           var rect1 = new Konva.Rect({
             x: 0,
@@ -908,14 +908,14 @@
             height: piece['height'],
             fill: 'white',
           });
-          
+
           stage.findOne('#keysLayer').add(rect1);
           rect1.moveToBottom();
           rect1.absolutePosition({
             x: piece['X'],
             y: piece['Y'],
           });
-          
+
           stage.findOne('#keysLayer').draw();
         }
         stage.findOne('#keysLayer').add(pieceImg);
@@ -932,7 +932,7 @@
       window['heights_'+id] = heights;
       window['stage_'+id] = stage;
     }
-    
+
     function updateTxt(txt, piece, id) {
       var original_image = window['original_image_'+id];
       var original_piece_coordintes = window['original_piece_coordintes_'+id];
@@ -978,7 +978,7 @@
         var correctBag = [];
         var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
         var stage = window['stage_'+id];
-	  
+
         for (const piece in piecesOfPuzzle) {
           var pieceInPuzzle = stage.findOne("#"+piece);
           //console.log( (piecesOfPuzzle[piece]['X'] - 4) < pieceInPuzzle.absolutePosition().x < (piecesOfPuzzle[piece]['X'] + 4) );
@@ -1004,11 +1004,11 @@
             title: 'You Nailed it',
             showConfirmButton: true,
           })
-          */        
+          */
         } else {
           return false;
           //stage.draw()
-	  
+
           /*
           Swal.fire({
             icon: 'error',
@@ -1017,18 +1017,18 @@
           })
           */
         }
-	  
+
       }
 
       function solve_ddqsn(id) {
         var correctBag = [];
         var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
         var stage = window['stage_'+id];
-      
+
         for (const piece in piecesOfPuzzle) {
           var pieceInPuzzle = stage.findOne("#"+piece);
           if ( (piecesOfPuzzle[piece]['X'] - 20) <= pieceInPuzzle.absolutePosition().x && pieceInPuzzle.absolutePosition().x <= (piecesOfPuzzle[piece]['X'] + 20) && (piecesOfPuzzle[piece]['Y'] - 20) <= pieceInPuzzle.absolutePosition().y && pieceInPuzzle.absolutePosition().y <= (piecesOfPuzzle[piece]['Y'] + 20)) {
-            
+
           } else {
             pieceInPuzzle.absolutePosition({
               x: piecesOfPuzzle[piece]['X'],
@@ -1051,7 +1051,7 @@
           title: 'Puzzle Solved'
         });
       }
-    
+
       function restore_stored_piece(id, key, name) {
         var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
         var stage = window['stage_'+id];
@@ -1086,7 +1086,7 @@
         window['stage_'+id] = stage;
         window['originalWidth_'+id] = originalWidth;
       }, 1000)
-      
+
     }
     /*
     function step(direction) {
@@ -1100,7 +1100,7 @@
         hiddeneles = document.getElementsByClassName("pulled");
         newCls = "pulled";
       }
-  
+
       for (let i = 0; i < relaxedeles.length; i++) {
         relaxedeles[i].style.marginLeft = "0%";
         setTimeout(() => {
@@ -1108,7 +1108,7 @@
           relaxedeles[i].className = relaxedeles[i].className.replace('relaxed', 'pulled');
         }, 300);
       }
-      
+
       for (let i = 0; i < hiddeneles.length; i++) {
         hiddeneles[i].style.marginLeft = "200%";
         setTimeout(() => {

@@ -4,7 +4,7 @@
 
 //the offline DB
 var questions = localforage.createInstance({
-    name: offlineDBname
+    // name: offlineDBname
 });
 
 
@@ -44,8 +44,8 @@ function getDuration(src, cb) {
 
 function restoreExam() {
     var examObj = {};
-    Promise.all([questions.getItem('Exam'), 
-    questions.getItem('Exam_icon'), 
+    Promise.all([questions.getItem('Exam'),
+    questions.getItem('Exam_icon'),
     questions.getItem('Exam_reward-image', rew_image),]
     )
     .then(function(res){
@@ -60,7 +60,7 @@ function restoreExam() {
 
     function exam_data(res) {
         if (res != null) {
-            $('.exam_title').val(res.title); 
+            $('.exam_title').val(res.title);
             res.preq = isJSON(res.preq) || res.preq;
             $('.preq_type').val( res.preq != undefined ? res.preq.type : '0' );
             if (res.preq.type != 0) getExtraPreqField(res.preq.type);
@@ -107,7 +107,7 @@ function restoreExam() {
             .then(function (res) {
                 $('#blah').attr('src', res.data);
             });
-            
+
         }
     }
 
@@ -128,7 +128,7 @@ function restoreExam() {
 function restoreQuestions(id, res, originalOrder) {
     var type = id.includes('Project') ? 'project' : id.includes('WordGame') ? 'wg' : id.includes('MultipleChoiceQuestion') ? 'mcq' : 'dd';
     var text = id.includes('Project') ? res.description : res.question;
-    renderQuestionsListHTML(type, text, originalOrder, false);  
+    renderQuestionsListHTML(type, text, originalOrder, false);
 }
 
 function restore_Data() {
@@ -172,12 +172,12 @@ function restore_Data() {
     } catch (err) {
         console.log(err);
     }
-    
+
 }
 
 function populateDB(exam, intro, exam_questions, data_copy_with_urls) {
     console.log(exam, intro, exam_questions);
-    
+
     var promises = [questions.setItem('Exam', exam)];
     var intro_sort = [];
     var qsort = [];
@@ -247,7 +247,7 @@ function update_order(cls, key) { //TODO: save list count as last element
     });;
 }
 
-$(function() { 
+$(function() {
     questions.keys().then( function(keys) {
         if (keys.length > 0 && keys.indexOf('Exam') > -1) {
             questions.getItem('Exam')
@@ -275,24 +275,24 @@ $(function() {
                                     data_copy_with_urls = res;
                                 })
                                 .then(function() {
-                                    restore_Data(); 
+                                    restore_Data();
                                 });
                             } else {
-                                restore_Data(); 
+                                restore_Data();
                             }
                         } else {
                             questions.clear().then(function() {
                                 if (route_is_update) {
                                     populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
                                     .then(function() {
-                                        questions.setItem('data_copy_with_urls', data_copy_with_urls); 
+                                        questions.setItem('data_copy_with_urls', data_copy_with_urls);
                                         data_copy_with_urls = '';
                                         exam_questions = '';
                                         intro = '';
                                         exam = '';
                                     })
                                     .then( function() {
-                                        restore_Data(); 
+                                        restore_Data();
                                     });
                                 }
                             });
@@ -302,36 +302,37 @@ $(function() {
                     questions.clear().then(function() {
                         populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
                         .then(function() {
-                            return questions.setItem('data_copy_with_urls', data_copy_with_urls); 
+                            return questions.setItem('data_copy_with_urls', data_copy_with_urls);
                         })
                         .then( function() {
                             data_copy_with_urls = '';
                             exam_questions = '';
                             intro = '';
                             exam = '';
-                            restore_Data(); 
+                            restore_Data();
                         });
                     });
                 }
             });
-            
-        } else if(route_is_update) {
-            questions.clear().then(function() {
-                populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
-                .then(function() {
-                    return questions.setItem('data_copy_with_urls', data_copy_with_urls); 
-                })
-                .then( function() {
-                    data_copy_with_urls = '';
-                    exam_questions = '';
-                    intro = '';
-                    exam = '';
-                    restore_Data(); 
-                });
-            });
+
         }
+        // else if(route_is_update) {
+        //     questions.clear().then(function() {
+        //         populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
+        //             .then(function() {
+        //                 return questions.setItem('data_copy_with_urls', data_copy_with_urls);
+        //             })
+        //             .then( function() {
+        //                 data_copy_with_urls = '';
+        //                 exam_questions = '';
+        //                 intro = '';
+        //                 exam = '';
+        //                 restore_Data();
+        //             });
+        //     });
+        // }
     });
-    
+
     /*if(route_is_update) {
         questions.keys().then( function(keys) {
             if (keys.length > 0) {
@@ -340,12 +341,12 @@ $(function() {
                     data_copy_with_urls = res;
                 })
                 .then(function() {
-                    restore_Data(); 
+                    restore_Data();
                 });
             } else {
                 populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
                 .then(function() {
-                    questions.setItem('data_copy_with_urls', data_copy_with_urls); 
+                    questions.setItem('data_copy_with_urls', data_copy_with_urls);
                     data_copy_with_urls = '';
                     exam_questions = '';
                     intro = '';
@@ -353,21 +354,21 @@ $(function() {
                 })
                 .then( function() {
 
-                    restore_Data(); 
+                    restore_Data();
                 });
             }
         })
 
     } else {
-        restore_Data(); 
+        restore_Data();
     }*/
 })
 
-function saveExamDraft(step){ 
-    
+function saveExamDraft(step){
+
     //lcalStorage.removeItem("draft_exam_id");
     var exam_icon= $('#imgInp').prop("files")[0];
-    var title = $('.exam_title').val(); 
+    var title = $('.exam_title').val();
     var preq_type = $('.preq_type').val();
     var preq_value = $('.preq_value').val();
     var is_random = $('input[type="checkbox"][name="is_random"]').is(":checked");
@@ -377,7 +378,7 @@ function saveExamDraft(step){
     var is_private = $('input[type="checkbox"][name="is_private"]').is(":checked");
     var is_login_required = $('input[type="checkbox"][name="is_login_required"]').is(":checked");
     var login_fields = $('.infld2.login_fields').val();
-    var exam = {    
+    var exam = {
         "title": title,
         "preq": {type: preq_type, value: preq_value},
         "random": is_random,
@@ -389,8 +390,8 @@ function saveExamDraft(step){
         "login_fields": login_fields
     }
     showLoader();
-    questions.getItem('Exam')    
-    .then( 
+    questions.getItem('Exam')
+    .then(
         function(res) {
             if (res == null) {
                 return questions.setItem('Exam', exam);
@@ -467,7 +468,7 @@ function renderRows(){
         $('.dynamicTable table tr').slice(row).remove();
         $('.dynamicTable2 table tr').slice(row).remove();
     }
-        
+
 }
 
 function renderColumns() {
@@ -501,7 +502,7 @@ function renderColumns() {
     }
 }
 
-function generateText(obj,val){ 
+function generateText(obj,val){
     var class_nm = $(obj).attr("class"); console.log("class nm",class_nm);
     console.log("length",($('.'+class_nm).length));
     $('body .'+class_nm).each(function(m){
@@ -513,10 +514,10 @@ function generateText(obj,val){
 }
 
 function saveVideoData(cls) {
-    
+
     var url = $('.intro_video').val();
     localStorage.setItem("intro_video",url);
-    
+
     if(url==''){
         //$('.canBtn').click();
         swal.fire("Error","Please fill the input area","error");
@@ -529,7 +530,7 @@ function saveVideoData(cls) {
         $('.intro_video').val('');
         $('#mask2').click();
         // if video choose make blank other two if not project
-        cls != '.pr' && $('.quest_audio').val(''); 
+        cls != '.pr' && $('.quest_audio').val('');
         cls != '.pr' && $(cls + 'audTag').html('');
         $(cls + 'AudBx').slideUp();
 
@@ -540,7 +541,7 @@ function saveVideoData(cls) {
 }
 
 function saveAudData(cls) {
-    
+
 
     var audio_name = localStorage.getItem("intro_draft_audio_name");
     var id = getQuestionsListCount('.question_lists') + '_audio_tmp';
@@ -555,7 +556,7 @@ function saveAudData(cls) {
     )
     .then(
         function (value) {
-            var recordURL = URL.createObjectURL(value); 
+            var recordURL = URL.createObjectURL(value);
             $('.quest_audio').val(audio_name);
             var audio = document.createElement('audio');
             audio.controls = true;
@@ -566,24 +567,24 @@ function saveAudData(cls) {
                 URL.revokeObjectURL(recordURL);
                 $(cls + 'audTag').html(audio);
             },1000);
-    
+
             $(cls + 'AudBx').slideDown();
             $('#mask2').click();
             $('#recordingsList').html('');
 
             // if audio choose make blank other two
-            cls != '.pr' && $('.quest_video').val(''); 
-            cls != '.pr' && $(cls + 'vdoTag').html(''); 
+            cls != '.pr' && $('.quest_video').val('');
+            cls != '.pr' && $(cls + 'vdoTag').html('');
             $(cls + 'VdoBx').slideUp();
 
-            cls != '.pr' && $('.quest_image').val(''); 
-            cls != '.pr' && $(cls + '_img_list').html(''); 
+            cls != '.pr' && $('.quest_image').val('');
+            cls != '.pr' && $(cls + '_img_list').html('');
             $(cls + 'ImgBx').slideUp();
             localStorage.removeItem("intro_draft_audio_name");
-                    
+
         }
     )
-    
+
 }
 
 function renderSubjectListHTML(type, text, id = null, sort = true) {
@@ -656,12 +657,12 @@ function finishDataPopIntroSave(type, cls, data, render = true, DBid = null) {
     var id = type == 'project_file' ? DBid : DBid ? 'Intro_' + type +DBid : 'Intro_' + type + getQuestionsListCount('.list-unstyled.quest_subject');
     var promise;
     var is_file = false;
-    if (data instanceof File || data instanceof Blob) { 
+    if (data instanceof File || data instanceof Blob) {
         is_file = true;
         promise = questions.setItem(type != 'project_file' ? id+'_data' : id, data)
-        .then(function() { 
+        .then(function() {
             return type != 'project_file' ? questions.setItem(id, {data: request_names.current_exam + id, o: getQuestionsListCount('.list-unstyled.quest_subject')}) : 1;
-        });  //done TODO: ADD another db key item with the suffix '_data' with the actual data if it's binary and add one more step for it 
+        });  //done TODO: ADD another db key item with the suffix '_data' with the actual data if it's binary and add one more step for it
 
     } else {
         promise = questions.setItem(id, {data: data, o: getQuestionsListCount('.list-unstyled.quest_subject')});
@@ -710,7 +711,7 @@ function saveDataPopIntro(type,index='', render = true){
             if(url==''){
                 $('.canBtn').click();
                 //swal.fire("Error","Please fill the input area","error");
-            }else{ 
+            }else{
                 finishDataPopIntroSave(type, '.intro_video', urls, render, index);
             }
         }
@@ -753,7 +754,7 @@ function saveDataPopIntro(type,index='', render = true){
         }
     }else if(type=='table'){
         var table_data = $('.dynamicTable2').html(); console.log("table data",$('.dynamicTable2').length);
-        
+
         $('#mask').click();
         var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
         if( d_exam_id ==null){
@@ -792,9 +793,9 @@ function saveDataPopIntro(type,index='', render = true){
             iqwerty.toast.toast('Upload Maximum Size: 3M');
             $('#mask').click();
         }
-        
+
     }else if(type=='quest_wg_video' || type=='quest_mc_video' || type=='quest_pr_video'){
-        
+
         var param = '.' + type.split('_')[1];
         if (param != '.pr') {
             tmpChecker('_tmp', false)
@@ -804,9 +805,9 @@ function saveDataPopIntro(type,index='', render = true){
         } else {
             saveVideoData(param);
         }
-        
+
     }else if(type=='quest_wg_audio' || type=='quest_mc_audio' || type=='quest_pr_audio'){
-        
+
         var param = '.' + type.split('_')[1];
         if (param != '.pr') {
             tmpChecker('_tmp', false)
@@ -843,25 +844,25 @@ function saveDataPopIntro(type,index='', render = true){
                     src.onload = function () {
                         URL.revokeObjectURL(this.src);
                     }
-                    src.src = URL.createObjectURL(res); 
+                    src.src = URL.createObjectURL(res);
                     audio.appendChild(src);
                     setTimeout(function(){
                         hideLoader();
                         $('.ansAud_'+index).html('');
                         $('.ansAud_'+index).append(audio);
-                        
+
                     },1000);
-                    
+
                     $('.ansAud_'+index).fadeIn();
                     $('#mask2').click();
                     $('#recordingsList').html('');
                 }
             }
         )
-        
+
 
     }else if(type=='projects_video'){
-        
+
         var url = $('.intro_video').val();
         if(url==''){
             $('.canBtn').trigger('click');
@@ -874,14 +875,14 @@ function saveDataPopIntro(type,index='', render = true){
                 $('.project_data_video').html('<iframe src="https://www.youtube.com/embed/'+urls+'?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>');
                 $('.project_data_video').slideDown();
             });
-            
+
         }
     }else if(type=='projects_audio'){
-        
+
         if(recorded_audio==null){
             $('.canBtn').trigger('click');
             swal.fire("Error","Please record or upload an audio track","error");
-        }else{ 
+        }else{
             showLoader();
             questions.setItem('ProjectSubmit_audio', recorded_audio)
             .then( function () {
@@ -925,7 +926,7 @@ function editPopIntro(type,id){
                 openIntroPop(type);
                 $('.intro_title').val(res['data']);
                 $('.title_svbtn').attr("onclick","updateIntro('"+type+"',"+id+")");
-            
+
             }else if(type=='table'){
                 openIntroPop(type);
                 var table = res['data'];
@@ -948,7 +949,7 @@ function editPopIntro(type,id){
                 $('.video_svbtn').attr("onclick","updateIntro('"+type+"',"+id+")");
             }else if(type=='paragraph'){
                 openIntroPop(type);
-                
+
                 setTimeout(() => {
                     paragraph_editor.on( "instanceReady", function( event ){
                         paragraph_editor.setData(res['data']);
@@ -966,7 +967,7 @@ function editPopIntro(type,id){
     )
 }
 
-function editPopIntroEdit(type,id){ 
+function editPopIntroEdit(type,id){
    editPopIntro(type, id);
 }
 
@@ -1008,9 +1009,9 @@ function updateIntro(type,id){
                 $('.table_svbtn').attr("onclick","saveDataPopIntro('table')");
             }
         });
-        
+
     }else if(type=='paragraph'){
-        var content = paragraph_editor.getData(); 
+        var content = paragraph_editor.getData();
         $(selector).each(function(){
             if($(this).attr('data-id')==attrib_val){
                 $(this).find('.paragraph_data').html(content);
@@ -1066,7 +1067,7 @@ function deleteIntro(type,id){
             return;
         }
     })
-    
+
     .catch(function(err) {
         console.log(err);
         swal.fire("Error","error happened","success");
@@ -1127,7 +1128,7 @@ function renderQuestionsListHTML(type, text, id = null, sort = true) {
                 '<div class="drgWhte2"> <span class="' + iconClass + '">' + title + ' Icon</span>'+
                     '<div class="drgT3 ' + txtClass + ' center">'+text+'</div>'+
                 '</div>'+
-                
+
             '</div></li>';
     $(list).append(html);
     $(list).sortable("refresh");
@@ -1176,7 +1177,7 @@ function processTmp(key, store) {
     return p;
 }
 
-//in case of editing an existing exam, the exam is loaded with its media assets from server, 'updateQuestionIfExists' function checks if the exam 
+//in case of editing an existing exam, the exam is loaded with its media assets from server, 'updateQuestionIfExists' function checks if the exam
 //has images,video or audio attributes and preserve them
 
 var options_media = {};
@@ -1185,9 +1186,9 @@ function updateQuestionIfExists(id, attributes) {
     var p = questions.getItem(id)
     .then(function(final_question){
         var question = {};
-        var media_delete_promises = [] 
+        var media_delete_promises = []
         if (final_question) {
-            question = final_question; 
+            question = final_question;
         }
         if(/^Project\d+/.test(id) == false){
         if(attributes['video'] != null) {
@@ -1216,7 +1217,7 @@ function updateQuestionIfExists(id, attributes) {
                     }
                 } else if (question['image'] instanceof String) {
                     question['image'] = null;
-                } 
+                }
             }
         }
         }
@@ -1228,14 +1229,14 @@ function updateQuestionIfExists(id, attributes) {
                         question[key][option] = attributes[key][option];
                         if (route_is_update) {
                             var option_key = key == 'options' ? id+'options_option'+attributes[key]['index'] : option;
-                            if (options_media[option_key] || 
+                            if (options_media[option_key] ||
                                 (key == 'options' && question[key]['type'] == 'text' && ( question[key]['image'] != null ||  question[key]['audio'] != null))) {
                                 question[key]['image'] = null;
                                 key == 'options' ? question[key]['audio'] = null : false;
                             }
                         }
                     }
-                
+
                 options_media = {};
             }
         }
@@ -1262,7 +1263,7 @@ function saveProject(exam, id, render = true){
         video = video == 'error' ? null : video;
         var count = id || getQuestionsListCount('.question_lists');
         var jsonId = 'Project' + count;
-        
+
         tmpChecker(jsonId, true)
         .then(function() {
             return updateQuestionIfExists(jsonId, {description:project,video:video,order:count});
@@ -1285,7 +1286,7 @@ function saveProject(exam, id, render = true){
             console.log(err);
             swal.fire("Error","Something went wrong!","error");
         })
-        
+
     }
 }
 
@@ -1295,7 +1296,7 @@ function saveMultipleChoiceQuest(exam, id, render = true){
     if( exam_id == null){
         swal.fire("Error","Please fill the First page","error");
     }else{
-        var count = id || getQuestionsListCount('.question_lists');   
+        var count = id || getQuestionsListCount('.question_lists');
         var question = $('.multiple_question').val();
         var video = getId($('.quest_video').val());
         video = video == 'error' ? null : video;
@@ -1310,18 +1311,18 @@ function saveMultipleChoiceQuest(exam, id, render = true){
         };
         var c = 0;
         $("input[type='radio'][name*='sml_rdio']:checked")
-        .each( 
+        .each(
             function () {
                 var type = $(this).val();
                 var i = $(this).attr('name').replace('sml_rdio', '') || 1;
                 var name = 'option' + i;
                 var txtAnsCls = '.qst_ans_' + i;
-                
+
                 option = $(txtAnsCls).val();
                 if(type=='text'){
                     option = $(txtAnsCls).val();
                 }else if(type=='image'){
-                    
+
                     if($('.quest_image_option_'+i).val()=='' && $(txtAnsCls).val()!=''){
                         option = $(txtAnsCls).val();
                         option_type = 'text';
@@ -1340,10 +1341,10 @@ function saveMultipleChoiceQuest(exam, id, render = true){
                     c = c+1;
                 }
             }
-        );        
+        );
 
         if(question!='' && c >= 2){
-            
+
             var jsonId = 'MultipleChoiceQuestion' + count;
             tmpChecker(jsonId, true)
             .then(function() {
@@ -1377,8 +1378,8 @@ function saveMultipleChoiceQuest(exam, id, render = true){
                     $('.mc_img_list').html(''); $('.mcImgBx').hide();
                     console.log('done');
                 }
-            )  
-            .catch( 
+            )
+            .catch(
                 function (err) {
                     console.log(err);
                     swal.fire("Error","Something went wrong! ","error");
@@ -1398,7 +1399,7 @@ function saveWordGameQuest(exam, id, render = true){
     var question = $('.word_game_title').val();
     //check arabic text and reverese
     var arabic = /[\u0600-\u06FF]/;
-    var answer = $('.word_game_answer').val(); 
+    var answer = $('.word_game_answer').val();
     var exam_id = exam || localStorage.getItem("draft_exam_id");
     if( exam_id ==null){
         swal.fire("Error","Please fill the First page","error");
@@ -1430,7 +1431,7 @@ function saveWordGameQuest(exam, id, render = true){
         .catch( function(err) {
             console.log(err);
         })
-        
+
     }
 }
 
@@ -1448,7 +1449,7 @@ function saveDDQuestion( id, render = true){
         'order': count
     }
     var jsonId = 'Puzzle' + count;
-    
+
     $("input[class*='ddTgAnsImg_']").each(
         function( i ) {
             if($(this).prop("files")[0]!= undefined){
@@ -1558,7 +1559,7 @@ function updateDDQuestion(id){
 
 
 
-// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there 
+// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there
     function saveProjectEdit(){
     var exam_id = localStorage.getItem("draft_exam_id");
     saveProject(exam_id);
@@ -1681,7 +1682,7 @@ function editQuestion(id,type){
                     }
                     p = questions.getItem(id+'_audio')
                     .then( function(audio) {
-                        if(audio!=null){ 
+                        if(audio!=null){
                             return view_audio_for_edit(URL.createObjectURL(audio));
                         } else if (obj.audio != null) {
                             return axios.get(getFileURL.replace('file_path', obj.audio))
@@ -1719,7 +1720,7 @@ function editQuestion(id,type){
                                 var html = '';
                                 var tmps = [];
                                 for (var i = 0; i < res.length; i++) {
-                                    
+
                                     if(res[i]!=null){
                                         var dbid = id+'_image'+i;
                                         var tmpObj = (res[i] instanceof File || res[i] instanceof Blob) ? URL.createObjectURL(res[i]) : res[i];
@@ -1730,7 +1731,7 @@ function editQuestion(id,type){
                                                         '<img src="'+tmpObj+'">'+
                                                     '</div>'+
                                                 '</li>';
-                                            
+
                                     } else {
                                         html += ' <li class="tmpImg">'+
                                             '<div class="wgImgCrop" onclick="clickWgQImage(\''+ pop_cls +'\')">'+
@@ -1783,7 +1784,7 @@ function editQuestion(id,type){
                                         if (image) {
                                             return URL.createObjectURL(image);
                                         }
-                                        
+
                                         return axios.get(getFileURL.replace('file_path', options[option]['image']))
                                         .then(function (res) {
                                             return res.data;
@@ -1811,7 +1812,7 @@ function editQuestion(id,type){
                                     })
                                 }
                                 tmp_image(dbid, index, option);
-        
+
                             }else if(type=='audio'){
                                 var dbid = id+'_options_option'+index+'_audio';
                                 function tmp_audio(dbid, index, option) {
@@ -1846,7 +1847,7 @@ function editQuestion(id,type){
                                     })
                                 }
                                 tmp_audio(dbid, index, option);
-                                
+
                             }
                         }
                     }
@@ -1857,13 +1858,13 @@ function editQuestion(id,type){
                 .catch( function(err) {
                     console.log(err);
                 })
-                
+
         }else if(type=='dd'){
             counter = 0;
             active_selector = '';
             $('.ddsaveQsn').attr("onclick","updateDDQuestion('"+id+"')");
             openQuestPop('dd');
-            Promise.join(questions.getItem(id), questions.getItem(id+"_puzzle-image"), function(obj, blob){ 
+            Promise.join(questions.getItem(id), questions.getItem(id+"_puzzle-image"), function(obj, blob){
                 puzzle_keys = {};
                 $('#puzzle_name').val(obj.question);
                 $('#puzzle').attr('type', 'text');
@@ -1900,12 +1901,12 @@ function editQuestion(id,type){
                         var y1 = current['Y'] / current['scale'] * scale;
                         create(x1, y1, x2 + x1, y2 + y1, function(piece, current) {
                             var index = parseInt(piece.replace('piece', ''));
-                            
+
                             if ("hide_origin" in current) {
                                 $('#whiteCvr'+ index).prop("checked", true);
                                 rectCvr(true, piece);
                             }
-    
+
                             if ("text" in current) {
                                 updateTxt(current['text'], piece, 'a_preview');
                                 document.getElementById("a_preview_col"+index).style.display = 'unset';
@@ -1922,7 +1923,7 @@ function editQuestion(id,type){
                             })
                         }, piece, current)
                     }
-                    
+
                 }, 2000);
             })
             .catch( function(err) {
@@ -1976,7 +1977,7 @@ function deleteQuestionDraft(id){ //NOTE: id is DBkey
 }
 
 
-// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there 
+// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there
     function editQuestionEdit(id,type){
     editQuestion(id, type);
     }
@@ -2013,7 +2014,7 @@ function submitReviewPage(){
         "reward_mode": rew_mod,
         "reward_type": rew_type,
         "coupon_list": coupon_list,
-        "hardware_name": hardware_name, 
+        "hardware_name": hardware_name,
         "special_control_char": charectar,
         "reward_message": rew_text,
         "reward_video": rew_video,
@@ -2023,7 +2024,7 @@ function submitReviewPage(){
     questions.setItem('Exam_reward-image', rew_image)
     .then (function() { return questions.setItem('Exam_sponser', cert_logo) })
     .then (function() { return questions.getItem('Exam') })
-    .then( 
+    .then(
         function(res) {
             if (res == null) {
                 return questions.setItem('Exam', exam);
@@ -2054,9 +2055,9 @@ function renderIntroPreview(v, k) {
             '</aside>'+
         '</li>';
     if (k.includes('title')) { imgName = 'p_text'; text = v;} else if (k.includes('paragraph')) { imgName = 'p_note'; text = 'paragraph';}
-    else if (k.includes('image')) { imgName = 'p_img'; text = 'Image';} else if (k.includes('video')) { imgName = 'p_video'; text = 'Video';} 
+    else if (k.includes('image')) { imgName = 'p_img'; text = 'Image';} else if (k.includes('video')) { imgName = 'p_video'; text = 'Video';}
     else if (k.includes('table')) { imgName = 'p_table'; text = 'Table';}
-    else if (k.includes('audio')) { 
+    else if (k.includes('audio')) {
         imgName = 'p_audio'; text = '';
         var audioBlob = (text instanceof Blob || text instanceof File) ? Promise.resolve(URL.createObjectURL(v)) : axios.get(getFileURL.replace('file_path', v));
             audioBlob
@@ -2067,7 +2068,7 @@ function renderIntroPreview(v, k) {
                                 var showTime='00:00';
                                 if(length>60){
                                     var minute = (length-60);
-                                    
+
                                     showTime = parseInt(length/60)+':'+ (''+parseInt(length%60)).padStart(2, '0');
                                 }else{
                                     if(parseInt(length).toString().length==1){
@@ -2076,11 +2077,11 @@ function renderIntroPreview(v, k) {
                                         showTime = '00:'+parseInt(length);
                                     }
                                 }
-                                
+
                                 $('.xm_subjects').html($('.xm_subjects').html().replace(k, showTime.padStart(5,'0')));
                             })
                         })
-        
+
         return html.replace('#IMG_NAME_HERE#', imgName).replace('#TXT_HERE#', k);
     } else if (k.includes('file')) { imgName = 'attach'; text = v.name;}
     else if(k.includes('order')) { imgName = 'order'; text = 'Order';}
@@ -2088,7 +2089,7 @@ function renderIntroPreview(v, k) {
 }
 
 function fetchAlldata(){
-    
+
     //1st step: get count of each question type:
     var qTitlesList = $('.question_lists .drgT1');
     $('.xm_total_mcq').text( qTitlesList.find("span:contains('Multiple Choice')").length.toString() );
@@ -2097,7 +2098,7 @@ function fetchAlldata(){
     $('.xm_total_dd').text( qTitlesList.find("span:contains('Drag & Drop')").length.toString() );
 
     //2nd get intro data:
-    
+
     questions.getItem('Intro_sort')
     .then(function(arr) {
         arr.pop();
@@ -2112,7 +2113,7 @@ function fetchAlldata(){
                 });
                 return p;
             }
-            
+
             promises.push(temp(arr[i]));
         }
         return Promise.all(promises);
@@ -2128,7 +2129,7 @@ function fetchAlldata(){
     //3rd get exam data:
     questions.getItem('Exam')
     .then( function(exam){
-        
+
         questions.getItem('Exam_icon')
         .then( function (res) {
             if (res == null) {
@@ -2156,8 +2157,8 @@ function fetchAlldata(){
             preq_txt = 'Group Star - '+exam.preq.type;
         }
         $('.xm_preq').text(preq_txt);
-        $('#rvchk1').prop("checked", exam.random);      
-        $('#rvchk2').prop("checked", exam.retake);      
+        $('#rvchk1').prop("checked", exam.random);
+        $('#rvchk2').prop("checked", exam.retake);
         $('#rvchk4').prop("checked", exam.chat);
         $('#rvchk5').prop("checked", exam.private);
         if(exam.time_limit !=-1){
@@ -2183,7 +2184,7 @@ function fetchAlldata(){
             reward_mode = 'Coupon List';
         }
         $('.xm_reward_mode').val(reward_mode);
-        
+
         var re_type='';
         if(exam.reward_type==0){
             re_type='Bluetooth';
@@ -2200,7 +2201,7 @@ function fetchAlldata(){
     })
 }
 
-// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there 
+// DEPRECATED: EDIT-suffix functions: superficial & not needed anymore except for just being there
     function fetchAlldataEdit(){
     fetchAlldata();
     }
@@ -2266,7 +2267,7 @@ function saveExamAsDraft(){
         title: "Saved!",
         type: "success",
         text: "Your exam has been stored as draft"
-         
+
      }).then(function() {
           localStorage.setItem('draft', true);
           window.location = base_url;
@@ -2275,14 +2276,14 @@ function saveExamAsDraft(){
 
 var exam_form = new FormData();
 var examObj = {};
-function publishExam(draft = false){ 
-    
+function publishExam(draft = false){
+
     //var intros_order = getIntroItemsOrder();
     //console.log(intros_order);
     //craft the form
     showLoader();
     tmpChecker('_tmp', false) // remove any residual data accidently preserved in case of sudden crashes or interrupts
-    .then( function() { 
+    .then( function() {
         return Promise.all([questions.getItem('Intro_sort'), questions.getItem('Questions_sort'), questions.keys(), questions.getItem('Exam')]);
     })
     .then(function(promises) {
@@ -2315,7 +2316,7 @@ function publishExam(draft = false){
             var key = keys_to_be_removed[i];
             if (keys2.indexOf(key) > -1) { keys2.splice(keys2.indexOf(key), 1); }
         }
-        
+
         console.log(keys2);
         console.log(keys2['Exam']);
         var promises = [];
@@ -2334,10 +2335,10 @@ function publishExam(draft = false){
                 }
             };
             //console.log('marr',mArr);
-            
+
             function add_promise(keysArray, key) {
                 var p = Promise.all(
-                    Promise.map(keysArray, 
+                    Promise.map(keysArray,
                         function (key) {
                             //console.log('getitem',key);
                            return questions.getItem(key);
@@ -2375,8 +2376,8 @@ function publishExam(draft = false){
                                 } else {
                                     modelkey = keysArray[y];
                                 }
-                                
-                                if (modelkey in finalMObj) { // NOTE: the cause for this condition structure is to work for questions and intro alike 
+
+                                if (modelkey in finalMObj) { // NOTE: the cause for this condition structure is to work for questions and intro alike
                                                              //and to work with first intro item as well as subsequent into items from the same type
                                     //console.log('true', modelkey);
                                     finalMObj[modelkey][intro_specific_extra_lvl] = resultsArray[y][intro_specific_extra_lvl];
@@ -2385,7 +2386,7 @@ function publishExam(draft = false){
                                 }
                             }
                         }
-                        
+
                         examObj[key] = 'Exam' in finalMObj ? finalMObj['Exam'] : finalMObj;//exam_form.set(key, JSON.stringify(finalMObj));
                         //console.log(2);
                        //console.log(finalMObj);
@@ -2399,7 +2400,7 @@ function publishExam(draft = false){
                 });
                 return p;
             }
-            promises.push(add_promise(mArr, m));  
+            promises.push(add_promise(mArr, m));
         };
         //console.log(promises);
         Promise.all(promises)
@@ -2486,7 +2487,7 @@ function DraftIntroPosition(id,op){
                 $("#sortable").load(location.href + " #sortable");
            }
        })
-   
+
 }
 
 function startCountRecording(){
@@ -2499,11 +2500,11 @@ function startCountRecording(){
             }else{
                 $('.aud_timer').text('00 : '+sec);
             }
-            
+
         }else if(sec==60){
             $('.aud_timer').text('01 : 00');
         }else{
-            var min = parseInt(parseInt(sec) / 60); 
+            var min = parseInt(parseInt(sec) / 60);
             secs = (sec - (min * 60 ));
             var show_min=min;
             if(min < 10){
@@ -2538,7 +2539,7 @@ function markSubmission(passed, url, redirect = false) {
 function submitProjectByStudent(submitURL, no_questions, examURL){
 
     showLoader();
-    var project_text = submission_editor.getData(); 
+    var project_text = submission_editor.getData();
     var submission_form = new FormData();
     var promises = [];
     var form_input_names = [];
@@ -2614,14 +2615,14 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
+
+            crop(event) {
             //   console.log(event.detail.x);
             //   console.log(event.detail.y);
             //   console.log(event.detail.width);
@@ -2635,17 +2636,17 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJsPop').show();
         //var shimage = $('.quest_image').val();
         $('.cropperJs').attr("src",imgdata);
-        
+
         //$('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='intro_image'){
@@ -2654,15 +2655,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('intro_image')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='mc_qst_img'){
@@ -2671,15 +2672,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('mc_qst_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='ansImg_1' || class_name=='ansImg_2' || class_name=='ansImg_3' || class_name=='ansImg_4'){
@@ -2688,15 +2689,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('"+class_name+"')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='wg_img'){
@@ -2705,15 +2706,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('wg_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='pr_img'){
@@ -2722,15 +2723,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='project_submit'){
@@ -2739,15 +2740,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('project_submit')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='cert'){
@@ -2756,15 +2757,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='profile_pic_edit'){
@@ -2777,15 +2778,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",img);
 
         $('.cropDImage').attr("onclick","cropImageEdit('profile_pic_edit')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }
@@ -2819,14 +2820,14 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
+
+            crop(event) {
             //   console.log(event.detail.x);
             //   console.log(event.detail.y);
             //   console.log(event.detail.width);
@@ -2842,32 +2843,32 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         //$('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
-    }else if(class_name=='intro_image'){ 
+    }else if(class_name=='intro_image'){
         $('.cropperJsPop').show();
         //var shimage = $('.quest_image').val();
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('intro_image')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='mc_qst_img'){
@@ -2876,15 +2877,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('mc_qst_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='ansImg_1' || class_name=='ansImg_2' || class_name=='ansImg_3' || class_name=='ansImg_4'){
@@ -2893,15 +2894,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('"+class_name+"')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='wg_img'){ console.log("here wg",imgdata);
@@ -2910,15 +2911,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('wg_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='pr_img'){
@@ -2927,15 +2928,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='cert'){
@@ -2944,15 +2945,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='profile_pic_edit'){
@@ -2961,15 +2962,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('profile_pic_edit')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }
@@ -2978,15 +2979,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
 
 function cropImage(class_name='', hash){
     showLoader();
-    var img = document.getElementById("crpImg"); 
-    
+    var img = document.getElementById("crpImg");
+
     canvas = cropper.getCroppedCanvas({
         width: 160,
         height: 160,
       });
 
       var crop_image_data = cropper.getData();
-      
+
     // var exam_id = localStorage.getItem("draft_exam_id");
     canvas.toBlob(function(blob) {
     url = URL.createObjectURL(blob);
@@ -2999,7 +3000,7 @@ function cropImage(class_name='', hash){
             $('#group_image_data').val(canvas.toDataURL());
             $('#blah').attr('src',url);
         }else if(class_name=='intro_image'){
-           
+
             var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
             if( d_exam_id ==null){
                 swal.fire("Error","Please fill the First page","error");
@@ -3024,12 +3025,12 @@ function cropImage(class_name='', hash){
         } else {
             var id = getQuestionsListCount('.question_lists');
             var name = class_name == 'quest_icon' ? 'Exam_icon' : class_name == 'pr_img' ? 'Project' : (class_name == 'mc_qst_img' || class_name.startsWith('ansImg_')) ? 'MultipleChoiceQuestion' : class_name == 'wg_img' ? 'WordGame' : 'cert';
-            
+
             var count;
             if (class_name == 'pr_img') {
                 count = parseInt($('.pr_img_list').children('.tmpImg').index())
             } else if(class_name == 'mc_qst_img') {
-                count = parseInt($('.mc_img_list').children('.tmpImg').index()) 
+                count = parseInt($('.mc_img_list').children('.tmpImg').index())
             } else if (class_name == 'wg_img') {
                 count = parseInt($('.wg_img_list').children('.tmpImg').index())
             } else { count = ''}
@@ -3052,7 +3053,7 @@ function cropImage(class_name='', hash){
                                     '<img src="">'+
                                 '</div>'+
                             '</li>';
-                            
+
                         $('.mc_img_list').find('.tmpImg').length == 0 ? $('.mc_img_list').html(html) : $('.mc_img_list').find('.tmpImg').first().replaceWith(html);
                         var existing_real_image = parseInt(parseInt($('.mc_img_list').children('.mcimg').length));
 
@@ -3067,7 +3068,7 @@ function cropImage(class_name='', hash){
                                                         '</div>'+
                                                     '</li>';
                                 $('.mc_img_list').append(placeHolderImg);
-                        }  
+                        }
 
                         // $('.mc_img_list').append(html);
                         $('.mcImgBx').slideDown();
@@ -3100,8 +3101,8 @@ function cropImage(class_name='', hash){
                                                         '</div>'+
                                                     '</li>';
                                 $('.wg_img_list').append(placeHolderImg);
-                        }    
-                        
+                        }
+
                         $('.wgImgBx').slideDown();
                         var quest_img = $('.quest_image').val();
                         quest_img = quest_img+','+id;
@@ -3109,7 +3110,7 @@ function cropImage(class_name='', hash){
                         // if image choose make blank other two
                         $('.quest_video').val('');
                         $('.quest_audio').val('');
-    
+
                         $('#showWgImg').val('');
                         $('.quest_video').val(''); $('.wgvdoTag').html(''); $('.wgVdoBx').slideUp();
                         $('.quest_audio').val(''); $('.wgaudTag').html(''); $('.wgAudBx').slideUp();
@@ -3133,8 +3134,8 @@ function cropImage(class_name='', hash){
                                                         '</div>'+
                                                     '</li>';
                                 $('.pr_img_list').append(placeHolderImg);
-                        }    
-                        
+                        }
+
                         $('.prImgBx').slideDown();
 
                         var quest_img = $('.quest_image').val();
@@ -3143,7 +3144,7 @@ function cropImage(class_name='', hash){
                         // if image choose make blank other two
                         $('.quest_video').val(''); $('.wgVdoBx').slideUp();
                         $('.quest_audio').val(''); $('.wgAudBx').slideUp();
-    
+
                         $('#showPrImg').val('');
                     }else if(class_name.startsWith('ansImg_')){
                         options_media[id.replace('_image_tmp', '')] = 'image';
@@ -3170,7 +3171,7 @@ function cropImage(class_name='', hash){
                 console.log("Error promise");
                 console.log(err);
             })
-        } 
+        }
 
         $('.cropperJsPop').hide();
         cropper.destroy();
@@ -3186,8 +3187,8 @@ function showHistryReward(url){
     showLoader();
     axios.get(url)
     .then(function (rs){ console.log(rs);
-        var reward_type = rs.data.reward_type; 
-        var reward_data = rs.data.reward_data; 
+        var reward_type = rs.data.reward_type;
+        var reward_data = rs.data.reward_data;
 
         var span = document.createElement("span");
         if(reward_type==0){
@@ -3210,7 +3211,7 @@ function showHistryReward(url){
             })
             hideLoader();
         },2000);
-        
+
     })
     .catch(function (err) {
         console.log(err);
@@ -3224,7 +3225,7 @@ function renderCert({lang, sponser, name, creation_date, creation_time, exam_tit
                                         <div class="srtfVew " id="printFrist" style="background: #fff; padding: 15px;">
                                             <div class="crt1" style="border: 1px solid #511285; padding: 15px;">
                                                 <div class="crt2" style="text-align: center; position: relative;">
-                                                
+
                                                     <div class="spnrLgo sponsor_img" style="float: left; width: 100%">
                                                     <img src="` + sponser + `"></div>
                                                     <div class="crLne1 " style="margin: 0 auto 20px; width: 25%; float: right">
@@ -3275,13 +3276,13 @@ function renderCert({lang, sponser, name, creation_date, creation_time, exam_tit
         		                		                		<div class="crLne42"><span class="cert_exam_name" style="font-weight: bold;">`+exam_title+`</span></div>
         		                		                	</div>
         		                		                	<div class="crLne41">
-        		                		                		<div class="crLne42"><span class="cert_xm_date" style="font-weight: bold;">`+creation_date+`</span></div>@ <div class="crLne42"><span class="cert_xm_time" style="font-weight: bold;">`+creation_time+`</span></div> في يوم 
+        		                		                		<div class="crLne42"><span class="cert_xm_date" style="font-weight: bold;">`+creation_date+`</span></div>@ <div class="crLne42"><span class="cert_xm_time" style="font-weight: bold;">`+creation_time+`</span></div> في يوم
         		                		                	</div>
         		                		                	<div class="crLne41">
         		                		                		متمنين لهم دوام النجاح والتميز
         		                		                	</div>
         		                		                </div>
-                                                    
+
         		                		                <div class="crLne60">
         		                		                	<div class="crLne6">
         		                		                		<div class="crLne7"><span class="cert_xm_maker" style="font-weight: bold; color:#707070">`+exam_owner+`</span></div>
@@ -3304,7 +3305,7 @@ function openComment(url){ console.log("clicking");
     axios.get(url)
     .then(function(rs){
          console.log(rs); hideLoader();
-        
+
         //show popup
         $('.pcomment').html(rs.data);
         $('.rmMask').fadeIn();
@@ -3314,17 +3315,17 @@ function openComment(url){ console.log("clicking");
 
 function filterHistory(str){
     var all= $('#set1:checkbox:checked').length; console.log("all",all);
-    //var fail = $('#set2:checkbox:checked').length; 
+    //var fail = $('#set2:checkbox:checked').length;
     var fail = $('#set5:input:checkbox:checked').length; console.log("fail",fail);
-    
+
 	var coupon = $('#set2:checkbox:checked').length; console.log("coupon",coupon);
 	var cert = $('#set3:checkbox:checked').length; console.log("cert",cert);
 	var other = $('#set4:checkbox:checked').length; console.log("other",other);
-    
+
     if(fail==0 || coupon==0 || cert==0 || other==0){
         $('body #set1').prop("checked",false);
     }
-    
+
     if(all!=0){ console.log("here clicking",$('.set2').length);
         	$('.hstBx').each(function(){
         		$(this).show();
@@ -3333,7 +3334,7 @@ function filterHistory(str){
             $('body #set3').prop("checked",true);
             $('body #set4').prop("checked",true);
             $('body #set5').prop("checked",true);
-    
+
         }else if(str=='all' && all==0){
             $('body #set2').prop("checked",false);
             $('body #set3').prop("checked",false);
@@ -3341,7 +3342,7 @@ function filterHistory(str){
             $('body #set5').prop("checked",false);
         }
 
-       
+
 
         if(fail!=0){
             	$('.hstBx').each(function(){
@@ -3539,7 +3540,7 @@ function deletGroup(id, id_for_ui){
     axios.delete(id)
     .then(function(rs){ console.log(rs);
             $('.rmv_'+id_for_ui).slideUp();
-            
+
     })
     .catch(function(err) {
         console.log(err);
@@ -3602,7 +3603,7 @@ function unfollowGroup(obj,gid,dicover=''){
                 $(obj).css("color","#fff");
                 $(obj).css("border","1px solid #F232A4");
                 $(obj).attr("onclick","followGroup(this,"+gid+",2)");
-                
+
             }else{
                 $(obj).attr("onclick","followGroup(this,"+gid+")");
             }
@@ -3619,7 +3620,7 @@ function sendNotificationGroup(url, id){
     }
     if(msg!=''){
         axios.post(url,{id:id,msg:msg,title:title,is_news:is_news})
-        .then( function(rs){ 
+        .then( function(rs){
             console.log("noti",rs);
             $('.notification_title').val('');
             $('.notification').val('');
@@ -3645,8 +3646,8 @@ $(".nmbrOnly").keydown(function(event) {
     else {
         // Ensure that it is a number and stop the keypress
         if (event.keyCode < 48 || event.keyCode > 57 ) {
-            event.preventDefault(); 
-        }   
+            event.preventDefault();
+        }
     }
 });
 

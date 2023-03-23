@@ -8,8 +8,8 @@ function screensize() {
 
     /*
 if(wndow_ht<aboutBox_ht) {
-	$('.myPopPage').css("top","10px");	
-	$('.myPopPage').css("padding","0px 0px 10px 0px");	
+	$('.myPopPage').css("top","10px");
+	$('.myPopPage').css("padding","0px 0px 10px 0px");
 }
 */
 }
@@ -134,7 +134,7 @@ function closeQuestPop(type) {
         $(".quest_image").val("");
         $(".quest_video").val("");
         $(".quest_audio").val("");
-    
+
         if (type == "word_game") {
             $(".word_game_title").val("");
             $(".word_game_answer").val("");
@@ -144,9 +144,9 @@ function closeQuestPop(type) {
             $(".wgAudBx").hide();
             $(".wgvdoTag").html("");
             $(".wgVdoBx").hide();
-    
+
             $(".wgSvBtn").attr("onclick", "saveWordGameQuest()");
-    
+
             $("#popP2").removeClass("open");
             $("#wgmPop").fadeOut();
             $("#mask2").fadeOut();
@@ -156,20 +156,20 @@ function closeQuestPop(type) {
             $(".quest_image").val("");
             $(".quest_audio").val("");
             $(".quest_video").val("");
-    
+
             $(".mc_img_list").html("");
             $(".mcImgBx").hide();
-    
+
             $(".quest_image_option_1").val("");
             $(".quest_image_option_2").val("");
             $(".quest_image_option_3").val("");
             $(".quest_image_option_4").val("");
-    
+
             $(".qst_ans_1").val("");
             $(".qst_ans_2").val("");
             $(".qst_ans_3").val("");
             $(".qst_ans_4").val("");
-    
+
             //question html remove
             $(".mcvdoTag").html("");
             $(".mcVdoBx").hide();
@@ -187,7 +187,7 @@ function closeQuestPop(type) {
                 true
             );
             $(".ansTxt_1").show();
-    
+
             $(".ansImgArea_2").html("");
             $(".ansImgArea_2").hide();
             $(".ansAud_2").html("");
@@ -197,7 +197,7 @@ function closeQuestPop(type) {
                 true
             );
             $(".ansTxt_2").show();
-    
+
             $(".ansImgArea_3").html("");
             $(".ansImgArea_3").hide();
             $(".ansAud_3").html("");
@@ -207,7 +207,7 @@ function closeQuestPop(type) {
                 true
             );
             $(".ansTxt_3").show();
-    
+
             $(".ansImgArea_4").html("");
             $(".ansImgArea_4").hide();
             $(".ansAud_4").html("");
@@ -218,7 +218,7 @@ function closeQuestPop(type) {
             );
             $(".ansTxt_4").show();
             $(".mcq_svBtn").attr("onclick", "saveMultipleChoiceQuest()");
-    
+
             $("#mchPop").fadeOut();
             $("#popP2").removeClass("open");
             $("#mask2").fadeOut();
@@ -259,15 +259,15 @@ function closeQuestPop(type) {
                 $('.target_'+rm+'_imgdata').val('');
                 $('.ddTrgtLi_'+rm).removeClass("added");
             }
-    
+
             //removeDDQsnImg();
             $(".dd_question").val("");
             $(".quest_image").val("");
-    
+
             $(".ddsaveQsn").attr("onclick", "saveDDQuestion()");
         }
     })
-    
+
 }
 
 function closeQuestPopEdit(type) {
@@ -735,9 +735,9 @@ function startTimer(duration, display, total) {
 }
 
 var svgContainer = document.getElementById("bm");
-var animItem = bodymovin.loadAnimation({
-    wrapper: svgContainer,
-    animType: "svg",
-    loop: true,
-    path: "https://assets2.lottiefiles.com/packages/lf20_BNm2Zk.json"
-});
+// var animItem = bodymovin.loadAnimation({
+//     wrapper: svgContainer,
+//     animType: "svg",
+//     loop: true,
+//     path: "https://assets2.lottiefiles.com/packages/lf20_BNm2Zk.json"
+// });
