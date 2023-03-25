@@ -55,7 +55,9 @@ class ProfileController extends Controller
         $user = User::find($id)->load($relations)->loadCount('following');
         $user_avatar = isset($user->avatar) ? url(Storage::url($user->avatar)) : url('images/user.svg');
         $exams = $user->exams;
+        $userGroups = $user->following;
         $groups = $user->groups;
+        $groups = $userGroups->collect();
         $project_submits = $exams[0]->project_submits ?? new Collection;
         $user_submitted_projects = $user->project_submits;
         $solved_exams = $user->solved;

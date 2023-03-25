@@ -37,17 +37,17 @@ class GroupController extends Controller
                 ]
             )->get();
             $following = User::find(Auth::id())->load('following:id');
-            
+
             $following = $following->following->pluck('id')->toArray();
             foreach ($groups as $k => $g) {
                 $groups[$k]['image'] = isset($g['image']) ? Storage::url($g['image']) : url('/images/placeholder.jpeg');
                 in_array($g['id'], $following) ? $g['following'] = true : $g['following'] = false;
-                
+
             }
 
             return response()->json($groups);
         }
-        
+
         $user = User::find(Auth::user()->id);
         $groups = $user->following()->with('owner')->withCount(['followers', 'exams'])->get();
         return view('group.following', ['groups' => $groups]);
@@ -60,7 +60,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        
+
         $user = User::find(Auth::user()->id)->load(
             [
                 'exams' => function ($query) {
@@ -192,7 +192,7 @@ class GroupController extends Controller
             isset($group->image) ? Storage::delete($group->image) : null;
             $group->image = $image_path;
         }
-        
+
         $new_data = [
             'title' => $valid['title'],
             'description' => $valid['description'],
@@ -203,7 +203,7 @@ class GroupController extends Controller
 
         $tags = $group->tags()->pluck('tag')->all();
         $valid['tags'] = explode(' ', $valid['tags']);
-        
+
         $new_tags = array_diff($valid['tags'], $tags);
         if(count($new_tags) > 0) {
             $new_tags_models_array = [];
@@ -300,7 +300,7 @@ class GroupController extends Controller
                 $group->exams()->attach($new);
             }
         } else {
-            return response('unauthorized', 403); 
+            return response('unauthorized', 403);
         }
         return 1;
 
@@ -311,6 +311,11 @@ class GroupController extends Controller
             'group' => 'required|integer',
         ]);
         $group = Group::find($request->input('group'));
+//        if ($group->password){
+//            if ($request->password != $group->password){
+//                return response()->json('error', 401);
+//            }
+//        }
         $group->followers()->attach([Auth::id()]);
     }
 

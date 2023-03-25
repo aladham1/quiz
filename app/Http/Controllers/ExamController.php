@@ -81,7 +81,8 @@ class ExamController extends Controller
      */
     public function create()
     {
-        return view('exam.create-update');
+        $exams = Exam::where('user_id', \auth()->id())->select('id','title')->get();
+        return view('exam.create-update', ['exams' => $exams]);
     }
 
     /**
@@ -190,6 +191,8 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
+        $exams = Exam::where('user_id', \auth()->id())->select('id','title')->get();
+
         $questions = $this->get_available_question_types($exam);
         $questions_tmp = [];
         foreach ($questions as $key => $q) {
@@ -237,7 +240,8 @@ class ExamController extends Controller
                 }
             }
         }
-        $view_data = ['exam' => $exam_copy, 'intro' => $intro_items_copy, 'questions' => $questions_tmp_copy, 'data_copy_with_urls' => ['Exam' => $exam, 'Intro' => $intro_items, 'questions' => $questions_tmp]];
+        $view_data = ['exam' => $exam_copy, 'intro' => $intro_items_copy,
+            'exams' => $exams,'questions' => $questions_tmp_copy, 'data_copy_with_urls' => ['Exam' => $exam, 'Intro' => $intro_items, 'questions' => $questions_tmp]];
 
         return view('exam.create-update', $view_data);
     }
@@ -419,17 +423,16 @@ class ExamController extends Controller
         $questions_sum = 0;
         if (isset($exam)) {
             $user = \auth()->user();
-            // TODO Check exam number
-            $result = $user->solved->where('exam_id', $exam->id)->first();
-            if ($exam->have_preq_exam) {
-                dd($exam->have_preq_exam);
-                if (!$result) {
+            $examSolved = $exam->have_preq_exam - 1000;
+            $result = $user->solved()->wherePivot('exam_id', $examSolved)->first();
+            if ($exam->have_preq_exam && $user->id != $exam->user_id) {
+                if (!$result || $result->analysis->percentage <= $exam->pass_percentage) {
                     abort(404);
                 }
             }
             $questions = $this->get_available_question_types($exam);
 
-            if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && url()->previous() == route('guest.exams.intro', ['exam' => $exam->id]))) {
+            if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id]))) {
                 $questions_tmp = [];
                 foreach ($questions as $key => $q) {
                     //$question_method_name = Str::snake($q);
@@ -477,7 +480,7 @@ class ExamController extends Controller
                     return response()->view('exam.attend', ['questions' => $questions_tmp, 'exam' => $exam])->cookie('guest_ticket', $guest_ticket, $six_months);
                 }
 
-            } elseif ($request->route()->named('exams.intro', ['exam' => $exam->id]) || $request->route()->named('guest.exams.intro', ['exam' => $exam->id])) {
+            } elseif ($request->route()->named('exams.intro', ['exam' => $exam->id]) || $request->route()->named('exams.intro', ['exam' => $exam->id])) {
 
                 $exam->loadCount($questions);
 

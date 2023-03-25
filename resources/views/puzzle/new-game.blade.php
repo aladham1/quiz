@@ -23,13 +23,13 @@
               <input type="text" class="form-control" placeholder="name" name="puzzle_name" id="puzzle_name">
             </div>
             <div class="form-group col-12 text-center">
-              
+
               <div id="canvas-wrapper" class="col-md-12 w-100 overlay-wrapper" style="overflow: auto">
                 <div id="puzzle_canvas" style="width: calc( 100% - 10px ); height:100%; max-width:480px; margin-left:auto; margin-right: auto;"></div>
                 <div class="control-btns-div" style="display: none">
                   <div class="btn-group w-100" role="group">
                     <button class="btn btn-primary bg-indigo py-1" style="border-top-left-radius: 0px !important;" type="button" role="button" onclick="cancelSelection()">Cancel</button>
-                    <button class="btn btn-primary py-1"style="border-top-right-radius: 0px !important;" type="button" role="button" onclick="minimizeChoice()">Confirm</button> 
+                    <button class="btn btn-primary py-1"style="border-top-right-radius: 0px !important;" type="button" role="button" onclick="minimizeChoice()">Confirm</button>
                   </div>
                 </div>
                 <div id="adjustSpinner" class="overlay dark flex-column" style="visibility: hidden; none; font-size: 5rem">
@@ -42,7 +42,7 @@
                 <button class="btn btn-primary m-2 btn-lg" type="button" role="button" onclick="document.getElementById('puzzle').click()"><i class="fas fa-upload"></i> &nbsp; Upload</button>
                 <input id="puzzle" name="puzzle" type="file" accept="image/*" hidden onchange="start_puzzle_creation();addImg(this.files[0]);">
               </div>
-        
+
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
         </div>
         <div class="card-body text-center px-0 py-2" style="overflow: auto">
           <canvas id="drawingCnvs" style="width: 0px; height: 0px;"></canvas>
-         
+
           <div class="col-md-12 mt-4 text-left">
             @php
                 $colors = ['indigo', 'maroon', 'lightblue', 'teal'];
@@ -76,7 +76,7 @@
                           <h4 class="font-weight-bold"> Question {{$i + 1}} @if($i > 0) (optional) @endif</h4>
                             <i class="fas fa-image fa-5x placeholder" style="cursor: pointer" onclick="fullscreenChoice('{{$i}}')" aria-hidden="true"></i>
                             <div class="show-when-piece-selected" style="position: relative; display: none;">
-                              <canvas class="preview" style="width:100%; display: none; border: 4px solid var(--pink); border-radius: 10px;"></canvas>
+                              <canvas class="preview a" style="width:100%; display: none; border: 4px solid var(--pink); border-radius: 10px;"></canvas>
                               <button role="button" type="button" class="btn btn-lg bg-pink show-when-piece-selected" style="position: absolute; bottom: 0; left: 0; display: none;" onclick="fullscreenChoice('{{$i}}')"><i class="fas fa-edit"></i></button>
                               <input type="hidden" class="target_{{$i + 1}}">
                               <input type="hidden" class="target_{{$i + 1}}_imgdata">

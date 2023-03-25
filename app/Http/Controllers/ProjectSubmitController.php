@@ -31,11 +31,11 @@ class ProjectSubmitController extends Controller
     public function create(Request $request, Exam $exam)
     {
         if (
-            (url()->previous() != route('exams.intro', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.intro', ['exam' => $exam->id])) &&
-            (url()->previous() != route('exams.mark', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.mark', ['exam' => $exam->id])) && 
+            (url()->previous() != route('exams.intro', ['exam' => $exam->id]) && url()->previous() != route('exams.intro', ['exam' => $exam->id])) &&
+            (url()->previous() != route('exams.mark', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.mark', ['exam' => $exam->id])) &&
             url()->previous() != route('profile')
            ) {
-            return Auth::check() ? redirect(route('exams.intro', ['exam' => $exam->id])) : redirect(route('guest.exams.intro', ['exam' => $exam->id]));
+            return Auth::check() ? redirect(route('exams.intro', ['exam' => $exam->id])) : redirect(route('exams.intro', ['exam' => $exam->id]));
         }
         if ( Auth::check() ) {
             return view('project.submit', ['project' => $exam->Project()->first(), 'exam' => $exam]);
@@ -46,7 +46,7 @@ class ProjectSubmitController extends Controller
             if ( $request->cookie('guest_ticket', false) ) {
                 $guest_ticket = $request->cookie('guest_ticket');
             }
-        
+
             return response()->view('guest.project.submit', ['project' => $exam->Project()->first(), 'exam' => $exam])->cookie('guest_ticket', $guest_ticket, $six_months);
         }
     }
@@ -68,8 +68,8 @@ class ProjectSubmitController extends Controller
             $path = $request->file($key)->storePubliclyAs('Project Submits', Str::random(12) . '.' . $ext);
             $data[$key] = $path;
         }
-        $user_id = Auth::user()->id ?? 
-                   User::where('email', $request->cookie('guest_ticket'))->first()->id ?? 
+        $user_id = Auth::user()->id ??
+                   User::where('email', $request->cookie('guest_ticket'))->first()->id ??
                    User::create(['name' => 'guest_tickettemp_user', 'email' => $request->cookie('guest_ticket'), 'password' => Hash::make(Str::random())])->id;
         $data['student_id'] = $user_id;
         $count = $exam->project_submits()->where('student_id', $user_id)->count();
@@ -77,7 +77,7 @@ class ProjectSubmitController extends Controller
         $data['pending'] = true;
         $data['attempt'] = $count;
         $exam->project_submits()->create($data);
-        
+
         return response(1);
 
     }

@@ -56,11 +56,15 @@ class User extends \TCG\Voyager\Models\User
     }
 
     public function solved() {
-        return $this->belongsToMany(Exam::class, 'exam_user', 'student_id', 'exam_id')->as('analysis')->withPivot('percentage', 'questions', 'attempt', 'cert_serial')->withTimestamps();
+        return $this->belongsToMany(Exam::class, 'exam_user', 'student_id',
+            'exam_id')->as('analysis')->withPivot('percentage', 'questions', 'attempt',
+            'cert_serial')->withTimestamps();
     }
 
     public function solved_percentage() {
-        return $this->belongsToMany(Exam::class, 'exam_user', 'student_id', 'exam_id')->as('analysis')->withPivot('percentage', 'attempt')->withTimestamps();
+        return $this->belongsToMany(Exam::class, 'exam_user', 'student_id',
+            'exam_id')->as('analysis')->withPivot('percentage', 'attempt')
+            ->withTimestamps();
     }
 
     public function following()

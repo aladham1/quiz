@@ -308,7 +308,8 @@ function openIntroPop(type, index = "") {
         $("#mask").fadeIn();
     } else if (type == "audio") {
         $("#audPop").fadeIn();
-        $(".audio_svbtn").attr("onclick", "saveDataPopIntro('audio')");
+        var record = $(".audio_svbtn").data('record');
+        $(".audio_svbtn").attr("onclick", "saveDataPopIntro('audio','',true, "+record+")");
         popp1close();
         $("#mask").fadeIn();
     } else if (type == "table") {
@@ -632,16 +633,14 @@ $("#mask2").click(function() {
     allpclose();
 });
 $(".pcancel").click(function() {
-    console.log("clicking cancel", rec);
-
-    if (typeof timer != "undefined") {
-        clearInterval(timer);
-        rec.stop();
-        gumStream.getAudioTracks()[0].stop();
-        rec.clear();
-        $(".aud_timer").text("00 : 00");
-        $(".audIcnBtn").attr("onclick", "startRecording()");
-    }
+    //     if (typeof timer != "undefined") {
+    //     clearInterval(timer);
+    //     // rec.stop();
+    //     gumStream.getAudioTracks()[0].stop();
+    //     // rec.clear();
+    //     $(".aud_timer").text("00 : 00");
+    //     $(".audIcnBtn").attr("onclick", "startRecording()");
+    // }
     allpclose();
 });
 

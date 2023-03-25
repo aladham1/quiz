@@ -46,7 +46,7 @@ function changeList(list, selector){
         }
     });
     selector == '.gqList.all_exams .xm_list' ? $('#grpStPop').fadeOut() : false;
-    
+
 }
 
 function addExamToGroup(){
@@ -85,7 +85,7 @@ function publishExamToGroup(xmid){
         $( "#togroup" ).addClass( "open" );
         localStorage.setItem("publishXmId",xmid);
     //   });
-      
+
 }
 
 function removeExamFromGroup(gid,id){
@@ -119,7 +119,7 @@ function showGroupDetails(gurl){
             $('.create_date').text(group.created_at);
             $('.total_quest').text(group.exams_count);
             $('.total_follower').text(group.followers_count)
-            
+
             var grp_img = base_url+"/images/placeholder.jpeg";
             if(group.image!='' && group.image!=null){
                 grp_img = group.image;
@@ -133,13 +133,13 @@ function showGroupDetails(gurl){
                 $('.gpsswrdArea').show();
             }
 
-            toGrplose()
+            toGrplose();
             $( "#mask" ).fadeIn();
             $( "#togdtl" ).addClass( "open" );
         //   });
 
         localStorage.setItem("publishGroup",group.id);
-         
+
     })
 }
 
@@ -148,12 +148,12 @@ function unfollowGroupThis(gid,myid,obj){
     if(conf==true){
         axios.post(unfollow_cmd_link, {group:gid})
         .then(function(rs){
-           
+
                 $(obj).attr("style","background:#F232A4; color: #fff; border: 1px solid #F232A4");
                 $(obj).removeAttr("onclick");
                 $(obj).attr("onclick","followGroupThis("+gid+","+myid+",this)");
                 $(obj).text("FOLLOW");
-            
+
                 Swal.fire({
                     toast: true,
                     position: 'top-right',
@@ -240,7 +240,7 @@ function UpdateGroup(){
 }
 
 function saveGroup(){
-    
+
     var grp_img = $('.group_image').val();
     //var grp_img = $('.group_img').prop("files")[0];
     var title = $('.group_title').val();
@@ -306,11 +306,11 @@ function searchGroupDiscover(val){
                 }
                 html += '<li class="rmvGrp_">'+
                             '<div class="flowBx1">'+
-                                
+
                                 '<div class="qsRow1 q4c">'+
                                     '<div class="flowBx5">'+
                                     '<a href="'+group_details_link.replace('#group#', obj[i].id)+'"> <span style="right:130px" class="clqBx"></span> </a>'+
-                                    
+
                                         '<img src="'+obj[i].image+'" style="width:100%">'+
                                     '</div>'+
                                     '<div class="flowBx2">'+
@@ -320,33 +320,32 @@ function searchGroupDiscover(val){
                                         '<div class="flowBx3">'+
                                             obj[i].title+
                                         '</div>'+
-                                        
-                                    
+
+
 
                                     '<div class="s7btm">'+
                                     '<aside class="flowBx4">'+
                                         '<b>'+obj[i].exams_count+'</b> Quest <br/>'+
                                         '<b>'+obj[i].followers_count+'</b> Followers'+
                                     '</aside>'+
-                                    
+
                                     '<aside class="setRnew q4e">'+
-                                    
+
                                         follow_html+
                                         '<span class="btnIc q4Dot"><img src="'+base_url+'/images/dot_pink.svg">'+
-                                            
+
                                         '</span>'+
                                     '</aside>'+
                                     '</div>'+
-                                
+
                                 '</div>'+
 
 
                                 '</div>'+
-                                
+
                             '</div>'+
                         '</li>';
             }
-            console.log(html);
             $('.quest_list').html(html);
             $('.msksbr').hide();
 
@@ -365,7 +364,7 @@ function searchGroupDiscover(val){
 function revertHtml(){
     $('.quest_list').html('');
     $('.qsLst').hide();
-    
+
     $('.rcmPLst').show();
     $('.flwngList').show();
 }
@@ -402,8 +401,8 @@ function readURL(input) {
                 $('#canvasArea').attr("height",tmpImg.height);
                 $('#canvasArea').attr("width",tmpImg.width);
             });
-            
-            
+
+
             OpenCroperPop('1',e.target.result);
         };
 
@@ -453,7 +452,7 @@ function showTab(obj,clas){
 
 $('.hloader').on('inview', function(event, isInView) {
 if (isInView) {
-   
+
     var nextPage = parseInt($('#h_pageno').val())+1;
     var gid = '<?=$id?>';
         $.ajax({
@@ -464,10 +463,10 @@ if (isInView) {
                 gid:gid
             },
             success: function(data){ console.log("data received",data);
-                if(data != ''){							 
+                if(data != ''){
                     $('.follwer_list').append(data);
                     $('#h_pageno').val(nextPage);
-                } else {								 
+                } else {
                     $('.hloader').hide();
                 }
             }

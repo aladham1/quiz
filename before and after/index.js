@@ -20,11 +20,11 @@ function getDuration(src, cb) {
 }
 
 function saveDataPopIntro(type,index=''){
-   
+
     if(type=='title'){
         var title =$('.intro_title').val(); console.log(title);
         localStorage.setItem("intro_title",title);
-        
+
         //popp1close();
         var d_exam_id = localStorage.getItem("draft_exam_id"); console.log("xm id="+d_exam_id);
         if(d_exam_id ==null){
@@ -66,12 +66,12 @@ function saveDataPopIntro(type,index=''){
                 })
             }
         }
-        
-        
+
+
     }else if(type=='video'){
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
         urls = getId(url);
 
         var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
@@ -109,7 +109,7 @@ function saveDataPopIntro(type,index=''){
                                     '</div>'+
                                 '</div>'+
                             '</div>';
-                
+
                             $('.quest_subject').append(html);
 
                             $('.intro_video').val('');
@@ -176,7 +176,7 @@ function saveDataPopIntro(type,index=''){
                                             hideLoader();
                                             $('.quest_subject').append(html);
                                         },1000);
-                                        
+
                                         $('#mask').click();
                                         localStorage.removeItem("intro_draft_audio_name");
                     }
@@ -207,7 +207,7 @@ function saveDataPopIntro(type,index=''){
 
                     var html = ' <li data-post-id="'+rs+'">'+
                     '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
-                    
+
                                     '<div class="drgHdr">'+
                                         '<div class="drgAction">'+
                                             '<span class="drgDel" onclick="deleteIntro('+rs+')">DELETE</span>'+
@@ -346,7 +346,7 @@ function saveDataPopIntro(type,index=''){
                                 '<div class="drgHdr">'+
                                     '<div class="drgAction">'+
                                         '<span class="drgDel" onclick="deleteIntro('+rs+')">DELETE</span>'+
-                                        
+
                                     '</div>'+
                                     '<div class="drgT1">'+
                                         '<img src="images/attach_white.svg"/>'+
@@ -373,14 +373,14 @@ function saveDataPopIntro(type,index=''){
 
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
         if(url==''){
             $('.canBtn').click();
             //swal("Error","Please fill the input area","error");
         }else{
             urls = getId(url);
 
-        
+
                 $('.quest_video').val(url);
 
                 $('.wgvdoTag').html('<iframe src="https://www.youtube.com/embed/'+urls+'?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>');
@@ -402,7 +402,7 @@ function saveDataPopIntro(type,index=''){
             $('.canBtn').click();
            // swal("Error","Please fill the input area","error");
         }else{
-            
+
                 $('.quest_audio').val(audio_name);
                 var html ='<audio controls>'+
                             '<source src="'+base_url+'api/uploads/'+audio_name+'.wav" type="audio/wav">'+
@@ -410,7 +410,7 @@ function saveDataPopIntro(type,index=''){
                 setTimeout(function(){
                     $('.wgaudTag').html(html);
                 },1000);
-        
+
                 $('.wgAudBx').slideDown();
                 $('#mask2').click();
                 $('#recordingsList').html('');
@@ -425,7 +425,7 @@ function saveDataPopIntro(type,index=''){
 
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
 
         if(url==''){
             $('.canBtn').click();
@@ -442,7 +442,7 @@ function saveDataPopIntro(type,index=''){
                 // if video choose make blank other two
                 $('.quest_audio').val(''); $('.mcaudTag').html(''); $('.mcAudBx').slideUp();
                 $('.quest_image').val(''); $('.mc_img_list').html(''); $('.mcImgBx').slideUp();
-                
+
                 $('.intro_video').val('');
                 $('#mask2').click();
 
@@ -450,7 +450,7 @@ function saveDataPopIntro(type,index=''){
     }else if(type=='quest_mc_audio'){
 
         var audio_name = localStorage.getItem("intro_draft_audio_name"); console.log("qst mc audio blank",audio_name);
-        if(audio_name==null){ 
+        if(audio_name==null){
             $('.canBtn').click();
             //swal("Error","Please fill the input area","error");
         }else{ showLoader();
@@ -462,7 +462,7 @@ function saveDataPopIntro(type,index=''){
                             hideLoader();
                             $('.mcaudTag').html(html);
                         },1000);
-                
+
                 $('.mcAudBx').slideDown();
                 $('#mask2').click();
                 $('#recordingsList').html('');
@@ -489,7 +489,7 @@ function saveDataPopIntro(type,index=''){
                         hideLoader();
                         $('.ansAud_'+index).html(html);
                     },1000);
-            
+
             $('.ansAud_'+index).fadeIn();
             $('#mask2').click();
             $('#recordingsList').html('');
@@ -533,7 +533,7 @@ function saveDataPopIntro(type,index=''){
                     hideLoader();
                     $('.praudTag').html(html);
                 },1000);
-            
+
             $('.prAudBx').slideDown();
             $('#mask2').click();
             $('#recordingsList').html('');
@@ -575,7 +575,7 @@ function saveDataPopIntro(type,index=''){
                 hideLoader();
                 $('.project_data').html(html);
             },1000);
-            
+
             $('.project_data').css("width","100%");
             $('.project_data').css("height","54px");
             $('.project_data').css("text-align","center");
@@ -585,7 +585,7 @@ function saveDataPopIntro(type,index=''){
     }else if(type=='order'){
         var url = $('.order_url').val();
         var d_exam_id = localStorage.getItem("draft_exam_id");
-        
+
         if(url!=''){
             $.post("saveExamIntroDraft",{type:type,value:url,draft_exam_id:d_exam_id},function(rs){ hideLoader();
                 if(rs!=0){
@@ -625,11 +625,11 @@ function saveDataPopIntro(type,index=''){
 }
 
 function saveDataPopIntroEdit(type,index=''){
-   
+
     if(type=='title'){
         var title =$('.intro_title').val(); console.log(title);
         localStorage.setItem("intro_title",title);
-        
+
         //popp1close();
         var d_exam_id = localStorage.getItem("draft_exam_id"); console.log("xm id="+d_exam_id);
         if(d_exam_id ==null){
@@ -671,12 +671,12 @@ function saveDataPopIntroEdit(type,index=''){
                 })
             }
         }
-        
-        
+
+
     }else if(type=='video'){
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
         urls = getId(url);
 
         var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
@@ -714,7 +714,7 @@ function saveDataPopIntroEdit(type,index=''){
                                     '</div>'+
                                 '</div>'+
                             '</div>';
-                
+
                             $('.quest_subject').append(html);
 
                             $('.intro_video').val('');
@@ -751,7 +751,7 @@ function saveDataPopIntroEdit(type,index=''){
                         rs = obj.id;
                         $('#recordingsList').html('');
                             //form_data = undefined;
-                            
+
                             var html = ' <li data-post-id="'+rs+'">'+
                             '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
                                             '<div class="drgHdr">'+
@@ -781,7 +781,7 @@ function saveDataPopIntroEdit(type,index=''){
                                             hideLoader();
                                             $('.quest_subject').append(html);
                                         },1000);
-                                        
+
                                         $('#mask').click();
                                         localStorage.removeItem("intro_draft_audio_name");
                     }
@@ -812,7 +812,7 @@ function saveDataPopIntroEdit(type,index=''){
 
                     var html = ' <li data-post-id="'+rs+'">'+
                     '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
-                    
+
                                     '<div class="drgHdr">'+
                                         '<div class="drgAction">'+
                                             '<span class="drgDel" onclick="deleteIntroEdit('+rs+')">DELETE</span>'+
@@ -950,7 +950,7 @@ function saveDataPopIntroEdit(type,index=''){
                                 '<div class="drgHdr">'+
                                     '<div class="drgAction">'+
                                         '<span class="drgDel" onclick="deleteIntro('+rs+')">DELETE</span>'+
-                                        
+
                                     '</div>'+
                                     '<div class="drgT1">'+
                                         '<img src="'+base_url+'images/attach_white.svg"/>'+
@@ -980,19 +980,19 @@ function saveDataPopIntroEdit(type,index=''){
         form_data.append("file",file);
         form_data.append("type",type);
         form_data.append("draft_exam_id",d_exam_id);
-        
+
     }else if(type=='quest_wg_video'){
 
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
         if(url==''){
             $('.canBtn').click();
             //swal("Error","Please fill the input area","error");
         }else{
             urls = getId(url);
 
-        
+
                 $('.quest_video').val(url);
 
                 $('.wgvdoTag').html('<iframe src="https://www.youtube.com/embed/'+urls+'?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>');
@@ -1019,7 +1019,7 @@ function saveDataPopIntroEdit(type,index=''){
                 var html ='<audio controls>'+
                             '<source src="'+base_url+'api/uploads/'+audio_name+'.wav" type="audio/wav">'+
                         '</audio>';
-                setTimeout(function(){ 
+                setTimeout(function(){
                     $('.wgaudTag').html(html);
                     hideLoader();
                 }, 1000);
@@ -1038,7 +1038,7 @@ function saveDataPopIntroEdit(type,index=''){
 
         var url = $('.intro_video').val();
         localStorage.setItem("intro_video",url);
-        
+
 
         if(url==''){
             $('.canBtn').click();
@@ -1055,15 +1055,15 @@ function saveDataPopIntroEdit(type,index=''){
                 // if video choose make blank other two
                 $('.quest_audio').val(''); $('.mcaudTag').html(''); $('.mcAudBx').slideUp();
                 $('.quest_image').val(''); $('.mc_img_list').html(''); $('.mcImgBx').slideUp();
-                
+
                 $('.intro_video').val('');
                 $('#mask2').click();
 
         }
     }else if(type=='quest_mc_audio'){
-        
+
         var audio_name = localStorage.getItem("intro_draft_audio_name"); console.log("qst mc audio blank",audio_name);
-        if(audio_name==null){ 
+        if(audio_name==null){
             $('.canBtn').click();
             //swal("Error","Please fill the input area","error");
         }else{showLoader();
@@ -1072,11 +1072,11 @@ function saveDataPopIntroEdit(type,index=''){
                             '<source src="'+base_url+'api/uploads/'+audio_name+'.wav" type="audio/wav">'+
                         '</audio>';
 
-                setTimeout(function(){ 
+                setTimeout(function(){
                     $('.mcaudTag').html(html);
                     hideLoader();
                  }, 1000);
-                
+
                 $('.mcAudBx').slideDown();
                 $('#mask2').click();
                 $('#recordingsList').html('');
@@ -1100,11 +1100,11 @@ function saveDataPopIntroEdit(type,index=''){
             var html ='<audio controls>'+
                         '<source src="'+base_url+'api/uploads/'+audio_name+'.wav" type="audio/wav">'+
                     '</audio>';
-            setTimeout(function(){ 
+            setTimeout(function(){
                 $('.ansAud_'+index).html(html);
                 hideLoader();
             }, 1000);
-                
+
             // $('.ansAud_'+index).html(html);
             $('.ansAud_'+index).fadeIn();
             $('#mask2').click();
@@ -1135,7 +1135,7 @@ function saveDataPopIntroEdit(type,index=''){
         }
 
     }else if(type=='quest_pr_audio'){
-        
+
         var audio_name = localStorage.getItem("intro_draft_audio_name");
         if(audio_name==null){
             $('.canBtn').click();
@@ -1145,8 +1145,8 @@ function saveDataPopIntroEdit(type,index=''){
             var html ='<audio controls>'+
                         '<source src="'+base_url+'api/uploads/'+audio_name+'.wav" type="audio/wav">'+
                     '</audio>';
-            
-            setTimeout(function(){ 
+
+            setTimeout(function(){
                 $('.praudTag').html(html);
                 hideLoader();
                 }, 1000);
@@ -1164,7 +1164,7 @@ function saveDataPopIntroEdit(type,index=''){
         }
     }else if(type=='order'){
         var url = $('.order_url').val();
-        var d_exam_id = localStorage.getItem("draft_exam_id"); 
+        var d_exam_id = localStorage.getItem("draft_exam_id");
         $.post(base_url+"saveExamIntroDraftEdit",{type:type,value:url,draft_exam_id:d_exam_id},function(rs){  hideLoader();
             if(rs!=0){
                 var obj = $.parseJSON(rs);
@@ -1209,7 +1209,7 @@ function fetchAlldata(){
         }else{
             $('.revImg').html('<img src="images/placeholder.jpeg">');
         }
-        
+
         var preq_txt ='';
         if(obj.exam_data.preq_type==0){
             preq_txt = 'No prerequisite';
@@ -1290,7 +1290,7 @@ function fetchAlldata(){
                     var showTime='00:00';
                     if(length>60){
                         var minute = (length-60);
-                        
+
                         showTime = '01'+':'+minute;
                     }else{
                         if(parseInt(length).toString().length==1){
@@ -1308,12 +1308,12 @@ function fetchAlldata(){
                                 '</aside>'+
                             '</li>';
                             $('.xm_subjects').append(intro_htmls);
-                   
+
                 });
-                
+
             }
 
-            
+
         }
 
         $('.xm_subjects').html(intro_html);
@@ -1372,7 +1372,7 @@ function fetchAlldataEdit(){
         }else{
             $('.revImg').html('<img src="'+base_url+'images/placeholder.jpeg">');
         }
-        
+
         var preq_txt ='';
         if(obj.exam_data.preq_type==0){
             preq_txt = 'No prerequisite';
@@ -1455,7 +1455,7 @@ function fetchAlldataEdit(){
                     var showTime='00:00';
                     if(length>60){
                         var minute = (length-60);
-                        
+
                         showTime = '01'+':'+minute;
                     }else{
                         if(parseInt(length).toString().length==1){
@@ -1473,12 +1473,12 @@ function fetchAlldataEdit(){
                                 '</aside>'+
                             '</li>';
                             $('.xm_subjects').append(intro_htmls);
-                   
+
                 });
-                
+
             }
 
-            
+
         }
 
         $('.xm_subjects').html(intro_html);
@@ -1491,7 +1491,7 @@ function fetchAlldataEdit(){
         }else{
             $('.xm_toatl_project').text(obj.project);
         }
-        
+
 
         var rev_text = '';
         if(obj.exam_data.type==0){
@@ -1746,10 +1746,10 @@ function saveProjectEdit(){
 function editProject(id){
     var count = id;
     var jsonId = 'project_' + count;
-    
+
     Promise.join(questions.getItem(jsonId), questions.getItem(jsonId+'_files'), function (obj, files) {
         $('.project_title').val(obj.title);
-        
+
         if(files.project_image!='' && files.project_image!=null){
             $('.quest_image').val(files.project_image);
 
@@ -1836,13 +1836,13 @@ function saveMultipleChoiceQuest(){
     if( exam_id ==null){
         swal("Error","Please fill the First page","error");
     }else{
-            
+
         var question = $('.multiple_question').val();
         var image = $('.quest_image').val();
         var audio = $('.quest_audio').val();
         var video = $('.quest_video').val();
 
-        //option data  
+        //option data
         var option1_type = $("input[type='radio'][name='sml_rdio']:checked").val();
         var option2_type = $("input[type='radio'][name='sml_rdio2']:checked").val();
         var option3_type = $("input[type='radio'][name='sml_rdio3']:checked").val();
@@ -1855,7 +1855,7 @@ function saveMultipleChoiceQuest(){
         if(option1_type=='text'){
             option1 = $('.qst_ans_1').val();
         }else if(option1_type=='image'){
-            
+
             if($('.quest_image_option_1').val()=='' && $('.qst_ans_1').val()!=''){
                 option1 = $('.qst_ans_1').val();
                 option1_type = 'text';
@@ -1953,7 +1953,7 @@ function saveMultipleChoiceQuest(){
                     $('.qst_ans_1').val('');
                     $('.qst_ans_2').val('');
                     $('.qst_ans_3').val('');
-                    $('.qst_ans_4').val(''); 
+                    $('.qst_ans_4').val('');
 
                     //question html remove
                     $('.mcvdoTag').html(''); $('.mcVdoBx').hide();
@@ -1991,13 +1991,13 @@ function saveMultipleChoiceQuestEdit(){
     if( exam_id ==null){
         swal("Error","Please fill the First page","error");
     }else{
-            
+
         var question = $('.multiple_question').val();
         var image = $('.quest_image').val();
         var audio = $('.quest_audio').val();
         var video = $('.quest_video').val();
 
-        //option data  
+        //option data
         var option1_type = $("input[type='radio'][name='sml_rdio']:checked").val();
         var option2_type = $("input[type='radio'][name='sml_rdio2']:checked").val();
         var option3_type = $("input[type='radio'][name='sml_rdio3']:checked").val();
@@ -2094,7 +2094,7 @@ function saveMultipleChoiceQuestEdit(){
                     $('.qst_ans_1').val('');
                     $('.qst_ans_2').val('');
                     $('.qst_ans_3').val('');
-                    $('.qst_ans_4').val(''); 
+                    $('.qst_ans_4').val('');
 
                     //question html remove
                     $('.mcvdoTag').html(''); $('.mcVdoBx').hide();
@@ -2134,7 +2134,7 @@ function updateMultipleChoiceQuest(id){
     var audio = $('.quest_audio').val();
     var video = $('.quest_video').val();
 
-    //option data  
+    //option data
     var option1_type = $("input[type='radio'][name='sml_rdio']:checked").val();
     var option2_type = $("input[type='radio'][name='sml_rdio2']:checked").val();
     var option3_type = $("input[type='radio'][name='sml_rdio3']:checked").val();
@@ -2186,7 +2186,7 @@ function updateMultipleChoiceQuest(id){
                     $(this).find(".mcqTxt").text(question);
                 }
             })
-           
+
                 closeQuestPop('multiple_choice');
                 popp1close();
             //reset all popup value
@@ -2205,7 +2205,7 @@ function updateMultipleChoiceQuest(id){
             $('.qst_ans_1').val('');
             $('.qst_ans_2').val('');
             $('.qst_ans_3').val('');
-            $('.qst_ans_4').val(''); 
+            $('.qst_ans_4').val('');
 
             //question html remove
             $('.mcvdoTag').html(''); $('.mcVdoBx').hide();
@@ -2240,7 +2240,7 @@ function updateMultipleChoiceQuestEdit(id){
     var audio = $('.quest_audio').val();
     var video = $('.quest_video').val();
 
-    //option data  
+    //option data
     var option1_type = $("input[type='radio'][name='sml_rdio']:checked").val();
     var option2_type = $("input[type='radio'][name='sml_rdio2']:checked").val();
     var option3_type = $("input[type='radio'][name='sml_rdio3']:checked").val();
@@ -2293,7 +2293,7 @@ function updateMultipleChoiceQuestEdit(id){
         option4_audio = $('.quest_voice_option_4').val();
     }
 
-    var answer = $('input[type="radio"][name="mch_check"]:checked').val(); 
+    var answer = $('input[type="radio"][name="mch_check"]:checked').val();
     console.log("answer=",answer);
     $.post(base_url+"updateMultipleChoiceQuestionEdit",{id:id,exam_id:exam_id,question:question,question_image:image,audio:audio,link:video,option1:option1,option2:option2,option3:option3,option4:option4,option1_image:option1_image,option2_image:option2_image,option3_image:option3_image,option4_image:option4_image,option1_audio:option1_audio,option2_audio:option2_audio,option3_audio:option3_audio,option4_audio:option4_audio,answer:answer},function(rs){
         if(rs!=0){
@@ -2303,7 +2303,7 @@ function updateMultipleChoiceQuestEdit(id){
                     $(this).find(".mcqTxt").text(question);
                 }
             })
-           
+
                 closeQuestPop('multiple_choice');
                 popp1close();
             //reset all popup value
@@ -2322,7 +2322,7 @@ function updateMultipleChoiceQuestEdit(id){
             $('.qst_ans_1').val('');
             $('.qst_ans_2').val('');
             $('.qst_ans_3').val('');
-            $('.qst_ans_4').val(''); 
+            $('.qst_ans_4').val('');
 
             //question html remove
             $('.mcvdoTag').html(''); $('.mcVdoBx').hide();
@@ -2356,7 +2356,7 @@ function saveWordGameQuest(){
     var question = $('.word_game_title').val();
     //check arabic text and reverese
     var arabic = /[\u0600-\u06FF]/;
-    var answer = $('.word_game_answer').val(); 
+    var answer = $('.word_game_answer').val();
     if(arabic.test(answer)){
         answer = answer.split("").reverse().join("");
     }
@@ -2367,7 +2367,7 @@ function saveWordGameQuest(){
     }else if(question=='' || answer==''){
         swal("Error","Please fill all the fields","error");
     }else{
-        
+
             $.post("saveQuestDraft",{image:image,audio:audio,video:video,question:question,answer:answer,type:type,exam_id:exam_id},function(rs){
                 console.log(rs);
                 if(rs!=0){
@@ -2394,7 +2394,7 @@ function saveWordGameQuest(){
                     //            '</div>'+
                     //        '</div>';
                     //$('.question_lists').append(html);
-                
+
                     //reset all data
                     $('.quest_image').val('');
                     $('.quest_video').val('');
@@ -2404,14 +2404,14 @@ function saveWordGameQuest(){
                     $('.wg_img_list').html(''); $('.wgImgBx').hide();
                     $('.wgaudTag').html(''); $('.wgAudBx').hide();
                     $('.wgvdoTag').html(''); $('.wgVdoBx').hide();
-                
+
                     $('.mask').click();
                     closeQuestPop('word_game');
                 }else{
                     swal("Error","Something went wrong!","error");
                 }
             })
-        
+
     }
 }
 
@@ -2425,7 +2425,7 @@ function saveWordGameQuestEdit(){
     var answer = $('.word_game_answer').val();
     if(arabic.test(answer)){
         answer = answer.split("").reverse().join("");
-    } 
+    }
     var exam_id = localStorage.getItem("draft_exam_id");
     var type='word_game';
     if( exam_id ==null){
@@ -2525,7 +2525,7 @@ function updateWordGameQuestEdit(id){
    var arabic = /[\u0600-\u06FF]/;
     if(arabic.test(answer)){
         answer = answer.split("").reverse().join("");
-    } 
+    }
     $.post(base_url+"updateWordGameQuestEdit",{id:id,image:image,audio:audio,video:video,answer:answer,question:question},function(rs){ console.log(rs);
         if(rs==1){
             $('.quest_list_item').each(function(rs){
@@ -2631,7 +2631,7 @@ function saveDDQuestion(){
     var target_ans_img2 = $('.ddTgAnsImg_2').prop("files")[0];
     var target_ans_img3 = $('.ddTgAnsImg_3').prop("files")[0];
     var target_ans_img4 = $('.ddTgAnsImg_4').prop("files")[0];
-    
+
 
     var exam_id = localStorage.getItem("draft_exam_id");
 
@@ -2695,7 +2695,7 @@ function saveDDQuestion(){
                 //                                    '<div class="drgT3 ddTxt center">'+question+'</div>'+
                 //                                '</div>'+
                 //                            '</div>');
-                
+
                 //reset the dd form
                 for(var rm=1;rm<=4;rm++){
                     $('.ddTgAnsTxt_'+rm).val('');
@@ -2709,11 +2709,11 @@ function saveDDQuestion(){
                     $('.target_'+rm+'_imgdata').val('');
                     $('.ddTrgtLi_'+rm).removeClass("added");
                 }
-                
+
                 removeDDQsnImg();
                 $('.dd_question').val('');
                 $('.quest_image').val('');
-                
+
                 closeQuestPop('dd');
                 $('.mask').click();
             }else{
@@ -2748,7 +2748,7 @@ function updateDDQuestion(id){
     var target_ans_img2 = $('.ddTgAnsImg_2').prop("files")[0];
     var target_ans_img3 = $('.ddTgAnsImg_3').prop("files")[0];
     var target_ans_img4 = $('.ddTgAnsImg_4').prop("files")[0];
-    
+
 
     var qsn_id = id;
 
@@ -2810,11 +2810,11 @@ function updateDDQuestion(id){
                     $('.target_'+rm+'_imgdata').val('');
                     $('.ddTrgtLi_'+rm).removeClass("added");
                 }
-                
+
                 removeDDQsnImg();
                 $('.dd_question').val('');
                 $('.quest_image').val('');
-                
+
                 $('.ddsaveQsn').attr("onclick","saveDDQuestion()");
                 closeQuestPop('dd');
                 $('.mask').click();
@@ -2850,7 +2850,7 @@ function saveDDQuestionEdit(){
     var target_ans_img2 = $('.ddTgAnsImg_2').prop("files")[0];
     var target_ans_img3 = $('.ddTgAnsImg_3').prop("files")[0];
     var target_ans_img4 = $('.ddTgAnsImg_4').prop("files")[0];
-    
+
 
     var exam_id = localStorage.getItem("draft_exam_id");
 
@@ -2914,7 +2914,7 @@ function saveDDQuestionEdit(){
                 //                                    '<div class="drgT3 ddTxt center">'+question+'</div>'+
                 //                                '</div>'+
                 //                            '</div>');
-                
+
                 //reset the dd form
                 for(var rm=1;rm<=4;rm++){
                     $('.ddTgAnsTxt_'+rm).val('');
@@ -2928,11 +2928,11 @@ function saveDDQuestionEdit(){
                     $('.target_'+rm+'_imgdata').val('');
                     $('.ddTrgtLi_'+rm).removeClass("added");
                 }
-                
+
                 removeDDQsnImgEdit();
                 $('.dd_question').val('');
                 $('.quest_image').val('');
-                
+
                 closeQuestPopEdit('dd');
                 $('.mask').click();
             }else{
@@ -2967,7 +2967,7 @@ function updateDDQuestionEdit(id){
     var target_ans_img2 = $('.ddTgAnsImg_2').prop("files")[0];
     var target_ans_img3 = $('.ddTgAnsImg_3').prop("files")[0];
     var target_ans_img4 = $('.ddTgAnsImg_4').prop("files")[0];
-    
+
 
     var qsn_id = id;
 
@@ -3029,11 +3029,11 @@ function updateDDQuestionEdit(id){
                     $('.target_'+rm+'_imgdata').val('');
                     $('.ddTrgtLi_'+rm).removeClass("added");
                 }
-                
+
                 removeDDQsnImgEdit();
                 $('.dd_question').val('');
                 $('.quest_image').val('');
-                
+
                 $('.ddsaveQsn').attr("onclick","saveDDQuestionEdit()");
                 closeQuestPop('dd');
                 $('.mask').click();
@@ -3077,7 +3077,7 @@ function editQuestion(id,type){
                                              '</div>'+
                                          '</li>';
                      $('.wg_img_list').append(placeHolderImg);
-                }    
+                }
 
                 $('.wgImgBx').show();
             }else if(obj.audio!='' && obj.audio!=null){
@@ -3112,7 +3112,7 @@ function editQuestion(id,type){
         $.post("getDraftQuestions",{id:id,type:type},function(rs){ console.log(rs);
             var obj = $.parseJSON(rs);
             $('.multiple_question').val(obj.question);
-            
+
             if(obj.question_image!='' && obj.question_image!=null){
                 $('.quest_image').val(obj.question_image);
 
@@ -3140,7 +3140,7 @@ function editQuestion(id,type){
                                             '</div>'+
                                         '</li>';
                     $('.mc_img_list').append(placeHolderImg);
-                } 
+                }
 
                 $('.mcImgBx').show();
             }else if(obj.audio!='' && obj.audio!=null){
@@ -3176,14 +3176,14 @@ function editQuestion(id,type){
                                 '</div>';
                 $('.ansImgArea_1').html(html_prev).show();
                 $("input[type='radio'][name='radio_1'][value='image']").prop("checked", true);
-                
+
             }else if(obj.option1_type=='audio'){
                 $('.quest_voice_option_1').val(obj.option1);
                 $('.ansAud_1').html('<audio controls>'+
                                         '<source src="api/uploads/'+obj.option1+'" type="audio/wav">'+
                                     '</audio>').show();
                 $("input[type='radio'][name='radio_1'][value='audio']").prop("checked", true);
-                
+
             }
 
             //option2
@@ -3200,14 +3200,14 @@ function editQuestion(id,type){
                                 '</div>';
                 $('.ansImgArea_2').html(html_prev).show();
                 $("input[type='radio'][name='radio_2'][value='image']").prop("checked", true);
-                
+
             }else if(obj.option2_type=='audio'){
                 $('.quest_voice_option_2').val(obj.option2);
                 $('.ansAud_2').html('<audio controls>'+
                                         '<source src="api/uploads/'+obj.option2+'" type="audio/wav">'+
                                     '</audio>').show();
                 $("input[type='radio'][name='radio_2'][value='audio']").prop("checked", true);
-                
+
             }
 
             //option3
@@ -3224,7 +3224,7 @@ function editQuestion(id,type){
                                 '</div>';
                 $('.ansImgArea_3').html(html_prev).show();
                 $("input[type='radio'][name='radio_3'][value='image']").prop("checked", true);
-                
+
             }else if(obj.option3_type=='audio'){
                 $('.quest_voice_option_3').val(obj.option3);
                 $('.ansAud_3').html('<audio controls>'+
@@ -3263,7 +3263,7 @@ function editQuestion(id,type){
             openQuestPop('multiple_choice');
         });
     }else if(type=='dd'){
-        $.post("getDraftDDQuestion",{id:id,type:type},function(rs){ 
+        $.post("getDraftDDQuestion",{id:id,type:type},function(rs){
             var obj = $.parseJSON(rs);
 
             $('.dd_question').val(obj.qsn_title);
@@ -3307,7 +3307,7 @@ function editQuestion(id,type){
                 $('.ddTgAnsImg_1').slideUp();
             }else if(obj.target_ans_img1!=''){
                 $('.ddItbtn_1').slideUp();
-                
+
                 $('.ddAnsTxt_1').slideUp();
                 $('.ddTgAnsImg_1').slideDown();
             }
@@ -3323,11 +3323,11 @@ function editQuestion(id,type){
                 $('.ddTgAnsImg_2').slideUp();
             }else if(obj.target_ans_img2!=''){
                 $('.ddItbtn_2').slideUp();
-                
+
                 $('.ddAnsTxt_2').slideUp();
                 $('.ddTgAnsImg_2').slideDown();
             }
-             
+
             if(obj.target_ans_text3=='' || obj.target_ans_img3==''){
                 $('.ddAnsTxt_3').slideUp();
                 $('.ddTgAnsImg_3').slideUp();
@@ -3339,7 +3339,7 @@ function editQuestion(id,type){
                 $('.ddTgAnsImg_3').slideUp();
             }else if(obj.target_ans_img3!=''){
                 $('.ddItbtn_3').slideUp();
-                
+
                 $('.ddAnsTxt_3').slideUp();
                 $('.ddTgAnsImg_3').slideDown();
             }
@@ -3355,7 +3355,7 @@ function editQuestion(id,type){
                 $('.ddTgAnsImg_4').slideUp();
             }else if(obj.target_ans_img4!=''){
                 $('.ddItbtn_4').slideUp();
-                
+
                 $('.ddAnsTxt_4').slideUp();
                 $('.ddTgAnsImg_4').slideDown();
             }
@@ -3400,10 +3400,10 @@ function editQuestionEdit(id,type){
                                              '</div>'+
                                          '</li>';
                      $('.wg_img_list').append(placeHolderImg);
-                }    
-                
+                }
+
                 $('.wgImgBx').show();
-                
+
             }else if(obj.audio!='' && obj.audio!=null){
                 var html = '<audio controls>'+
                              '<source src="api/uploads/'+obj.audio+'" type="audio/wav">'+
@@ -3436,7 +3436,7 @@ function editQuestionEdit(id,type){
         $.post(base_url+"getDraftQuestionsEdit",{id:id,type:type,wg:0},function(rs){
             var obj = $.parseJSON(rs);
             $('.multiple_question').val(obj.question);
-            
+
             if(obj.question_image!='' && obj.question_image!=null){
                 $('.quest_image').val(obj.question_image);
 
@@ -3464,7 +3464,7 @@ function editQuestionEdit(id,type){
                                             '</div>'+
                                         '</li>';
                     $('.mc_img_list').append(placeHolderImg);
-                } 
+                }
 
                 $('.mcImgBx').show();
             }else if(obj.audio!='' && obj.audio!=null){
@@ -3614,13 +3614,13 @@ function editQuestionEdit(id,type){
                 $('.ddTrgtLi_3').addClass('added');
                 $('.target_3').val(obj.target3);
                 $('.target_3_imgdata').val(obj.target_3_imgdata);
-            }   
+            }
             if(obj.target4!='' && obj.target4!='undefined' && obj.target4!=null){
                 $('.crpTrg4').html('<img src="../../api/uploads/'+obj.target4+'">');
                 $('.ddTrgtLi_4').addClass('added');
                 $('.target_4').val(obj.target4);
                 $('.target_4_imgdata').val(obj.target_4_imgdata);
-            }  
+            }
             if(obj.target_ans_text1!=''){
                 $('.ddItbtn_1').slideUp();
                 $('.ddAnsTxt_1').slideDown();
@@ -3742,7 +3742,7 @@ function editPopIntro(type,id){
             openIntroPop(type);
             $('.intro_title').val(obj.intro_data);
             $('.title_svbtn').attr("onclick","updateIntro('"+type+"',"+id+")");
-           
+
         }else if(type=='video'){
             openIntroPop(type);
             $('.intro_video').val(obj.intro_data);
@@ -3760,7 +3760,7 @@ function editPopIntro(type,id){
     })
 }
 
-function editPopIntroEdit(type,id){ 
+function editPopIntroEdit(type,id){
     //localStorage.setItem("edit_dintro_id",id);
     $.post(base_url+"getDraftIntroEdit",{id:id},function(rs){ console.log(rs);
         var obj = $.parseJSON(rs);
@@ -3768,14 +3768,14 @@ function editPopIntroEdit(type,id){
             openIntroPop(type);
             $('.intro_title').val(obj.text);
             $('.title_svbtn').attr("onclick","updateIntroEdit('"+type+"',"+id+")");
-           
+
         }else if(type=='video'){
             openIntroPop(type);
             $('.intro_video').val(obj.intro_video);
             $('.video_svbtn').attr("onclick","updateIntroEdit('"+type+"',"+id+")");
         }else if(type=='paragraph'){
             openIntroPop(type);
-            
+
             /*myEditor.model.change( writer => {
                 writer.insertElement(obj.intro_paragraph,myEditor.model.document.selection.getFirstPosition());
             } ); */
@@ -3830,13 +3830,13 @@ function updateIntro(type,id){
             });
         }
     }else if(type=='paragraph'){
-        var content = myEditor.getData(); 
+        var content = myEditor.getData();
         $.post("updateDraftIntro",{data:content,id:id},function(rs){
             $('.dragBx').each(function(){
                 if($(this).attr('data')==id){
                     $(this).find('.paragraph_data').html(content);
                     $('.mask').click();
-                    
+
                     $('.paragraph_svbtn').attr("onclick","saveDataPopIntro('paragraph')");
                 }
             });
@@ -3894,7 +3894,7 @@ function updateIntroEdit(type,id){
             });
         }
     }else if(type=='paragraph'){
-        var content = myEditor.getData(); 
+        var content = myEditor.getData();
         //var content = $('.intro_paragraph').val();
         $.post(base_url+"updateDraftIntroEdit",{data:content,id:id,field:'intro_paragraph'},function(rs){ console.log(rs);
             $('.dragBx').each(function(){
@@ -3935,7 +3935,7 @@ function deleteIntro(id){
         dangerMode: true,
       }).then(function(isConfirm) {
         if (isConfirm) {
-           
+
                 $.post("deleteDraftIntro",{id:id},function(rs){
                     if(rs==1){
                         $('.idnt_'+id).slideUp();
@@ -3943,7 +3943,7 @@ function deleteIntro(id){
                         swal("Error","Sorry you do not have privilege to do so","success");
                     }
                 })
-           
+
         }
     })
 }
@@ -3960,7 +3960,7 @@ function deleteIntroEdit(id){
         dangerMode: true,
       }).then(function(isConfirm) {
         if (isConfirm) {
-           
+
                 $.post(base_url+"deleteDraftIntroEdit",{id:id},function(rs){ console.log(rs)
                     if(rs==1){
                         $('.idnt_'+id).slideUp();
@@ -3968,16 +3968,16 @@ function deleteIntroEdit(id){
                         swal("Error","Sorry you do not have privilege to do so","error");
                     }
                 })
-           
+
         }
     })
 }
 
-function saveExamDraft(step){ 
+function saveExamDraft(step){
     if(step==1){
         //localStorage.removeItem("draft_exam_id");
         var exam_icon= $('.imgInp_hidden').val();
-        var title = $('.exam_title').val(); 
+        var title = $('.exam_title').val();
         var preq_type = $('.preq_type').val();
         var preq_value = $('.preq_value').val();
         var is_random = 1;
@@ -4001,7 +4001,7 @@ function saveExamDraft(step){
         if($('input[type="checkbox"][name="is_private"]').is(":checked")){
             is_private = 1;
         }
-        
+
         var form_data = new FormData();
 
         var know_id = localStorage.getItem("draft_exam_id");
@@ -4015,7 +4015,7 @@ function saveExamDraft(step){
                 urls = 'saveExamDraft/1';
             }
 
-            
+
             form_data.append("exam_icon",exam_icon);
             form_data.append("exam_title",title);
             form_data.append("preq_type",preq_type);
@@ -4034,24 +4034,24 @@ function saveExamDraft(step){
                 contentType: false,
                 cache: false,
                 processData:false,
-                success: function(result){ 
+                success: function(result){
                     var obj = $.parseJSON(result);
                     if(obj.status==1){
                         localStorage.setItem("draft_exam_id",obj.exam_id);
-                        
+
                         var href ='';
                         var base_url = $('.base_url').val();
                         href = base_url+'preview/'+obj.exam_id;
                         $('.preview_link').attr("href",href);
-                       
+
                             hideLoader();
-                        
+
                     }else{
                         swal("Error","Something went wrong!","error");
                     }
                 }
             });
-    
+
 
     }
 
@@ -4061,7 +4061,7 @@ function saveExamDraftEdit(step){ console.log("new function");
     if(step==1){
         //localStorage.removeItem("draft_exam_id");
         var exam_icon= $('.imgInp_hidden').val(); console.log("exam icon",exam_icon);
-        var title = $('.exam_title').val(); 
+        var title = $('.exam_title').val();
         var preq_type = $('.preq_type').val();
         var preq_value = $('.preq_value').val();
         var is_random = 1;
@@ -4069,7 +4069,7 @@ function saveExamDraftEdit(step){ console.log("new function");
         var is_chat = 0;
         var time_limit = 0;
         var is_private=1;
-        if($('input[type="checkbox"][name="is_random"]').is(":checked")){ 
+        if($('input[type="checkbox"][name="is_random"]').is(":checked")){
             is_random = 0;
         }
 
@@ -4085,7 +4085,7 @@ function saveExamDraftEdit(step){ console.log("new function");
         if($('input[type="checkbox"][name="is_private"]').is(":checked")){
             is_private = 0;
         }
-        
+
         var form_data = new FormData();
 
         var know_id = localStorage.getItem("draft_exam_id");
@@ -4097,7 +4097,7 @@ function saveExamDraftEdit(step){ console.log("new function");
             urls = 'saveExamDraft/1';
         }
 
-        
+
         form_data.append("icon",exam_icon);
         form_data.append("examname",title);
         form_data.append("prereq_type",preq_type);
@@ -4121,7 +4121,7 @@ function saveExamDraftEdit(step){ console.log("new function");
                 var obj = $.parseJSON(result);
                 if(obj.status==1){
                     localStorage.setItem("draft_exam_id",obj.exam_id);
-                    
+
                     var href ='';
                     var base_url = $('.base_url').val();
                     href = base_url+'previews/'+obj.exam_id;
@@ -4188,7 +4188,7 @@ $('.dynamicTable').html(table);
 $('.dynamicTable2').html(table2);
 }
 
-function generateText(obj,val){ 
+function generateText(obj,val){
     var class_nm = $(obj).attr("class"); console.log("class nm",class_nm);
     console.log("length",($('.'+class_nm).length));
     $('body .'+class_nm).each(function(m){
@@ -4208,7 +4208,7 @@ function saveExamAsDraft(){
         title: "Saved!",
         type: "success",
         text: "Your exam has been stored as draft"
-         
+
      }).then(function() {
        if(condition){
           window.location = "home";
@@ -4229,7 +4229,7 @@ function publishExam(){ //swal("warning","Men at works!","warning"); publishExam
                     title: obj.name,
                     type: "success",
                     text: "Your exam has been published. Exam id : "+obj.show_exam_id
-                     
+
                  }).then(function(condition) {
                    if(condition){
                        showLoader();
@@ -4238,11 +4238,11 @@ function publishExam(){ //swal("warning","Men at works!","warning"); publishExam
                    }
                  });
             }else{
-                swal("Error","Something went wrong!","error"); 
+                swal("Error","Something went wrong!","error");
             }
         })
-    } 
-    
+    }
+
 }
 
 function introPositonUp(id){ showLoader();
@@ -4285,7 +4285,7 @@ function DraftIntroPosition(id,op){
                 $("#sortable").load(location.href + " #sortable");
            }
        })
-   
+
 }
 
 function startCountRecording(){
@@ -4298,11 +4298,11 @@ function startCountRecording(){
             }else{
                 $('.aud_timer').text('00 : '+sec);
             }
-            
+
         }else if(sec==60){
             $('.aud_timer').text('01 : 00');
         }else{
-            var min = parseInt(parseInt(sec) / 60); 
+            var min = parseInt(parseInt(sec) / 60);
             secs = (sec - (min * 60 ));
             var show_min=min;
             if(min < 10){
@@ -4320,7 +4320,7 @@ function startCountRecording(){
 
 function submitProjectByStudent(xmid){
     //var project_text = $('.project_text').val();
-    var project_text = myEditor.getData(); 
+    var project_text = myEditor.getData();
     var ptype = $('.psubmit_type').val();
     var pvalue = $('.psubmit_value').val();
     var licens_id = $('.licens_id').val();
@@ -4354,14 +4354,14 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
+
+            crop(event) {
             //   console.log(event.detail.x);
             //   console.log(event.detail.y);
             //   console.log(event.detail.width);
@@ -4377,15 +4377,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         //$('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='intro_image'){
@@ -4394,15 +4394,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('intro_image')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='mc_qst_img'){
@@ -4411,15 +4411,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('mc_qst_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='ansImg_1' || class_name=='ansImg_2' || class_name=='ansImg_3' || class_name=='ansImg_4'){
@@ -4428,15 +4428,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('"+class_name+"')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='wg_img'){
@@ -4445,15 +4445,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('wg_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='pr_img'){
@@ -4462,15 +4462,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='project_submit'){
@@ -4479,15 +4479,15 @@ function OpenCroperPop(class_name='',imgdata){ console.log("clikcing here crop o
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage('project_submit')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }
@@ -4521,14 +4521,14 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
+
+            crop(event) {
             //   console.log(event.detail.x);
             //   console.log(event.detail.y);
             //   console.log(event.detail.width);
@@ -4544,32 +4544,32 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         //$('.cropDImage').attr("onclick","cropImage()");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
-    }else if(class_name=='intro_image'){ 
+    }else if(class_name=='intro_image'){
         $('.cropperJsPop').show();
         //var shimage = $('.quest_image').val();
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('intro_image')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='mc_qst_img'){
@@ -4578,15 +4578,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('mc_qst_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='ansImg_1' || class_name=='ansImg_2' || class_name=='ansImg_3' || class_name=='ansImg_4'){
@@ -4595,15 +4595,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('"+class_name+"')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='wg_img'){ console.log("here wg",imgdata);
@@ -4612,15 +4612,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('wg_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='pr_img'){
@@ -4629,15 +4629,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='cert'){
@@ -4646,15 +4646,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('pr_img')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }else if(class_name=='profile_pic_edit'){
@@ -4663,15 +4663,15 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
         $('.cropperJs').attr("src",imgdata);
 
         $('.cropDImage').attr("onclick","cropImageEdit('profile_pic_edit')");
-        
+
         const image = document.getElementById('crpImg');
         cropper = new Cropper(image, {
-            
+
             aspectRatio: 2/2,
             zoomOnWheel: false,
-            
-            crop(event) { 
-            
+
+            crop(event) {
+
             },
         });
     }
@@ -4680,23 +4680,23 @@ function OpenCroperPopEdit(class_name,imgdata){ console.log("class_name",class_n
 
 function cropImage(class_name=''){
     showLoader();
-    var img = document.getElementById("crpImg"); 
-    
+    var img = document.getElementById("crpImg");
+
     canvas = cropper.getCroppedCanvas({
         width: 160,
         height: 160,
       });
 
       var crop_image_data = cropper.getData();
-      
+
      // var exam_id = localStorage.getItem("draft_exam_id");
 
     canvas.toBlob(function(blob) {
     url = URL.createObjectURL(blob);
     var reader = new FileReader();
-        reader.readAsDataURL(blob); 
+        reader.readAsDataURL(blob);
         reader.onloadend = function() {
-        var base64data = reader.result;  
+        var base64data = reader.result;
         console.log("cropping img",crop_image_data);
         $.ajax({
             type: "POST",
@@ -4705,16 +4705,16 @@ function cropImage(class_name=''){
             data: {image: base64data,img_data:crop_image_data.toString(),class_name:class_name},
             success: function(data){
                 console.log(data); hideLoader();
-            
+
                 if(class_name==''){ //group page
                     $('.group_image').val(data.filename);
-                
+
                     $('#blah').attr('src',base_url+'api/uploads/'+data.filename);
                 }else if(class_name=='quest_icon'){
                     $('.imgInp_hidden').val(data.filename);
                     $('#blah').attr('src',base_url+'api/uploads/exam/'+data.filename);
                 }else if(class_name=='intro_image'){
-                   
+
                     var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
                     if( d_exam_id ==null){
                         swal("Error","Please fill the First page","error");
@@ -4739,7 +4739,7 @@ function cropImage(class_name=''){
 
                                 var html = ' <li data-post-id="'+rs+'">'+
                                 '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
-                                
+
                                                 '<div class="drgHdr">'+
                                                     '<div class="drgAction">'+
                                                         '<span class="drgDel" onclick="deleteIntro('+rs+')">DELETE</span>'+
@@ -4799,7 +4799,7 @@ function cropImage(class_name=''){
                                                                 '</div>'+
                                                             '</li>';
                                         $('.mc_img_list').append(placeHolderImg);
-                                }  
+                                }
 
                                 // $('.mc_img_list').append(html);
                                     $('.mcImgBx').slideDown();
@@ -4834,7 +4834,7 @@ function cropImage(class_name=''){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     console.log($('.ansImgArea_'+index).length);
-                                    //reader.onload = function (e) { 
+                                    //reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -4875,7 +4875,7 @@ function cropImage(class_name=''){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     console.log($('.ansImgArea_'+index).length);
-                                    //reader.onload = function (e) { 
+                                    //reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -4916,7 +4916,7 @@ function cropImage(class_name=''){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     console.log($('.ansImgArea_'+index).length);
-                                    //reader.onload = function (e) { 
+                                    //reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -4957,7 +4957,7 @@ function cropImage(class_name=''){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     console.log($('.ansImgArea_'+index).length);
-                                    //reader.onload = function (e) { 
+                                    //reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -5011,8 +5011,8 @@ function cropImage(class_name=''){
                                                                     '</div>'+
                                                                 '</li>';
                                             $('.wg_img_list').append(placeHolderImg);
-                                    }    
-                                    
+                                    }
+
                                         $('.wgImgBx').slideDown();
                                     var quest_img = $('.quest_image').val();
                                     quest_img = quest_img+','+obj.filename;
@@ -5089,21 +5089,21 @@ function cropImage(class_name=''){
                     processData:false,
                     success: function(rs){  hideLoader(); console.log(rs);
                         var obj = $.parseJSON(rs);
-                        
+
                         $('.psubmit_type').val('image');
                         $('.psubmit_value').val(obj.filename);
                         //$('.project_data').html('<img src="../../../api/uploads/'+obj.filename+'" />');
-                        
-                        
-                    
+
+
+
                     }
                 });
                 }
-                
+
 
                 $('.cropperJsPop').hide();
-                
-               
+
+
                 cropper.destroy();
             },
             error:function(){
@@ -5121,8 +5121,8 @@ function cropImage(class_name=''){
     var c=document.getElementById("canvasArea");
     var ctx=c.getContext("2d");
 
-    
-    ctx.drawImage(img,0,0);  
+
+    ctx.drawImage(img,0,0);
 //console.log("x value",crop_image_data.x);
     context.beginPath();
     context.rect(crop_image_data.x, crop_image_data.y, crop_image_data.width, crop_image_data.height);
@@ -5131,7 +5131,7 @@ function cropImage(class_name=''){
     context.fill();
     context.lineWidth = 7;
     context.strokeStyle = 'white';
-    
+
     context.stroke();
 
     var url_img = canvas.toDataURL();
@@ -5144,7 +5144,7 @@ function cropImage(class_name=''){
         data: {image: url_img,exam_id:exam_id},
         success: function(data){ hideLoader();
             console.log(data);
-            
+
             $('.cropperJsPop').hide();
 
             $('.quest_image').val(data.filename);
@@ -5156,23 +5156,23 @@ function cropImage(class_name=''){
 function cropImageEdit(class_name,index){
 
     showLoader();
-    var img = document.getElementById("crpImg"); 
-    
+    var img = document.getElementById("crpImg");
+
     canvas = cropper.getCroppedCanvas({
         width: 160,
         height: 160,
       });
 
       var crop_image_data = cropper.getData();
-      
+
      // var exam_id = localStorage.getItem("draft_exam_id");
 
     canvas.toBlob(function(blob) {
     url = URL.createObjectURL(blob);
     var reader = new FileReader();
-        reader.readAsDataURL(blob); 
+        reader.readAsDataURL(blob);
         reader.onloadend = function() {
-        var base64data = reader.result;  
+        var base64data = reader.result;
         console.log("cropping img",crop_image_data);
         $.ajax({
             type: "POST",
@@ -5181,10 +5181,10 @@ function cropImageEdit(class_name,index){
             data: {image: base64data,img_data:crop_image_data.toString(),class_name:class_name},
             success: function(data){
                 console.log(data); hideLoader();
-            
+
                 if(class_name==''){ //group page
                     $('.group_image').val(data.filename);
-                
+
                     $('#blah').attr('src',base_url+'api/uploads/'+data.filename);
                 }else if(class_name=='quest_icon'){
                     $('.imgInp_hidden').val(data.filename);
@@ -5212,7 +5212,7 @@ function cropImageEdit(class_name,index){
 
                                 var html = ' <li data-post-id="'+rs+'">'+
                                 '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
-                                
+
                                                 '<div class="drgHdr">'+
                                                     '<div class="drgAction">'+
                                                         '<span class="drgDel" onclick="deleteIntroEdit('+rs+')">DELETE</span>'+
@@ -5237,7 +5237,7 @@ function cropImageEdit(class_name,index){
                                         $('#mask').click();
                             }
                         });
-                   
+
                     // var d_exam_id = localStorage.getItem("draft_exam_id"); console.log(d_exam_id);
                     // if( d_exam_id ==null){
                     //     swal("Error","Please fill the First page","error");
@@ -5262,7 +5262,7 @@ function cropImageEdit(class_name,index){
 
                     //             var html = ' <li data-post-id="'+rs+'">'+
                     //             '<div class="dragBx idnt_'+rs+'" data="'+rs+'">'+
-                                
+
                     //                             '<div class="drgHdr">'+
                     //                                 '<div class="drgAction">'+
                     //                                     '<span class="drgDel" onclick="deleteIntro('+rs+')">DELETE</span>'+
@@ -5324,7 +5324,7 @@ function cropImageEdit(class_name,index){
                                                                 '</div>'+
                                                             '</li>';
                                         $('.mc_img_list').append(placeHolderImg);
-                                }  
+                                }
 
                                 // $('.mc_img_list').append(html);
                                     $('.mcImgBx').slideDown();
@@ -5359,7 +5359,7 @@ function cropImageEdit(class_name,index){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     // console.log($('.ansImgArea_'+index).length);
-                                    // reader.onload = function (e) { 
+                                    // reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -5400,7 +5400,7 @@ function cropImageEdit(class_name,index){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     // console.log($('.ansImgArea_'+index).length);
-                                    // reader.onload = function (e) { 
+                                    // reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                             '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -5441,7 +5441,7 @@ function cropImageEdit(class_name,index){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     // console.log($('.ansImgArea_'+index).length);
-                                    // reader.onload = function (e) { 
+                                    // reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                                     '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -5459,7 +5459,7 @@ function cropImageEdit(class_name,index){
                             //         reader.readAsDataURL(input.files[0]);
                             //     }
                             // }
-                        }); 
+                        });
                 }else if(class_name=='ansImg_4'){
                     var form_data = new FormData();
                     var d_exam_id = localStorage.getItem("draft_exam_id");
@@ -5482,7 +5482,7 @@ function cropImageEdit(class_name,index){
                                     // if (input.files && input.files[0]) {
                                     // var reader = new FileReader();
                                     // console.log($('.ansImgArea_'+index).length);
-                                    // reader.onload = function (e) { 
+                                    // reader.onload = function (e) {
                                         //$('#blah').attr('src', e.target.result);
                                         var html = '<div class="imgFld">'+
                                                         '<img src="'+base_url+'api/uploads/'+data.filename+'">'+
@@ -5536,8 +5536,8 @@ function cropImageEdit(class_name,index){
                                                             '</div>'+
                                                         '</li>';
                                     $('.wg_img_list').append(placeHolderImg);
-                               }    
-                               
+                               }
+
                                 $('.wgImgBx').slideDown();
                             var quest_img = $('.quest_image').val();
                             quest_img = quest_img+','+obj.filename;
@@ -5611,7 +5611,7 @@ function cropImageEdit(class_name,index){
                             //     $('.prImgBx').slideDown();
                             $('.cert_img').attr("src",base_url+"api/uploads/"+data.filename);
 
-                                
+
                                 $('.sponsor_img').val(obj.filename);
 
                         }
@@ -5645,7 +5645,7 @@ function cropImageEdit(class_name,index){
                             //     $('.prImgBx').slideDown();
                             $('#target').attr("src",base_url+"api/uploads/"+data.filename);
 
-                                
+
                                 $('.profile_img').val(obj.filename);
 
                         }
@@ -5653,11 +5653,11 @@ function cropImageEdit(class_name,index){
 
                     $('#showPrImg').val('');
                 }
-                
+
 
                 $('.cropperJsPop').hide();
-                
-               
+
+
                 cropper.destroy();
             },
             error:function(){
@@ -5668,23 +5668,23 @@ function cropImageEdit(class_name,index){
     });
 
     // showLoader();
-    // var img = document.getElementById("crpImg"); 
-    
+    // var img = document.getElementById("crpImg");
+
     // canvas = cropper.getCroppedCanvas({
     //     width: 160,
     //     height: 160,
     //   });
 
     //   var crop_image_data = cropper.getData();
-      
+
     //   var exam_id = localStorage.getItem("draft_exam_id");
 
     // canvas.toBlob(function(blob) {
     // url = URL.createObjectURL(blob);
     // var reader = new FileReader();
-    //     reader.readAsDataURL(blob); 
+    //     reader.readAsDataURL(blob);
     //     reader.onloadend = function() {
-    //     var base64data = reader.result;  
+    //     var base64data = reader.result;
     //     console.log("cropping img",crop_image_data);
     //     $.ajax({
     //         type: "POST",
@@ -5714,8 +5714,8 @@ function cropImageEdit(class_name,index){
     var c=document.getElementById("canvasArea");
     var ctx=c.getContext("2d");
 
-    
-    ctx.drawImage(img,0,0);  
+
+    ctx.drawImage(img,0,0);
 //console.log("x value",crop_image_data.x);
     context.beginPath();
     context.rect(crop_image_data.x, crop_image_data.y, crop_image_data.width, crop_image_data.height);
@@ -5724,7 +5724,7 @@ function cropImageEdit(class_name,index){
     context.fill();
     context.lineWidth = 7;
     context.strokeStyle = 'white';
-    
+
     context.stroke();
 
     var url_img = canvas.toDataURL();
@@ -5737,7 +5737,7 @@ function cropImageEdit(class_name,index){
         data: {image: url_img,exam_id:exam_id},
         success: function(data){ hideLoader();
             console.log(data);
-            
+
             $('.cropperJsPop').hide();
 
             $('.quest_image').val(data.filename);
@@ -5749,7 +5749,7 @@ function cropImageEdit(class_name,index){
 function showHistryReward(id){
     showLoader();
     $.post(base_url+"getRewardHistroy",{id:id},function(rs){ console.log(rs);
-        var obj = $.parseJSON(rs); 
+        var obj = $.parseJSON(rs);
 
         // var span = document.createElement("span");
         // if(obj.re_type==0){
@@ -5764,26 +5764,26 @@ function showHistryReward(id){
         // }else if(obj.re_type==4){
         //     span.innerHTML = 'Certificate';
         // }
-           
+
 
             // swal({
-            //     title: "Reward", 
+            //     title: "Reward",
             //     content: span,
-            //     confirmButtonText: "Okay", 
-            //     allowOutsideClick: "true" 
+            //     confirmButtonText: "Okay",
+            //     allowOutsideClick: "true"
             // });
         $('.rewMsk').fadeIn();
         showLoader();
         $(".rewPop").load(location.href + " .rewPop");
         setTimeout(function(){
             $('.rewPop').each(function(){
-                
+
                     $(this).fadeIn();
-            
+
             })
             hideLoader();
         },2000);
-        
+
     })
 }
 
@@ -5822,17 +5822,17 @@ function openComment(hid){ console.log("clicking");
 
 function filterHistory(str){
     var all= $('#set1:checkbox:checked').length; console.log("all",all);
-    //var fail = $('#set2:checkbox:checked').length; 
+    //var fail = $('#set2:checkbox:checked').length;
     var fail = $('#set5:input:checkbox:checked').length; console.log("fail",fail);
-    
+
 	var coupon = $('#set2:checkbox:checked').length; console.log("coupon",coupon);
 	var cert = $('#set3:checkbox:checked').length; console.log("cert",cert);
 	var other = $('#set4:checkbox:checked').length; console.log("other",other);
-    
+
     if(fail==0 || coupon==0 || cert==0 || other==0){
         $('body #set1').prop("checked",false);
     }
-    
+
     if(all!=0){ console.log("here clicking",$('.set2').length);
         	$('.hstBx').each(function(){
         		$(this).show();
@@ -5841,7 +5841,7 @@ function filterHistory(str){
             $('body #set3').prop("checked",true);
             $('body #set4').prop("checked",true);
             $('body #set5').prop("checked",true);
-    
+
         }else if(str=='all' && all==0){
             $('body #set2').prop("checked",false);
             $('body #set3').prop("checked",false);
@@ -5849,7 +5849,7 @@ function filterHistory(str){
             $('body #set5').prop("checked",false);
         }
 
-       
+
 
         if(fail!=0){
             	$('.hstBx').each(function(){
@@ -6069,7 +6069,7 @@ function publishExamToGroup(xmid){
         $( "#togroup" ).addClass( "open" );
         localStorage.setItem("publishXmId",xmid);
     //   });
-      
+
 }
 
 function removeExamFromGroup(gid,id){
@@ -6104,7 +6104,7 @@ function showGroupDetails(gid){
             $('.create_date').text(obj.group_info.time);
             $('.total_quest').text(obj.group_info.total_quest);
             $('.total_follower').text(obj.group_info.total_follower)
-            
+
             var grp_img = base_url+"images/placeholder.jpeg";
             if(obj.group_info.group_image!='' && obj.group_info.group_image!=null){
                 grp_img = base_url+"api/uploads/"+obj.group_info.group_image;
@@ -6124,7 +6124,7 @@ function showGroupDetails(gid){
         //   });
 
         localStorage.setItem("publishGroup",gid);
-         
+
     })
 }
 
@@ -6191,7 +6191,7 @@ function addExamToGroupEdit(gid){
         $.post(base_url+"pushExamToGroupFromEdit",{all_xm:all_xm,gid:gid},function(rs){
             if(rs==1){
                 $('.userSelectGrp').append(htmls);
-            
+
                 $('.exam_list_val').val(all_xm);
 
                 console.log(all_exam);
@@ -6203,7 +6203,7 @@ function addExamToGroupEdit(gid){
     }else{
         $('#grpStPop').fadeOut();
     }
-    
+
 }
 
 function addExamToGroup(){
@@ -6290,7 +6290,7 @@ function UpdateGroup(){
 }
 
 function saveGroup(){
-    
+
     var grp_img = $('.group_image').val();
     //var grp_img = $('.group_img').prop("files")[0];
     var title = $('.group_title').val();
@@ -6375,7 +6375,7 @@ function unfollowGroup(obj,gid,dicover=''){
                 $(obj).css("color","#fff");
                 $(obj).css("border","1px solid #F232A4");
                 $(obj).attr("onclick","followGroup(this,"+gid+",2)");
-                
+
             }else{
                 $(obj).attr("onclick","followGroup(this,"+gid+")");
             }
@@ -6405,11 +6405,11 @@ function searchGroupDiscover(val){
                 }
                 html += '<li class="rmvGrp_">'+
                             '<div class="flowBx1">'+
-                                
+
                                 '<div class="qsRow1 q4c">'+
                                     '<div class="flowBx5">'+
                                     '<a href="'+base_url+'group-details/'+obj[i].id+'"> <span style="right:130px" class="clqBx"></span> </a>'+
-                                    
+
                                         '<img src="'+grp_img+'" style="width:100%">'+
                                     '</div>'+
                                     '<div class="flowBx2">'+
@@ -6419,29 +6419,29 @@ function searchGroupDiscover(val){
                                         '<div class="flowBx3">'+
                                             obj[i].name+
                                         '</div>'+
-                                        
-                                    
+
+
 
                                     '<div class="s7btm">'+
                                     '<aside class="flowBx4">'+
                                         '<b>'+obj[i].total_quest+'</b> Quest <br/>'+
                                         '<b>'+obj[i].total_follower+'</b> Followers'+
                                     '</aside>'+
-                                    
+
                                     '<aside class="setRnew q4e">'+
-                                    
+
                                         follow_html+
                                         '<span class="btnIc q4Dot"><img src="'+base_url+'images/dot_pink.svg">'+
-                                            
+
                                         '</span>'+
                                     '</aside>'+
                                     '</div>'+
-                                
+
                                 '</div>'+
 
 
                                 '</div>'+
-                                
+
                             '</div>'+
                         '</li>';
             }
@@ -6461,7 +6461,7 @@ console.log(html);
 function revertHtml(){
     $('.quest_list').html('');
     $('.qsLst').hide();
-    
+
     $('.rcmPLst').show();
     $('.flwngList').show();
 }
@@ -6514,23 +6514,23 @@ $(".nmbrOnly").keydown(function(event) {
     else {
         // Ensure that it is a number and stop the keypress
         if (event.keyCode < 48 || event.keyCode > 57 ) {
-            event.preventDefault(); 
-        }   
+            event.preventDefault();
+        }
     }
 });
 /*
 function stopRecording() {
     console.log("stopButton clicked");
-    //disable the stop button, enable the record too allow for new recordings 
+    //disable the stop button, enable the record too allow for new recordings
     clearInterval(timer);
     $('.aud_timer').text('00 : 00');
     $('.audIcnBtn').attr("onclick","startRecording()");
-    //tell the recorder to stop the recording 
-    rec.stop(); //stop microphone access 
-    
+    //tell the recorder to stop the recording
+    rec.stop(); //stop microphone access
+
 
     gumStream.getAudioTracks()[0].stop();
-    //create the wav blob and pass it on to createDownloadLink 
+    //create the wav blob and pass it on to createDownloadLink
     rec.exportWAV(createDownloadLink);
     rec.clear();
 }
@@ -6540,25 +6540,25 @@ function createDownloadLink(blob) {
     var au = document.createElement('audio');
     var li = document.createElement('li');
     var link = document.createElement('a');
-    //add controls to the <audio> element 
+    //add controls to the <audio> element
     au.controls = true;
     au.src = url;
-    //link the a element to the blob 
+    //link the a element to the blob
     link.href = url;
     link.download = new Date().toISOString() + '.wav';
     link.innerHTML = link.download;
-    //add the new audio and a elements to the li element 
+    //add the new audio and a elements to the li element
     li.appendChild(au);
     li.appendChild(link);
-    //add the li element to the ordered list 
+    //add the li element to the ordered list
     //recordingsList.appendChild(li);
 
-    form_data = new FormData(); 
+    form_data = new FormData();
    console.log("form created");
     var filename = new Date().toISOString()+'.wav';
     localStorage.setItem("intro_draft_audio_name",filename);
     form_data.append("intro_audio_draft",blob,filename);
-    
+
 } */
 
 /**
@@ -6618,7 +6618,7 @@ function removeEntireDDAns(number){
 }
 
 function readDDImgAns(input,number){
-    
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
