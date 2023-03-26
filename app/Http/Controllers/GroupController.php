@@ -24,18 +24,19 @@ class GroupController extends Controller
     {
         if (request()->query('query', false)) {
             $id = request()->query('query');
-            $groups = Group::where('private', '=', 0)->where(function ($query) use($id) {
-                $query->where('id', $id)
-                ->orWhereHas('exams', function($q) use($id) {
-                    $q->where('exams.id', '=', $id);
-                });
+            $groups = Group::where('private', '=', 0)->where(function ($query) use ($id) {
+                $query->where('code','like', "%{$id}%")->orWhere('title', 'like', "%$id%")
+                    ->orWhereHas('exams', function ($q) use ($id) {
+                        $q->where('exams.id', '=', $id)
+                            ->orWhere('title', 'like',  "%$id%");
+                    });
             })
-            ->withCount(['followers', 'exams',])
-            ->with(
-                [
-                    'owner:id,name'
-                ]
-            )->get();
+                ->withCount(['followers', 'exams',])
+                ->with(
+                    [
+                        'owner:id,name'
+                    ]
+                )->get();
             $following = User::find(Auth::id())->load('following:id');
 
             $following = $following->following->pluck('id')->toArray();
@@ -74,7 +75,7 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -90,7 +91,7 @@ class GroupController extends Controller
         //dd($valid);
         $image_path = null;
 
-        if(isset($valid['group_image_data'])) {
+        if (isset($valid['group_image_data'])) {
             $image_path = $this->save_base64_image($valid['group_image_data']);
             //dd($image_path);
         }
@@ -101,9 +102,10 @@ class GroupController extends Controller
             'image' => $image_path,
             'password' => $valid['password'],
             'private' => isset($valid['private']),
-
         ]);
-
+        $group->update([
+            'code' => 'G' . ((int)$group->id + 100)
+        ]);
         $tags = explode(' ', $valid['tags']);
         $tag_model_arrays = [];
         foreach ($tags as $key => $tag) {
@@ -126,14 +128,14 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Group  $group
+     * @param \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function show(Group $group, Request $request)
     {
         $group->load('owner');
         $group->loadCount(['exams', 'followers', 'news']);
-        if($request->wantsJson()) {
+        if ($request->wantsJson()) {
             $group->image = Storage::url($group->image);
             $group->owner->avatar = Storage::url($group->owner->avatar);
             return response()->json([
@@ -150,19 +152,19 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Group  $group
+     * @param \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function edit(Group $group)
     {
         $user = User::find(Auth::user()->id)->load(
             [
-                'exams' => function ( $query) {
+                'exams' => function ($query) {
                     $query->latest();
                 },
             ]);
         $user_exams = $user->exams;
-        $group->load(['exams' => function($query) {
+        $group->load(['exams' => function ($query) {
             $query->with('owner');
         }, 'owner']);
         $exams = $group->exams;
@@ -174,8 +176,8 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Group  $group
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Group $group)
@@ -187,7 +189,7 @@ class GroupController extends Controller
         $data = $this->get_rules(true);
         $valid = $request->validate($data['rules']);
 
-        if(isset($valid['group_image_data'])) {
+        if (isset($valid['group_image_data'])) {
             $image_path = $this->save_base64_image($valid['group_image_data']);
             isset($group->image) ? Storage::delete($group->image) : null;
             $group->image = $image_path;
@@ -205,7 +207,7 @@ class GroupController extends Controller
         $valid['tags'] = explode(' ', $valid['tags']);
 
         $new_tags = array_diff($valid['tags'], $tags);
-        if(count($new_tags) > 0) {
+        if (count($new_tags) > 0) {
             $new_tags_models_array = [];
             foreach ($new_tags as $key => $tag) {
                 $new_tags_models_array[$key] = ['tag' => $tag];
@@ -217,15 +219,15 @@ class GroupController extends Controller
         }
 
         $deleted_tags = array_diff($tags, $valid['tags']);
-        if(count($deleted_tags) > 0) {
+        if (count($deleted_tags) > 0) {
             $deleted_tags = Tag::whereIn('tag', $deleted_tags)->pluck('id')->all();
             $group->tags()->detach($deleted_tags);
         }
 
-        if(isset($valid['new_exams']) && count($valid['new_exams']) > 0) {
+        if (isset($valid['new_exams']) && count($valid['new_exams']) > 0) {
             $group->exams()->attach($valid['new_exams']);
         }
-        if(isset($valid['deleted_exams']) && count($valid['deleted_exams']) > 0) {
+        if (isset($valid['deleted_exams']) && count($valid['deleted_exams']) > 0) {
             $group->exams()->detach($valid['deleted_exams']);
         }
 
@@ -236,7 +238,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Group  $group
+     * @param \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function destroy(Group $group)
@@ -244,14 +246,16 @@ class GroupController extends Controller
         $group->delete();
     }
 
-    protected function save_base64_image($base64_data) {
+    protected function save_base64_image($base64_data)
+    {
         $pure_b64_string = str_replace(' ', '+', str_replace('data:image/png;base64,', '', $base64_data));
-        $path = 'Group/'.Str::random(12).'.png';
+        $path = 'Group/' . Str::random(12) . '.png';
         Storage::disk('public')->put($path, base64_decode($pure_b64_string));
         return $path;
     }
 
-    protected function get_rules(bool $update) {
+    protected function get_rules(bool $update)
+    {
         $rules = [
             'title' => 'required|min:2|max:20',
             'description' => 'nullable',
@@ -306,7 +310,8 @@ class GroupController extends Controller
 
     }
 
-    public function follow(Request $request) {
+    public function follow(Request $request)
+    {
         $request->validate([
             'group' => 'required|integer',
         ]);
@@ -319,7 +324,8 @@ class GroupController extends Controller
         $group->followers()->attach([Auth::id()]);
     }
 
-    public function unfollow(Request $request) {
+    public function unfollow(Request $request)
+    {
         $request->validate([
             'group' => 'required|integer',
         ]);
@@ -339,7 +345,7 @@ class GroupController extends Controller
             'is_news' => 'boolean',
         ], ['msg.required' => 'Notification message is required']);
         $group = Group::find($request->input('id'));
-        if($request->input('is_news')) {
+        if ($request->input('is_news')) {
             $group->news()->create([
                 'type' => 1,
                 'title' => $request->input('title'),
@@ -348,7 +354,7 @@ class GroupController extends Controller
         }
 
         $group_details = [
-            'title' => $request->input('title').' - '.$group->title." Group Notification - Questanya",
+            'title' => $request->input('title') . ' - ' . $group->title . " Group Notification - Questanya",
             'msg' => $request->input('msg'),
             'url' => route('groups.show', ['group' => $group->id]),
             'user_ids' => $group->followers()->select('iphone_app_id', 'android_app_id')->get()->filter()->toArray(),
@@ -356,7 +362,8 @@ class GroupController extends Controller
         $group->notifyNow(new GroupNotification($group_details));
     }
 
-    public function showDesc(Group $group) {
+    public function showDesc(Group $group)
+    {
         return $group->description;
     }
 }
