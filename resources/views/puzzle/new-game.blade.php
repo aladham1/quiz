@@ -76,7 +76,7 @@
                           <h4 class="font-weight-bold"> Question {{$i + 1}} @if($i > 0) (optional) @endif</h4>
                             <i class="fas fa-image fa-5x placeholder" style="cursor: pointer" onclick="fullscreenChoice('{{$i}}')" aria-hidden="true"></i>
                             <div class="show-when-piece-selected" style="position: relative; display: none;">
-                              <canvas class="preview a" style="width:100%; display: none; border: 4px solid var(--pink); border-radius: 10px;"></canvas>
+                              <canvas class="preview" style="width:120px;height: 120px !important; display: none; border: 4px solid var(--pink); border-radius: 10px;"></canvas>
                               <button role="button" type="button" class="btn btn-lg bg-pink show-when-piece-selected" style="position: absolute; bottom: 0; left: 0; display: none;" onclick="fullscreenChoice('{{$i}}')"><i class="fas fa-edit"></i></button>
                               <input type="hidden" class="target_{{$i + 1}}">
                               <input type="hidden" class="target_{{$i + 1}}_imgdata">

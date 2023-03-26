@@ -2457,7 +2457,6 @@ function publishExam(draft = false) {
                                     if (resultsArray[y] instanceof File || resultsArray[y] instanceof Blob || resultsArray[y] == null) { // old condition: keysArray[y].includes('image') || keysArray[y].includes('audio') || keysArray[y].includes('icon') || keysArray[y].includes('sponser')
                                         exam_form.set(request_names.current_exam + keysArray[y], resultsArray[y]);
                                     } else {
-                                        console.log("keysarrayitem to order   " + keysArray[y] + "   " + intro_sort.indexOf(keysArray[y]))
                                         var qorder = intro_sort.indexOf(keysArray[y]);//intro
                                         if (qorder != -1) {
                                             resultsArray[y]['o'] = qorder;
