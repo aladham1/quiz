@@ -351,11 +351,15 @@
                                                     <span>To group</span>
                                                 </li>
                                                 <li>
-                                                    <a onclick="return confirm('Are you sure?')"
-                                                       href="{{ route('exams.destroy', ['exam' => $exam->id]) }}">
+                                                  <form action="{{ route('exams.destroy', ['exam' => $exam->id]) }}"
+                                                        method="POST">
+                                                               @csrf
+                                                      @method('DELETE')
+                                                    <button onclick="return confirm('Are you sure?')" type="submit" style="background: none; border: 0">
                                                         <span class="dtmi dt_dlt"></span>
                                                         <span style="color: #511285">Delete</span>
-                                                    </a>
+                                                    </button>
+                                                    </form>
                                                 </li>
                                             </ul>
                                         </div>
@@ -591,13 +595,14 @@
                                         $project = $hItm;
                                         $parent_exam = $project->exam;
                                     @endphp
+                                @if($parent_exam)
                                     <li status="{{ $project->remark }}" class="hstBx">
                                         <div class="qsWbx">
                                             <div class="qsRow1">
                                                 <!-- <span class="clqBx" ></span> -->
                                                 <div class="qs1img">
                                                     <img
-                                                        src="@if ($parent_exam->icon != null || $parent_exam->icon != ''){{ Storage::url($parent_exam->icon, true) }}@else{{ $default_grp_img }}@endif">
+                                                        src="@if ($parent_exam && ($parent_exam->icon != null || $parent_exam->icon != '')){{ Storage::url($parent_exam->icon, true) }}@else{{ $default_grp_img }}@endif">
                                                 </div>
                                                 <div class="qs1Rbx">
                                                     <div class="qsTxt2">
@@ -652,7 +657,7 @@
                                             </div>
                                         </div>
                                     </li>
-
+                                    @endif
                                 @endif
 
                             @endforeach
@@ -1051,7 +1056,7 @@
                                         </div>
                                         <div class="crLne41">
                                             <div class="crLne42"><span class="cert_exam_name"
-                                                                       style="font-weight: bold;"><?= \Auth::user()->id//$_SESSION['exam_name'] ?></span>
+                                                                       style="font-weight: bold;"><?= \Auth::user()->id//$_SESSION['exam_name']  ?></span>
                                             </div>
                                         </div>
                                         <div class="crLne41">
@@ -1138,7 +1143,7 @@
         function convertToImage() {
             // get the div element you want to download as an image
             var container = document.getElementById("qr_modal_modal_body");
-            html2canvas(container, { allowTaint: true }).then(function (canvas) {
+            html2canvas(container, {allowTaint: true}).then(function (canvas) {
 
                 var link = document.createElement("a");
                 document.body.appendChild(link);

@@ -409,6 +409,7 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         $exam->delete();
+        return redirect()->back();
     }
 
     /**

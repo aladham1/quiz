@@ -6044,7 +6044,7 @@ function copyGroupInfo(name,id){ console.log("called ",name,id);
 }
 
 function deletGroup(id){
-    $.post(base_url+"delete_group/"+id,function(rs){ console.log(rs);
+    $.post(base_url+"delete_group/"+id,function(rs){
         if(rs==1){
             $('.rmv_'+id).slideUp();
         }else{
