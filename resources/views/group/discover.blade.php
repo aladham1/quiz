@@ -43,7 +43,7 @@
                                 <div class="rcmPbx5">
                                     <div class="rcmPbx3">
                                         {{ $group->owner->name }}<span class="rcmPbx4"> CODE:
-                                            <b>{{ 'G'.$group->id }}</b></span>
+                                            <b>{{ $group->code }}</b></span>
                                     </div>
                                     <div class="rcmPbx8">
                                         {{ $group->title }}
@@ -84,7 +84,7 @@
                                         <li>
                                             <span class="dtmi dt_dlt"></span>
                                             <span>Delete</span>
-                                        </li> 
+                                        </li>
                                     </ul>
                                 </div>
                             </span>-->

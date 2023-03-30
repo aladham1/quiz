@@ -10,18 +10,18 @@
     </div>
 
     <div class="rgtIcn">
-        
+
     </div>
 </header>
 
 <section class="flwoPge">
-    
+
     <aside class="qsLst flwngList">
         <ul>
         @foreach ($groups as $group)
             <li class="rmvGrp_{{ $group->id }}">
                 <div class="flowBx1">
-                    
+
                     <div class="qsRow1 q4c">
                         <div class="flowBx5">
                         <a href='{{ route('groups.show', ['group' => $group->id]) }}'> <span style="right:130px" class="clqBx"></span> </a>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="flowBx2">
                             <div class="qsTxt2 q4a">
-                                CODE: <b>{{ 'G'.$group->id }}</b> <span class="q4Pass">Creator: <b>{{ $group->owner->name }}</b></span>
+                                CODE: <b>{{ $group->code }}</b> <span class="q4Pass">Creator: <b>{{ $group->owner->name }}</b></span>
                             </div>
                             <div class="flowBx3">
                                 {{ $group->title }}
@@ -40,7 +40,7 @@
                             <b>{{ $group->exams_count }}</b> Quests <br/>
                             <b>{{ $group->followers_count }}</b> Followers <br/>
                         </aside>
-                        
+
                         <aside class="setRnew q4e">
                             <span class="unflwBtn" onclick="unfollowGroupThis('{{ $group->id }}','{{ Auth::id() }}',this)">UNFOLLOW</span>
                             <!-- query was here to check whether the user following the group
@@ -63,16 +63,16 @@
                                         <li>
                                             <span class="dtmi dt_dlt"></span>
                                             <span>Delete</span>
-                                        </li> 
+                                        </li>
                                     </ul>
                                 </div>
                             </span>-->
                         </aside>
                         </div>
-                    
+
                     </div>
                     </div>
-                    
+
                 </div>
             </li>
         @endforeach
@@ -83,7 +83,7 @@
         <ul class="quest_list">
 
         </ul>
-    </aside> 
+    </aside>
 </section>
 
 
@@ -94,11 +94,11 @@
     <div class="srcBr2">
         <input class="sbIn" type="text" placeholder="Enter Quest or Group ID" onkeyup="searchGroupDiscover(this.value)"/>
         <input type="button" class="sbBtn" value="SEARCH" onclick="searchGroupDiscover($('.srcBr .srcBr2 .sbIn').first().val())">
-    </div>  
+    </div>
 </aside>
- 
+
 <div id="mask" class="mask" style="display: none;"></div>
-<div class="popBttom" id="popP1"> 
+<div class="popBttom" id="popP1">
     <div class="popSet1">
         <div class="mxWd2">
         <ul class="newBtnLst">

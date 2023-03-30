@@ -172,7 +172,7 @@
 {{--                                             style="background: url({{ url('images/gbrdcst.svg') }}) no-repeat center center; margin:5px 0 6px 0">--}}
 {{--                                        </div>--}}
                                         <div class="qsTxt2 q4a">
-                                            CODE: <b>{{ $group->id }}</b> <span class="q4Pass">Password:
+                                            CODE: <b>{{ $group->code }}</b> <span class="q4Pass">Password:
                                             <b>{{ $group->password }}</b></span>
                                         </div>
                                         <div class="q4d">

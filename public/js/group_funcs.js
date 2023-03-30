@@ -315,7 +315,7 @@ function searchGroupDiscover(val){
                                     '</div>'+
                                     '<div class="flowBx2">'+
                                         '<div class="qsTxt2 q4a">'+
-                                            'CODE: <b>'+obj[i].id+'</b> <span class="q4Pass">Creator: <b>'+obj[i].owner.name+'</b></span>'+
+                                            'CODE: <b>'+obj[i].code+'</b> <span class="q4Pass">Creator: <b>'+obj[i].owner.name+'</b></span>'+
                                         '</div>'+
                                         '<div class="flowBx3">'+
                                             obj[i].title+
