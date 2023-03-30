@@ -168,9 +168,9 @@
                                             src="@if ($group->image != null || $group->image != '') {{ url(Storage::url($group->image)) }} @else {{ $default_grp_img }} @endif">
                                     </div>
                                     <div class="qs1Rbx">
-                                        <div class="plan_i" onclick="showGroupNotiPop({{ $group->id }})"
-                                             style="background: url({{ url('images/gbrdcst.svg') }}) no-repeat center center; margin:5px 0 6px 0">
-                                        </div>
+{{--                                        <div class="plan_i" onclick="showGroupNotiPop({{ $group->id }})"--}}
+{{--                                             style="background: url({{ url('images/gbrdcst.svg') }}) no-repeat center center; margin:5px 0 6px 0">--}}
+{{--                                        </div>--}}
                                         <div class="qsTxt2 q4a">
                                             CODE: <b>{{ $group->id }}</b> <span class="q4Pass">Password:
                                             <b>{{ $group->password }}</b></span>
@@ -196,7 +196,7 @@
                                                          onclick="makeGroupPrivacy(this,1,'{{ $group->id }}', '{{ route('groups.togglePrivacy', ['group' => $group->id]) }}')"></span>
                                                 @endif
                                                 <span class="btnIc"
-                                                      onclick="shareData('{{ $group->title }}','{{ $group->title }} - {{ $user->id }}','<?=$base_url?>group-details/{{ $group->id }}')"><img
+                                                      onclick="shareData('{{ $group->title }}','{{ $group->title }} - {{ $user->id }}','{{route('groups.show', $group->id) }}')"><img
                                                         src="{{ url('images/share_pink.svg') }}"></span>
                                                 <span class="btnIc q4Dot"><img src="{{ url('images/dot_pink.svg') }}">
                                                 <div class="dtMlst">
@@ -1257,29 +1257,29 @@
 
         //for quest
 
-        $('.qloader').on('inview', function (event, isInView) {
-            if (isInView) {
-                var nextPage = parseInt($('#q_pageno').val()) + 1;
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'getMyQuest',
-                    data: {
-                        pageno: nextPage
-                    },
-                    success: function (data) {
-                        console.log("data received");
-                        if (data != '') {
-                            $('#quest_list').append(data);
-                            $('#q_pageno').val(nextPage);
-                        } else {
-                            $('.hloader').hide();
-                        }
-                    }
-                });
-
-            }
-        })
+        // $('.qloader').on('inview', function (event, isInView) {
+        //     if (isInView) {
+        //         var nextPage = parseInt($('#q_pageno').val()) + 1;
+        //
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: 'getMyQuest',
+        //             data: {
+        //                 pageno: nextPage
+        //             },
+        //             success: function (data) {
+        //                 console.log("data received");
+        //                 if (data != '') {
+        //                     $('#quest_list').append(data);
+        //                     $('#q_pageno').val(nextPage);
+        //                 } else {
+        //                     $('.hloader').hide();
+        //                 }
+        //             }
+        //         });
+        //
+        //     }
+        // })
 
         //for group
 

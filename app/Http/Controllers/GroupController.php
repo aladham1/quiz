@@ -54,11 +54,7 @@ class GroupController extends Controller
         return view('group.following', ['groups' => $groups]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
 
@@ -122,7 +118,7 @@ class GroupController extends Controller
             $group->exams()->attach($new);
         }
 
-        return redirect('home');
+        return redirect('profile')->with('message', 'done');
     }
 
     /**

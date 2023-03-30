@@ -55,15 +55,16 @@ class ProfileController extends Controller
         $user = User::find($id)->load($relations)->loadCount('following');
         $user_avatar = isset($user->avatar) ? url(Storage::url($user->avatar)) : url('images/user.svg');
         $exams = $user->exams;
-        $userGroups = $user->following;
         $groups = $user->groups;
-        $groups = $userGroups->collect();
+        $userGroups = $user->following;
+
+        $mergedGroups = $groups->merge($userGroups);
         $project_submits = $exams[0]->project_submits ?? new Collection;
         $user_submitted_projects = $user->project_submits;
         $solved_exams = $user->solved;
         $default_grp_img = url('images/placeholder.jpeg');
         return view('dashboard.profile', ['id' => $id, 'user' => $user, 'user_avatar' => $user_avatar,
-            'exams' => $exams, 'groups' => $groups, 'project_submits' => $project_submits,
+            'exams' => $exams, 'groups' => $mergedGroups, 'project_submits' => $project_submits,
             'user_submitted_projects' => $user_submitted_projects, 'solved_exams' => $solved_exams,
         'default_grp_img' => $default_grp_img]);
     }
