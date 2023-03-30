@@ -3333,7 +3333,7 @@ function showHistryReward(url) {
                 span.innerHTML = '<iframe src="https://www.youtube.com/embed/' + reward_data.reward_video + '?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>';
             } else if (reward_type == 4) {
                 span.innerHTML = renderCert({
-                    lang: reward_data.lang,
+                    lang: reward_data.cert_lang,
                     sponser: reward_data.sponser,
                     name: reward_data.user_name,
                     creation_date: reward_data.creation_date,

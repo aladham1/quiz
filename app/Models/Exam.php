@@ -116,4 +116,10 @@ class Exam extends Model
             return $exam_requirement['value'];
         }
     }
+
+    public function solved() {
+        return $this->belongsToMany(User::class, 'exam_user', 'exam_id',
+            'student_id')->as('analysis')->withPivot('percentage', 'questions', 'attempt',
+            'cert_serial')->withTimestamps();
+    }
 }

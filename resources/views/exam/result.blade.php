@@ -55,9 +55,9 @@
                     <span class="btn7i"><img src="{{ url('images/reward.svg') }}"/></span>
                     <span class="btn7t">REWARD</span>
                 </div>
-            </div>    
+            </div>
 
-            <div class="resBx8"> 
+            <div class="resBx8">
                 @if($exam->review_type !=0 )
                     <div class="bttnWh bttnWh1" >
                         <a href="{{ route($guest_prefix . 'exams.analyze', ['exam' => $exam->id, 'attempt' => $attempt]) }}">
@@ -71,7 +71,7 @@
                         <span class="btn8t" style="color:white; opacity:0.5">ANALYSE EXAM</span>
                     </div>
                 @endif
-                
+
                 <div class="bttnWh bttnWh2">
                     <a href="{{ route('home') }}">
                         <span class="btn8i"><img src="{{ url('images/b82.svg') }}"/></span>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="rpBx3T2">
                         <!-- ALL New Content Here -->
-                    
+
                         @if ($exam->reward_type == 0)
                             Bluetooth Coupon not supported for web
                         @elseif($exam->reward_type == 1)
@@ -114,14 +114,14 @@
                         @elseif($exam->reward_type == 4)
                             @auth
                                 <div @if($exam->cert_lang == 'en' || $exam->cert_lang == 'english')
-                                     class="certificate_en" 
+                                     class="certificate_en"
                                      @elseif($exam->cert_lang == 'ar' || $exam->cert_lang == 'arabic')
                                      class="certificate_ab" @endif onclick="print_cert({{ $cert_serial }})">
                                     <!--certificate start-->
                                         <div class="srtfVew " id="printFrist" style="background: #fff; padding: 15px;">
                                             <div class="crt1" style="border: 1px solid #511285; padding: 15px;">
                                                 <div class="crt2" style="text-align: center; position: relative;">
-                                                
+
                                                     <div class="spnrLgo sponsor_img" style="float: left; width: 100%">
                                                     @if(isset($exam->sponser))
                                                         <img src="{{ Storage::url($exam->sponser) }}">
@@ -174,13 +174,13 @@
         		                		                		<div class="crLne42"><span class="cert_exam_name" style="font-weight: bold;">{{ $exam->title }}</span></div>
         		                		                	</div>
         		                		                	<div class="crLne41">
-        		                		                		<div class="crLne42"><span class="cert_xm_date" style="font-weight: bold;">{{ date('d-m-Y') }}</span></div>@ <div class="crLne42"><span class="cert_xm_time" style="font-weight: bold;">{{ date('h:i:s A') }}</span></div> في يوم 
+        		                		                		<div class="crLne42"><span class="cert_xm_date" style="font-weight: bold;">{{ date('d-m-Y') }}</span></div>@ <div class="crLne42"><span class="cert_xm_time" style="font-weight: bold;">{{ date('h:i:s A') }}</span></div> في يوم
         		                		                	</div>
         		                		                	<div class="crLne41">
         		                		                		متمنين لهم دوام النجاح والتميز
         		                		                	</div>
         		                		                </div>
-                                                    
+
         		                		                <div class="crLne60">
         		                		                	<div class="crLne6">
         		                		                		<div class="crLne7"><span class="cert_xm_maker" style="font-weight: bold; color:#707070">{{ $exam->owner->name }}</span></div>
@@ -223,7 +223,7 @@
                     $('.re_img_1').attr("src","{{ url('images/rew2.svg') }}");
                     $('.re_img_2').attr("src","{{ url('images/rew_txt2.svg') }}");
                     $('.re_img_3').attr("src","{{ url('images/rew_bttn2.svg') }}");
-                
+
                 }else{
                     $('.prjtBtn').animate({backgroundColor: '#F784C8'}, 'slow');
                     //$('.prjtBtn a').css("color","#F232A4 !important");
