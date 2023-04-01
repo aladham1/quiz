@@ -81,7 +81,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        $exams = Exam::where('user_id', \auth()->id())->select('id','title')->get();
+        $exams = Exam::where('user_id', \auth()->id())->select('id', 'title')->get();
         return view('exam.create-update', ['exams' => $exams]);
     }
 
@@ -173,8 +173,8 @@ class ExamController extends Controller
             $reward_data['exam_owner'] = $exam->owner->name;
             $reward_data['exam_title'] = $exam->title;
             $analysis_data = $exam->owner->solved;
-             $reward_data['cert_id'] = $analysis_data->first()->analysis->pivot_cert_serial ;
-            $reward_data['creation_time'] =$analysis_data->first()->analysis->created_at->format('h:i:s A');
+            $reward_data['cert_id'] = $analysis_data->first()->analysis->pivot_cert_serial;
+            $reward_data['creation_time'] = $analysis_data->first()->analysis->created_at->format('h:i:s A');
             $reward_data['creation_date'] = $analysis_data->first()->analysis->created_at->format('d-m-Y');
         }
         return response()->json([
@@ -191,7 +191,7 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        $exams = Exam::where('user_id', \auth()->id())->select('id','title')->get();
+        $exams = Exam::where('user_id', \auth()->id())->select('id', 'title')->get();
 
         $questions = $this->get_available_question_types($exam);
         $questions_tmp = [];
@@ -241,7 +241,7 @@ class ExamController extends Controller
             }
         }
         $view_data = ['exam' => $exam_copy, 'intro' => $intro_items_copy,
-            'exams' => $exams,'questions' => $questions_tmp_copy, 'data_copy_with_urls' => ['Exam' => $exam, 'Intro' => $intro_items, 'questions' => $questions_tmp]];
+            'exams' => $exams, 'questions' => $questions_tmp_copy, 'data_copy_with_urls' => ['Exam' => $exam, 'Intro' => $intro_items, 'questions' => $questions_tmp]];
 
         return view('exam.create-update', $view_data);
     }
@@ -541,17 +541,20 @@ class ExamController extends Controller
                 if ($model_name == 'Puzzle') {
                     $answers = json_decode($exam->$model_name->firstWhere('id', $id_with_type[0])->pieces, true);
                     $correct_pieces = 0;
+
                     $student_answer = json_decode($student_answer, true);
                     foreach ($answers as $key => $answer) {
-                        $answers[$key]['X'] = ($answers[$key]['X'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
-                        $answers[$key]['Y'] = ($answers[$key]['Y'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
-                        $answers[$key]['width'] = ($answers[$key]['width'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
-                        $answers[$key]['height'] = ($answers[$key]['height'] / $answers[$key]['scale']) * $student_answer[$key]['scale'];
-                        if (
-                            ($answers[$key]['X'] - 20) <= $student_answer[$key]['X'] && $student_answer[$key]['X'] <= ($answers[$key]['X'] + 20)
-                            && ($answers[$key]['Y'] - 20) <= $student_answer[$key]['Y'] && $student_answer[$key]['Y'] <= ($answers[$key]['Y'] + 20)
-                        ) {
-                            $correct_pieces++;
+                        $answers[$key]['X'] = isset($student_answer) ? ($answers[$key]['X'] / $answers[$key]['scale']) * $student_answer[$key]['scale'] : 0;
+                        $answers[$key]['Y'] = isset($student_answer) ? ($answers[$key]['Y'] / $answers[$key]['scale']) * $student_answer[$key]['scale'] : 0;
+                        $answers[$key]['width'] = isset($student_answer) ? ($answers[$key]['width'] / $answers[$key]['scale']) * $student_answer[$key]['scale'] : 0;
+                        $answers[$key]['height'] = isset($student_answer) ? ($answers[$key]['height'] / $answers[$key]['scale']) * $student_answer[$key]['scale'] : 0;
+                        if (isset($student_answer)) {
+                            if (
+                                ($answers[$key]['X'] - 20) <= $student_answer[$key]['X'] && $student_answer[$key]['X'] <= ($answers[$key]['X'] + 20)
+                                && ($answers[$key]['Y'] - 20) <= $student_answer[$key]['Y'] && $student_answer[$key]['Y'] <= ($answers[$key]['Y'] + 20)
+                            ) {
+                                $correct_pieces++;
+                            }
                         }
                     }
                     if ($correct_pieces == count($answers)) {

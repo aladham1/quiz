@@ -49,7 +49,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/fractal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aws/aws-crt-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth1-client" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/league/mime-type-detection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-snappy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
@@ -151,6 +150,15 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php81" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/seld/phar-utils" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/seld/signal-handler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/scrivo/highlight.php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/seld/jsonlint" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/larapack/voyager-hooks" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/larapack/hooks" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

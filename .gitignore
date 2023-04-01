@@ -30,3 +30,6 @@ resources/views/dashboard/home.blade with_original_php_code.php
 resources/views/dashboard/user_profile.blade.php
 resources/views/dashboard/user_profile.blade.php
 resources/views/puzzle/new-game(old).blade.php
+.idea/php.xml
+.idea/php.xml
+.idea/quiz.iml
