@@ -37,7 +37,7 @@ Route::group(['prefix' => 'guest', 'as' => 'guest.'], function () {
 
 //    Route::get('/start-exam/{exam}', 'ExamController@attend')->name('exams.intro');
 
-    Route::get('/exam-playing/{exam}', 'ExamController@attend')->name('exams.attend');
+//    Route::get('/exam-playing/{exam}', 'ExamController@attend')->name('exams.attend');
 
     Route::post('/exam/{exam}/thankyou', 'ExamController@mark')->name('exams.mark');
 
@@ -84,12 +84,13 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::match(['get', 'post'], '/start-exam/{exam}', 'ExamController@attend')->name('exams.intro');
-Route::get('/exam-playing/{exam}', 'ExamController@attend')->name('exams.attend');
 Route::post('/exam/{exam}/thankyou', 'ExamController@mark')->name('exams.mark');
 Route::get('/exams/{exam}/analyze/{attempt}', 'ExamController@analyze')->name('exams.analyze')->where('attempt', '[0-9]+');
 Route::get('/exams/{exam}/submit-project', 'ProjectSubmitController@create')->name('exams.project_submits.create');
 
 Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () {
+    Route::get('/exam-playing/{exam}', 'ExamController@attend')->name('exams.attend');
+
     Route::get('/start-exam/{exam}', 'ExamController@attend')->name('exams.intro');
 
     Route::get('/home', function () {
