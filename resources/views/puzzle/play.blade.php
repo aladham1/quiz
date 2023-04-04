@@ -203,6 +203,31 @@
 
     }
     @endif
+    function fitStageIntoParentContainer(id) {
+        var elId = 'ddgame_adjustSpinner_'+id;
+        document.getElementById(elId).style.visibility = "visible";
+        setTimeout( function () {
+            var container = window['canvas_'+id];
+            var stage = window['stage_'+id];
+            var originalWidth = window['originalWidth_'+id];
+
+            // now we need to fit stage into parent
+            var containerWidth = container.offsetWidth;
+            // to do this we need to scale the stage
+            var scale = containerWidth / originalWidth;
+            stage.width(originalWidth * scale);
+            stage.height(window['originalHeight_'+id] * scale);
+            stage.scale({ x: scale, y: scale });
+            calibrate(id);
+            stage.draw();
+            container.style.height = stage.height() + "px";
+            document.getElementById(elId).style.visibility = "hidden";
+            window['canvas_'+id] = container;
+            window['stage_'+id] = stage;
+            window['originalWidth_'+id] = originalWidth;
+        }, 1000)
+
+    }
   var canvas_{{$i}}, originalWidth_{{$i}}, originalHeight_{{$i}}, stage_{{$i}};
 
   var checker_{{$i}} = 0;
