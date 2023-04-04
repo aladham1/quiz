@@ -155,6 +155,54 @@
       addImg({{$i}}, '{{ $puzzle }}');
     }
   }, 10);
+
+    @if(isset($ans))
+    function validate_ddqsn(id) {
+        var correctBag = [];
+        var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
+        var stage = window['stage_'+id];
+
+        for (const piece in piecesOfPuzzle) {
+            var pieceInPuzzle = stage.findOne("#"+piece);
+            //console.log( (piecesOfPuzzle[piece]['X'] - 4) < pieceInPuzzle.absolutePosition().x < (piecesOfPuzzle[piece]['X'] + 4) );
+            if ( (piecesOfPuzzle[piece]['X'] - 20) <= pieceInPuzzle.absolutePosition().x && pieceInPuzzle.absolutePosition().x <= (piecesOfPuzzle[piece]['X'] + 20) && (piecesOfPuzzle[piece]['Y'] - 20) <= pieceInPuzzle.absolutePosition().y && pieceInPuzzle.absolutePosition().y <= (piecesOfPuzzle[piece]['Y'] + 20)) {
+                correctBag.push(piece);
+                //var pieceInPuzzle = stage.findOne("#"+piece);
+                pieceInPuzzle.stroke('rgba(0,255,0,0.5)');
+                //stage.findOne("#keysLayer").draw();
+            } else {
+                //var pieceInPuzzle = stage.findOne("#"+piece);
+                pieceInPuzzle.stroke('rgba(255,0,0,0.5)');
+            }
+        }
+        stage.findOne("#keysLayer").draw();
+        window['piecesOfPuzzle_'+id] = piecesOfPuzzle;
+        window['stage_'+id] = stage;
+        //console.log(correctBag);
+        if (Object.keys(piecesOfPuzzle).length == correctBag.length) {
+            return true;
+            /*
+            Swal.fire({
+              icon: 'success',
+              title: 'You Nailed it',
+              showConfirmButton: true,
+            })
+            */
+        } else {
+            return false;
+            //stage.draw()
+
+            /*
+            Swal.fire({
+              icon: 'error',
+              title: 'You have some wrong answers. Check back the puzzle to know the misplaced parts',
+              showConfirmButton: true,
+            })
+            */
+        }
+
+    }
+    @endif
   var canvas_{{$i}}, originalWidth_{{$i}}, originalHeight_{{$i}}, stage_{{$i}};
 
   var checker_{{$i}} = 0;
