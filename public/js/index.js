@@ -321,7 +321,7 @@ $(function () {
                     }
                 });
 
-        } else if (route_is_update) {
+        } else if (typeof route_is_update !== 'undefined' && route_is_update) {
             questions.clear().then(function () {
                 populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
                     .then(function () {
