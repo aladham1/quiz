@@ -17,7 +17,7 @@ class AddColumnsToGroupsTable extends Migration
             $table->string('title')->after('id');
             $table->string('image')->after('title')->nullable();
             $table->longText('description')->after('image')->nullable();
-            $table->string('password')->after('description');
+            $table->string('password')->nullable()->after('description');
             $table->boolean('private')->after('password');
             $table->unsignedBigInteger('user_id')->after('private');
 
