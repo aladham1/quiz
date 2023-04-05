@@ -29,7 +29,7 @@ class ExamController extends Controller
             $exam = $request->route('exam');
 
             if ($request->route()->named('exams.intro')) {
-                if (($exam->login_required && (!auth()->check() && $request->cookie('guest_fields', false))) || (!$request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && (!auth()->check() && $request->cookie('guest_fields', false)))) {
+                if (($exam->login_required && (!auth()->check() && $request->cookie('guest_fields', false))) || (!$request->route()->named('exams.attend', ['exam' => $exam->id]) && (!auth()->check() && $request->cookie('guest_fields', false)))) {
                     if ($request->input('guest_fields', false) && $request->method() == 'POST') {
                         //dd($request->cookie('guest_fields'));
 
@@ -433,7 +433,7 @@ class ExamController extends Controller
             }
             $questions = $this->get_available_question_types($exam);
 
-            if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('guest.exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id]))) {
+            if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id]))) {
                 $questions_tmp = [];
                 foreach ($questions as $key => $q) {
                     //$question_method_name = Str::snake($q);
@@ -511,7 +511,7 @@ class ExamController extends Controller
     public function mark(Request $request, Exam $exam)
     {
         //redirect if didn't attend exam
-        if (url()->previous() != route('exams.attend', ['exam' => $exam->id]) && url()->previous() != route('guest.exams.attend', ['exam' => $exam->id])) {
+        if (url()->previous() != route('exams.attend', ['exam' => $exam->id]) && url()->previous() != route('exams.attend', ['exam' => $exam->id])) {
             return /* Auth::check() ? redirect(route('exams.intro', ['exam' => $exam->id])) : */ redirect(route('exams.intro', ['exam' => $exam->id]));
         }
 
