@@ -428,7 +428,7 @@ class ExamController extends Controller
             $result = $user->solved()->wherePivot('exam_id', $examSolved)->latest()->first();
             if ($exam->have_preq_exam && $user->id != $exam->user_id) {
                 if (!$result || $result->analysis->latest()->first()->percentage < $exam->pass_percentage) {
-                    abort(404);
+//                    abort(404);
                 }
             }
             $questions = $this->get_available_question_types($exam);
