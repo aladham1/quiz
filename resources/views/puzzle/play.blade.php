@@ -70,7 +70,7 @@
         var original_piece_coordintes = window['original_piece_coordintes_'+id];
 
         var puzzleImg = new Image();
-        puzzleImg.crossOrigin = "crossOrigin";
+        puzzleImg.crossOrigin = "anonymous";
         puzzleImg.src = img_link;
         puzzleImg.onload = function () {
             original_image = puzzleImg.cloneNode();
