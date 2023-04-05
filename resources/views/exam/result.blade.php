@@ -246,7 +246,7 @@
         }
 
         function print_cert(licens_id){
-            var win = window.open('http://questanya.com/certificates/certificate_web.php?license='+licens_id, '_blank');
+            // var win = window.open('http://questanya.com/certificates/certificate_web.php?license='+licens_id, '_blank');
         }
     </script>
 @endsection
