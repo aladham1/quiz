@@ -1,0 +1,9 @@
+[31-Oct-2019 14:34:19 UTC] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 8
+[31-Oct-2019 14:53:59 UTC] PHP Notice:  Undefined index: student_id in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 6
+[31-Oct-2019 14:53:59 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 7
+[31-Oct-2019 14:53:59 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 13
+[31-Oct-2019 14:54:30 UTC] PHP Notice:  Undefined index: student_id in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 6
+[31-Oct-2019 14:54:30 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 7
+[31-Oct-2019 14:54:30 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 13
+[31-Oct-2019 14:55:44 UTC] PHP Notice:  Undefined index: student_id in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 6
+[31-Oct-2019 14:55:47 UTC] PHP Notice:  Undefined index: student_id in /home/admin/web/ec2-3-132-101-245.us-east-2.compute.amazonaws.com/public_html/certificates/certificate_web.php on line 6
