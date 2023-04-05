@@ -258,66 +258,68 @@ $(function () {
         if (keys.length > 0 && keys.indexOf('Exam') > -1) {
             questions.getItem('Exam')
                 .then(function (saved_exam) {
-                    if (!route_is_update || (route_is_update && exam.id == saved_exam.id)) {
-                        swal.fire({
-                            title: "Backup found",
-                            text: "A backup from your previous unfinished edits was found, would you like to restore it?",
-                            icon: "info",
-                            showCancelButton: true,
-                            cancelButtonText: 'delete <i class="fas fa-thumbs-down"></i>',
-                            cancelButtonAriaLabel: 'Thumbs down',
-                            confirmButtonColor: '#F232A4',
-                            confirmButtonText: 'restore <i class="fas fa-thumbs-up"></i>',
-                            confirmButtonAriaLabel: 'Thumbs up, great!',
-                            cancelButtonColor: '#511285',
-                            showClass: {popup: 'animate__animated animate__fadeIn'},
-                            hideClass: {popup: 'animate__animated animate__fadeOut'},
-                            reverseButtons: true,
-                        }).then(function (res) {
-                            if (res.isConfirmed) {
-                                if (route_is_update) {
-                                    questions.getItem('data_copy_with_urls')
-                                        .then(function (res) {
-                                            data_copy_with_urls = res;
-                                        })
-                                        .then(function () {
-                                            restore_Data();
-                                        });
-                                } else {
-                                    restore_Data();
-                                }
-                            } else {
-                                questions.clear().then(function () {
+                    if (typeof route_is_update !== 'undefined') {
+                        if (!route_is_update || (route_is_update && exam.id == saved_exam.id)) {
+                            swal.fire({
+                                title: "Backup found",
+                                text: "A backup from your previous unfinished edits was found, would you like to restore it?",
+                                icon: "info",
+                                showCancelButton: true,
+                                cancelButtonText: 'delete <i class="fas fa-thumbs-down"></i>',
+                                cancelButtonAriaLabel: 'Thumbs down',
+                                confirmButtonColor: '#F232A4',
+                                confirmButtonText: 'restore <i class="fas fa-thumbs-up"></i>',
+                                confirmButtonAriaLabel: 'Thumbs up, great!',
+                                cancelButtonColor: '#511285',
+                                showClass: {popup: 'animate__animated animate__fadeIn'},
+                                hideClass: {popup: 'animate__animated animate__fadeOut'},
+                                reverseButtons: true,
+                            }).then(function (res) {
+                                if (res.isConfirmed) {
                                     if (route_is_update) {
-                                        populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
-                                            .then(function () {
-                                                questions.setItem('data_copy_with_urls', data_copy_with_urls);
-                                                data_copy_with_urls = '';
-                                                exam_questions = '';
-                                                intro = '';
-                                                exam = '';
+                                        questions.getItem('data_copy_with_urls')
+                                            .then(function (res) {
+                                                data_copy_with_urls = res;
                                             })
                                             .then(function () {
                                                 restore_Data();
                                             });
+                                    } else {
+                                        restore_Data();
                                     }
-                                });
-                            }
-                        });
-                    } else if (route_is_update) {
-                        questions.clear().then(function () {
-                            populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
-                                .then(function () {
-                                    return questions.setItem('data_copy_with_urls', data_copy_with_urls);
-                                })
-                                .then(function () {
-                                    data_copy_with_urls = '';
-                                    exam_questions = '';
-                                    intro = '';
-                                    exam = '';
-                                    restore_Data();
-                                });
-                        });
+                                } else {
+                                    questions.clear().then(function () {
+                                        if (route_is_update) {
+                                            populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
+                                                .then(function () {
+                                                    questions.setItem('data_copy_with_urls', data_copy_with_urls);
+                                                    data_copy_with_urls = '';
+                                                    exam_questions = '';
+                                                    intro = '';
+                                                    exam = '';
+                                                })
+                                                .then(function () {
+                                                    restore_Data();
+                                                });
+                                        }
+                                    });
+                                }
+                            });
+                        } else if (route_is_update) {
+                            questions.clear().then(function () {
+                                populateDB(exam, intro, exam_questions, data_copy_with_urls) // global vars declared in (exams/create-update.blade.php) view in views folder
+                                    .then(function () {
+                                        return questions.setItem('data_copy_with_urls', data_copy_with_urls);
+                                    })
+                                    .then(function () {
+                                        data_copy_with_urls = '';
+                                        exam_questions = '';
+                                        intro = '';
+                                        exam = '';
+                                        restore_Data();
+                                    });
+                            });
+                        }
                     }
                 });
 
