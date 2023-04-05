@@ -33,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         View::share('content', '');
         View::share('url', url('/').'i/mages/q_icon.svg');
         View::share('img', '');
+        \URL::forceScheme('https');
     }
 }
