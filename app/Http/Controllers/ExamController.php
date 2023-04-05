@@ -425,7 +425,7 @@ class ExamController extends Controller
         if (isset($exam)) {
             $user = \auth()->user();
             $examSolved = $exam->have_preq_exam - 1000;
-            $result = $user->solved()->wherePivot('exam_id', $examSolved)->lastest()->first();
+            $result = $user->solved()->wherePivot('exam_id', $examSolved)->latest()->first();
             if ($exam->have_preq_exam && $user->id != $exam->user_id) {
                 if (!$result || $result->analysis->percentage < $exam->pass_percentage) {
                     abort(404);
