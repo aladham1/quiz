@@ -59,6 +59,19 @@
     }
     function addImg(id, img_link) {
 
+        var original_image = window['original_image_'+id];
+        var canvas = window['canvas_'+id];
+        var stage = window['stage_'+id];
+        var layerback = window['layerback_'+id];
+        var originalWidth = window['originalWidth_'+id];
+        var originalHeight = window['originalHeight_'+id];
+        var heights = window['heights_'+id];
+        var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
+        var original_piece_coordintes = window['original_piece_coordintes_'+id];
+
+        var puzzleImg = new Image();
+        puzzleImg.crossOrigin = "Anonymous";
+        puzzleImg.src = img_link;
        
     }
   var ddinterval_{{$i}} = setInterval( function () {
