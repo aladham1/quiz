@@ -132,7 +132,7 @@ class GroupController extends Controller
         $group->load('owner');
         $group->loadCount(['exams', 'followers', 'news']);
         if ($request->wantsJson()) {
-            $group->image = Storage::url($group->image);
+            $group->image = $group->image ? Storage::url($group->image) : asset('images/placeholder.jpeg');
             $group->owner->avatar = Storage::url($group->owner->avatar);
             return response()->json([
                 "group" => $group
