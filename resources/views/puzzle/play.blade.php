@@ -70,9 +70,80 @@
         var original_piece_coordintes = window['original_piece_coordintes_'+id];
 
         var puzzleImg = new Image();
-        puzzleImg.crossOrigin = "Anonymous";
+        puzzleImg.crossOrigin = "crossOrigin";
         puzzleImg.src = img_link;
-       
+        puzzleImg.onload = function () {
+            original_image = puzzleImg.cloneNode();
+            var imgCalcHeight = puzzleImg.height * originalWidth / puzzleImg.width;
+            puzzleImg.width = originalWidth;
+            puzzleImg.height = imgCalcHeight;
+            var scaleW = canvas.offsetWidth / window['original_size_'+id]['width'];
+            fitStageIntoParentContainer(id);
+            calibrate(id);
+            var oheights = [];
+            var addition = 0;
+            heights.push(puzzleImg.height + 10);
+
+            for (const key in original_piece_coordintes) {
+                if (piecesOfPuzzle[key]['piece'] !== '/') {
+                    oheights.push(original_piece_coordintes[key]['height']);
+                }
+            }
+
+            for (var i = 0; i < oheights.length; i += 2) {
+                var w1 = oheights[i] * scaleW;
+                var y = i + 1;
+                var w2 = oheights[y] == undefined ? w1 : oheights[y];
+                w2 = w2 * scaleW;
+                heights.push(Math.max(w1,w2) + 15 + heights[0]);
+                addition += Math.max(w1,w2) + 30;
+            }
+            var cnvsimg = new Konva.Image({
+                x: 0,
+                y: 0,
+                image: puzzleImg,
+                id: "puzzleImg",
+            });
+            originalHeight = parseInt(puzzleImg.height) + addition;
+            canvas.style.height = originalHeight + "px";
+
+            layerback.add(cnvsimg);
+            layerback.draw();
+            stage.draw();
+
+            window['canvas_'+id] = canvas;
+            window['stage_'+id] = stage;
+            window['layerback_'+id] = layerback;
+            window['originalWidth_'+id] = originalWidth;
+            window['originalHeight_'+id] = originalHeight;
+            window['heights_'+id] = heights;
+            window['piecesOfPuzzle_'+id] = piecesOfPuzzle;
+            window['original_piece_coordintes_'+id] = original_piece_coordintes;
+            window['original_image_'+id] = original_image;
+
+            for (const piece in piecesOfPuzzle) {
+                if (piecesOfPuzzle[piece]['piece'] !== '/') {
+                    getKey(piece, id);
+                }
+            }
+            @if(isset($ans))
+            var stored_answers = JSON.parse($('#puzzle_ans_'+id).val());
+            var imgs_added = setInterval(function () {
+                var imgs_of_puzzle = window['stage_'+id].findOne('#keysLayer').find(node => {
+                    return node.getType() === 'Shape' && node.fill() !== 'white';
+                });
+                if (imgs_of_puzzle.length >= Object.keys(piecesOfPuzzle).length) {
+                    clearInterval(imgs_added);
+                    for (const key in stored_answers) {
+                        var x = (stored_answers[key]['X'] / stored_answers[key]['scale']) * scaleW;
+                        var y = (stored_answers[key]['Y'] / stored_answers[key]['scale']) * scaleW;
+                        restore_stored_piece(id, {'x': x, 'y': y}, key);
+                    }
+                    validate_ddqsn(id);
+                }
+            }, 10);
+            @endif
+        }
     }
   var ddinterval_{{$i}} = setInterval( function () {
     if ($('.index').text() == '{{$i}}' || document.getElementsByClassName('qsn_{{$i}}')[0].style.display != 'none' ) {
