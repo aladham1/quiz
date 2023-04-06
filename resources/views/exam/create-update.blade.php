@@ -1692,7 +1692,7 @@
         }
 
         function readURL(input, type = '') {
-            console.log("type hit", type);
+
             if (input.files && input.files[0]) {
                 var hash = idGen();
 
@@ -1791,7 +1791,7 @@
                             '<img src="' + file + '">' +
                             '</div>' +
                             '</li>';
-                        $('.pr_img_list').append(html);
+                        // $('.pr_img_list').append(html);
                         $('.prImgBx').slideDown();
                         var quest_img = $('.quest_image').val();
                         quest_img = quest_img + ',' + hash;

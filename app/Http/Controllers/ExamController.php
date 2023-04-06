@@ -336,6 +336,7 @@ class ExamController extends Controller
                 }
 
                 $options_exists = $this->search_for_keys($relation_data, 'options');
+
                 $pieces_exists = $this->search_for_keys($relation_data, 'pieces');
                 $to_fetch = ['id', 'image', 'audio'];
                 if ($options_exists) $to_fetch[] = 'options';
@@ -401,7 +402,6 @@ class ExamController extends Controller
                     $columns_to_update = array_diff(array_keys($updated_models[array_key_first($updated_models)]), ['id', 'created_at', 'updated_at', 'deleted_at']);
                     $exam_model->$relation_name()->upsert($updated_models, 'id', $columns_to_update);
                 }
-
                 if (count($new_models) > 0) {
                     $exam_model->$relation_name()->createMany($new_models);
                 }
@@ -578,6 +578,7 @@ class ExamController extends Controller
 
                     $answer = $exam->$model_name->firstWhere('id', $id_with_type[0])->answer;
                     if ($model_name == 'WordGame') {
+
                         //dd($student_answer, $answer,  mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$student_answer)), mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'],$answer)));
                         mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'], $student_answer)) == mb_strtoupper(str_replace(['i', 'ı'], ['İ', 'I'], $answer)) ? $correct_answers++ : $false_questions[$question] = $student_answer;
                     } else { //MCQ or any other future type
@@ -713,8 +714,10 @@ class ExamController extends Controller
 
     protected function map_files_to_columns($request, &$validated)
     {
+
         foreach ($validated as $key => $value) {
             if ($key != 'Exams' && $request->file($key) != null) {
+
                 $levels = explode('_', $key);
                 $model = preg_replace('/\d+/', '', $levels[0]);
                 //print_r([$model, $currentLevel]);
@@ -722,8 +725,10 @@ class ExamController extends Controller
                 $fullPath = $request->file($key)->storeAs(preg_replace('/\d+/', '', $levels[1]), $fullName, 'public');
                 if (strstr($key, 'Intro')) {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, true, $key);
-                } else {
+                } elseif(!strstr($key, 'Puzzle')) {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, false, $key);
+                }else{
+                    $this->dynamic_assign($validated['Exams'], $levels, $fullPath, false, $key, true);
                 }
 
             }
@@ -737,13 +742,14 @@ class ExamController extends Controller
      * @param array $levels : the array of keys to loop over recursively until reaching the last one (will be considered the desired key to assign to)
      * @param any $value : value to be assigned
      */
-    protected function dynamic_assign(&$array, $levels, $value, $intro = false, $levels_original_str)
+    protected function dynamic_assign(&$array, $levels, $value, $intro = false, $levels_original_str, $is_puzzle = false)
     {
         $element = array_shift($levels);
         $element = str_replace("-", "_", $element);
         //print_r($element);
         //print_r($array);
         if (count($levels) > 0) {
+
             if (array_key_exists($element, $array)) { //for exam
                 $this->dynamic_assign($array[$element], $levels, $value, $intro, $levels_original_str);
             } else {
@@ -787,14 +793,20 @@ class ExamController extends Controller
             }
         } else {
             $element = preg_replace('/(?<=image).+/', '', $element);
-            if (!isset($array[$element]) || $array[$element] == $levels_original_str || $array[$element] == str_replace("_data", '', $levels_original_str)) {
+            if (!isset($array[$element]) || $array[$element] == $levels_original_str || $array[$element] ==
+                str_replace("_data", '', $levels_original_str)) {
                 $array[$element] = $value;
             } else {
                 if (is_array($array[$element])) {
                     $array[$element][] = $value;
                 } else {
-//                    $array[$element] = [$array[$element], $value];
-                    $array[$element] = $value;
+                    if ($is_puzzle){
+                           $array[$element] = $value;
+                    }else{
+                        $array[$element] = [$array[$element], $value];
+                    }
+
+
                 }
             }
         }

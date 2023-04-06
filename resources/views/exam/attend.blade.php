@@ -140,7 +140,9 @@
 								$student_answer = $wrong_questions[$order_with_type] ?? $q['pieces'];
 							}
 						@endphp
-						@include('puzzle.play', ["puzzle" => Storage::url($q['puzzle_image']), "i" => $loop->iteration, "pieces" => json_encode($q['pieces']), 'id' => $q['id'], 'student_answer' => json_encode($student_answer), 'ans' => $ans ?? false])
+                    @dd(end($q['puzzle_image']))
+						@include('puzzle.play', ["puzzle" => Storage::url($q['puzzle_image']), "i" => $loop->iteration,
+						 "pieces" => json_encode($q['pieces']), 'id' => $q['id'], 'student_answer' => json_encode($student_answer), 'ans' => $ans ?? false])
 
 					@else
 						@php

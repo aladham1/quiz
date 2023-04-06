@@ -152,10 +152,28 @@
       @if(isset($ans))
         $('#puzzle_ans_'+{{$i}}).val('{!! $student_answer !!}');
       @endif
+          console.log('{{ $puzzle }}');
       addImg({{$i}}, '{{ $puzzle }}');
     }
   }, 10);
+    function calibrate(id) {
+        var canvas = window['canvas_'+id];
+        var piecesOfPuzzle = window['piecesOfPuzzle_'+id];
+        var original_piece_coordintes = window['original_piece_coordintes_'+id];
 
+        var scaleW = canvas.offsetWidth / window['original_size_'+id]['width'];
+        //console.log(scaleW);
+        for (const key in piecesOfPuzzle) {
+            piecesOfPuzzle[key]['X'] = original_piece_coordintes[key]['X'] * scaleW;
+            piecesOfPuzzle[key]['Y'] = original_piece_coordintes[key]['Y'] * scaleW;
+            piecesOfPuzzle[key]['width'] = original_piece_coordintes[key]['width'] * scaleW;
+            piecesOfPuzzle[key]['height'] = original_piece_coordintes[key]['height'] * scaleW;
+        }
+
+        window['canvas_'+id] = canvas;
+        window['piecesOfPuzzle_'+id] = piecesOfPuzzle;
+        window['original_piece_coordintes_'+id] = original_piece_coordintes;
+    }
     @if(isset($ans))
     function validate_ddqsn(id) {
         var correctBag = [];

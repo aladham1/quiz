@@ -16,7 +16,7 @@ class WordGame extends Model
      * @var array
      */
     protected $guarded = [];
-    
+
     public function exam() {
         return $this->belongsTo(Exam::class);
     }
