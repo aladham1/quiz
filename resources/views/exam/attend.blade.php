@@ -142,10 +142,8 @@
 						@endphp
                   <?php
                             $array = json_decode($q['puzzle_image'], true);
-
-                           
                       ?>
-						@include('puzzle.play', ["puzzle" => Storage::url(end($array)), "i" => $loop->iteration,
+						@include('puzzle.play', ["puzzle" => Storage::url(is_array($array) ? end($array) : $q['puzzle_image']), "i" => $loop->iteration,
 						 "pieces" => json_encode($q['pieces']), 'id' => $q['id'], 'student_answer' => json_encode($student_answer), 'ans' => $ans ?? false])
 
 					@else
@@ -154,14 +152,17 @@
 							$q['video'] = json_decode($q['video'], true) ?? $q['video'] ;
 							$q['audio'] = json_decode($q['audio'], true) ?? $q['audio'] ;
 						@endphp
+
 						@if (isset($q['image']))
 							<div class="@if(is_array($q['image']))qsimg2 @else qsimg1 @endif" style="height: 190px;">
 
 								@if( is_array($q['image']) /*|| (Str::contains($type, Str::snake('WordGame')) || Str::contains($q['type'], Str::snake('WordGame')))*/ )
 									@foreach ($q['image'] as $img)
+                                        @if($img)
 										<div class="qsimg4">
 											<img src="{{ Storage::url($img) }}"/>
 										</div>
+                                        @endif
 									@endforeach
 
 								@else

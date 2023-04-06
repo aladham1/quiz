@@ -616,12 +616,12 @@ function renderSubjectListHTML(type, text, id = null, sort = true) {
             '</div>';
     } else if (type == 'audio') {
 
-            src = (text instanceof Blob || text instanceof File) ? URL.createObjectURL(text) : text;
-            title = 'Audio';
-            iconName = 'audio';
-            htmlBlock = '<div class="drgAudio center">' + '<audio controls>' + '<source onload="URL.revokeObjectURL(this.src);' +
-                'console.log(\'revoked\')" type="audio/wav">' + '</audio>' + '</div>';
-            editEvent = '';
+        src = (text instanceof Blob || text instanceof File) ? URL.createObjectURL(text) : text;
+        title = 'Audio';
+        iconName = 'audio';
+        htmlBlock = '<div class="drgAudio center">' + '<audio controls>' + '<source onload="URL.revokeObjectURL(this.src);' +
+            'console.log(\'revoked\')" type="audio/wav">' + '</audio>' + '</div>';
+        editEvent = '';
 
     } else if (type == 'image') {
         src = (text instanceof Blob || text instanceof File) ? URL.createObjectURL(text) : text;
@@ -1771,6 +1771,7 @@ function editQuestion(id, type) {
                                 var promises = [];
                                 if (obj['image']) {
                                     for (var i = 0; i < obj['image'].length; i++) {
+                                        if (obj['image'][i]) {
                                         promises.push(
                                             axios.get(getFileURL.replace('file_path', obj['image'][i]))
                                                 .then(function (res) {
@@ -1779,234 +1780,245 @@ function editQuestion(id, type) {
                                         );
                                     }
                                 }
-                                var count = promises.length;
-                                for (var i = count; i < 4; i++) {
-                                    promises.push(questions.getItem(id + '_image' + i));
-                                }
-                                Promise.all(promises)
-                                    .then(function (res) {
-                                        console.log(res)
-                                        var html = '';
-                                        var tmps = [];
-                                        for (var i = 0; i < res.length; i++) {
+                            }
+                            var count = promises.length;
+                            console.log(count);
+                            for (var i = count; i < 4; i++) {
 
-                                            if (res[i] != null) {
-                                                var dbid = id + '_image' + i;
-                                                var tmpObj = (res[i] instanceof File || res[i] instanceof Blob) ? URL.createObjectURL(res[i]) : res[i];
-                                                tmps.push(tmpObj);
-                                                $('.quest_image').val($('.quest_image').val() + ',' + dbid);
-                                                html += '<li class="wgimg ' + img_cls + '" data="' + dbid + '"> <span class="wgIdlt" onclick="deleteWgTmpImg(\'' + cls_prefix.replace('.', '') + '\',\'' + dbid + '\',\'' + dbid + '\')">X</span>' +
-                                                    '<div class="wgImgCrop">' +
-                                                    '<img src="' + tmpObj + '">' +
-                                                    '</div>' +
-                                                    '</li>';
+                                promises.push(questions.getItem(id + '_image' + i));
+                            }
+                            Promise.all(promises)
+                                .then(function (res) {
+                                    var html = '';
+                                    var tmps = [];
+                                    for (var i = 0; i < res.length; i++) {
 
-                                            } else {
-                                                html += ' <li class="tmpImg">' +
-                                                    '<div class="wgImgCrop" onclick="clickWgQImage(\'' + pop_cls + '\')">' +
-                                                    '<img src="' + rootURL + 'images/image.svg">' +
-                                                    '</div>' +
-                                                    '</li>';
-                                            }
+                                        if (res[i] != null) {
+                                            var dbid = id + '_image' + i;
+
+                                            var tmpObj = (res[i] instanceof File || res[i] instanceof Blob) ? URL.createObjectURL(res[i]) : res[i];
+                                            tmps.push(tmpObj);
+                                            $('.quest_image').val($('.quest_image').val() + ',' + dbid);
+                                            html += '<li class="wgimg ' + img_cls + '" data="' + dbid + '"> <span class="wgIdlt" onclick="deleteWgTmpImg(\'' + cls_prefix.replace('.', '') + '\',\'' + dbid + '\',\'' + dbid + '\')">X</span>' +
+                                                '<div class="wgImgCrop">' +
+                                                '<img src="' + tmpObj + '">' +
+                                                '</div>' +
+                                                '</li>';
+
+                                        } else {
+                                            html += ' <li class="tmpImg">' +
+                                                '<div class="wgImgCrop" onclick="clickWgQImage(\'' + pop_cls + '\')">' +
+                                                '<img src="' + rootURL + 'images/image.svg">' +
+                                                '</div>' +
+                                                '</li>';
                                         }
-                                        $(cls_prefix + '_img_list').html(html);
-                                        $(cls_prefix + 'ImgBx').show();
-                                        setTimeout(function () {
-                                            for (var i = 0; i < tmps.length; i++) {
-                                                URL.revokeObjectURL(tmps[i]);
-                                            }
-                                        }, 2000);
-                                        return;
-                                    })
-                                    .catch(function (err) {
-                                        console.log(err);
-                                    });
-                            }
-                            return;
-                        })
+                                    }
+                                    $(cls_prefix + '_img_list').html(html);
+                                    $(cls_prefix + 'ImgBx').show();
+
+                                    setTimeout(function () {
+                                        for (var i = 0; i < tmps.length; i++) {
+                                            console.log("a");
+                                            URL.revokeObjectURL(tmps[i]);
+                                        }
+                                    }, 2000);
+                                    return;
+                                })
+                                .catch(function (err) {
+                                    console.log("f");
+                                });
+                        }
+                    return;
                 }
-                p.then(function () {
-                    var type = tmptype;
-                    console.log(type);
-                    if (type == 'word_game') {
-                        var arabic = /[\u0600-\u06FF]/;
-                        if (arabic.test(obj.answer)) {
-                            obj.answer = obj.answer.split("").reverse().join("");
-                        }
-                        $('.word_game_answer').val(obj.answer);
-                    } else if (type == 'mc') {
-                        var options = obj.options;
-                        $('input[type="radio"][name="mch_check"][value="' + obj.answer + '"]').prop("checked", true).trigger('change');
-                        for (var option in options) {
+            )
+            }
+            p.then(function () {
+                var type = tmptype;
+                console.log(type);
+                if (type == 'word_game') {
+                    var arabic = /[\u0600-\u06FF]/;
+                    if (arabic.test(obj.answer)) {
+                        obj.answer = obj.answer.split("").reverse().join("");
+                    }
+                    $('.word_game_answer').val(obj.answer);
+                } else if (type == 'mc') {
+                    var options = obj.options;
+                    $('input[type="radio"][name="mch_check"][value="' + obj.answer + '"]').prop("checked", true).trigger('change');
+                    for (var option in options) {
 
-                            var type = options[option]['type'];
-                            var index = options[option]['index'];
-                            var txt = options[option]['text'];
-                            $("input[type='radio'][name='sml_rdio" + index + "'][value='" + type + "']").prop("checked", true);
-                            if (type == 'text') {
-                                $('.qst_ans_' + index).val(txt);
-                            } else if (type == 'image') {
-                                var dbid = id + '_options_option' + index + '_image';
+                        var type = options[option]['type'];
+                        var index = options[option]['index'];
+                        var txt = options[option]['text'];
+                        $("input[type='radio'][name='sml_rdio" + index + "'][value='" + type + "']").prop("checked", true);
+                        if (type == 'text') {
+                            $('.qst_ans_' + index).val(txt);
+                        } else if (type == 'image') {
+                            var dbid = id + '_options_option' + index + '_image';
 
-                                function tmp_image(dbid, index, option) {
-                                    questions.getItem(dbid)
-                                        .then(function (image) {
-                                            if (image) {
-                                                return URL.createObjectURL(image);
-                                            }
+                            function tmp_image(dbid, index, option) {
+                                questions.getItem(dbid)
+                                    .then(function (image) {
+                                        if (image) {
+                                            return URL.createObjectURL(image);
+                                        }
 
-                                            return axios.get(getFileURL.replace('file_path', options[option]['image']))
-                                                .then(function (res) {
-                                                    return res.data;
-                                                })
-                                                .catch(function (err) {
-                                                    console.log(options[option]);
-                                                    console.log(err);
-                                                });
-                                        })
-                                        .then(function (img_var) {
-                                            var tempObj = img_var;
-                                            $('.quest_image_option_' + index).val(dbid);
-                                            //preview image
-                                            var div = document.createElement('div');
-                                            div.className = "imgFld";
-                                            var img = document.createElement('img');
-                                            img.onload = function () {
-                                                URL.revokeObjectURL(tempObj);
-                                            }
-                                            img.src = tempObj;
-                                            div.appendChild(img);
-                                            $('.ansImgArea_' + index).append(div);
-                                            $('.ansImgArea_' + index).show();
-                                            $('.ansTxt_' + index).hide();
-                                        })
-                                }
-
-                                tmp_image(dbid, index, option);
-
-                            } else if (type == 'audio') {
-                                var dbid = id + '_options_option' + index + '_audio';
-
-                                function tmp_audio(dbid, index, option) {
-                                    questions.getItem(dbid)
-                                        .then(function (audio) {
-                                            if (audio) {
-                                                return URL.createObjectURL(audio);
-                                            }
-                                            return axios.get(getFileURL.replace('file_path', options[option]['audio']))
-                                                .then(function (res) {
-                                                    return res.data;
-                                                })
-                                                .catch(function (err) {
-                                                    console.log(err);
-                                                });
-                                        })
-                                        .then(function (audio) {
-                                            $('.quest_voice_option_' + index).val(dbid);
-                                            var tempObj = audio;
-                                            var audioTag = document.createElement('audio');
-                                            audioTag.controls = true;
-                                            var audioSrc = document.createElement('source');
-                                            audioSrc.type = "audio/wav";
-                                            audioSrc.onload = function () {
-                                                URL.revokeObjectURL(tempObj);
-                                            }
-                                            audioSrc.src = tempObj;
-                                            audioTag.appendChild(audioSrc);
-                                            $('.ansAud_' + index).append(audioTag);
-                                            $('.ansAud_' + index).show();
-                                            $('.ansTxt_' + index).hide();
-                                        })
-                                }
-
-                                tmp_audio(dbid, index, option);
-
+                                        return axios.get(getFileURL.replace('file_path', options[option]['image']))
+                                            .then(function (res) {
+                                                return res.data;
+                                            })
+                                            .catch(function (err) {
+                                                console.log(options[option]);
+                                                console.log(err);
+                                            });
+                                    })
+                                    .then(function (img_var) {
+                                        var tempObj = img_var;
+                                        $('.quest_image_option_' + index).val(dbid);
+                                        //preview image
+                                        var div = document.createElement('div');
+                                        div.className = "imgFld";
+                                        var img = document.createElement('img');
+                                        img.onload = function () {
+                                            URL.revokeObjectURL(tempObj);
+                                        }
+                                        img.src = tempObj;
+                                        div.appendChild(img);
+                                        $('.ansImgArea_' + index).append(div);
+                                        $('.ansImgArea_' + index).show();
+                                        $('.ansTxt_' + index).hide();
+                                    })
                             }
+
+                            tmp_image(dbid, index, option);
+
+                        } else if (type == 'audio') {
+                            var dbid = id + '_options_option' + index + '_audio';
+
+                            function tmp_audio(dbid, index, option) {
+                                questions.getItem(dbid)
+                                    .then(function (audio) {
+                                        if (audio) {
+                                            return URL.createObjectURL(audio);
+                                        }
+                                        return axios.get(getFileURL.replace('file_path', options[option]['audio']))
+                                            .then(function (res) {
+                                                return res.data;
+                                            })
+                                            .catch(function (err) {
+                                                console.log(err);
+                                            });
+                                    })
+                                    .then(function (audio) {
+                                        $('.quest_voice_option_' + index).val(dbid);
+                                        var tempObj = audio;
+                                        var audioTag = document.createElement('audio');
+                                        audioTag.controls = true;
+                                        var audioSrc = document.createElement('source');
+                                        audioSrc.type = "audio/wav";
+                                        audioSrc.onload = function () {
+                                            URL.revokeObjectURL(tempObj);
+                                        }
+                                        audioSrc.src = tempObj;
+                                        audioTag.appendChild(audioSrc);
+                                        $('.ansAud_' + index).append(audioTag);
+                                        $('.ansAud_' + index).show();
+                                        $('.ansTxt_' + index).hide();
+                                    })
+                            }
+
+                            tmp_audio(dbid, index, option);
+
                         }
                     }
-                    console.log(event);
-                    $(sv_slctr).attr("onclick", event);
-                    openQuestPop(pop_cls);
+                }
+                console.log(event);
+                $(sv_slctr).attr("onclick", event);
+                openQuestPop(pop_cls);
+            })
+                .catch(function (err) {
+                    console.log(err);
                 })
-                    .catch(function (err) {
-                        console.log(err);
-                    })
 
-            } else if (type == 'dd') {
-                counter = 0;
-                active_selector = '';
-                $('.ddsaveQsn').attr("onclick", "updateDDQuestion('" + id + "')");
-                openQuestPop('dd');
-                Promise.join(questions.getItem(id), questions.getItem(id + "_puzzle-image"), function (obj, blob) {
-                    puzzle_keys = {};
-                    $('#puzzle_name').val(obj.question);
-                    $('#puzzle').attr('type', 'text');
-                    $('#puzzle').attr('type', 'file');
-                    document.getElementById('keys').textContent = '';
-                    console.log(obj.pieces);
-                    document.getElementById('keys').textContent = JSON.stringify(obj.pieces);
-                    puzzle_keys = obj.pieces;
-                    start_puzzle_creation();
-                    layer.removeChildren();
-                    layerback.removeChildren();
-                    layerback.add(selectionRectangle);
-                    ds_ctx.clearRect(0, 0, ds.width, ds.height);
-                    for (var rm = 1; rm <= 4; rm++) {
-                        $('.ddTgAnsTxt_' + rm).val('');
-                        $('.ddTgAnsImg_' + rm).val('');
-                        $('.crpTrg' + rm).html('<img src="' + rootURL + 'images/image.svg" />');
-                        $('.target_' + rm).val('');
-                        $('.target_' + rm + '_imgdata').val('');
-                        $('.ddTrgtLi_' + rm).removeClass("added");
-                    }
-                    addImg(blob);
+        }
+else
+    if (type == 'dd') {
+        counter = 0;
+        active_selector = '';
+        $('.ddsaveQsn').attr("onclick", "updateDDQuestion('" + id + "')");
+        openQuestPop('dd');
+        Promise.join(questions.getItem(id), questions.getItem(id + "_puzzle-image"), function (obj, blob) {
+            puzzle_keys = {};
+            $('#puzzle_name').val(obj.question);
+            $('#puzzle').attr('type', 'text');
+            $('#puzzle').attr('type', 'file');
+            document.getElementById('keys').textContent = '';
+            console.log(obj.pieces);
+            document.getElementById('keys').textContent = JSON.stringify(obj.pieces);
+            puzzle_keys = obj.pieces;
+            start_puzzle_creation();
+            layer.removeChildren();
+            layerback.removeChildren();
+            layerback.add(selectionRectangle);
+            ds_ctx.clearRect(0, 0, ds.width, ds.height);
+            for (var rm = 1; rm <= 4; rm++) {
+                $('.ddTgAnsTxt_' + rm).val('');
+                $('.ddTgAnsImg_' + rm).val('');
+                $('.crpTrg' + rm).html('<img src="' + rootURL + 'images/image.svg" />');
+                $('.target_' + rm).val('');
+                $('.target_' + rm + '_imgdata').val('');
+                $('.ddTrgtLi_' + rm).removeClass("added");
+            }
+            addImg(blob);
 
-                    setTimeout(function () {
-                        console.log(obj.pieces)
-                        var pieces = obj.pieces;
-                        var os = pieces['piece0']['original_size'];
-                        var scale = puzzle_canvas.offsetWidth / os['width'];
-                        for (var piece in pieces) {
-                            var current = pieces[piece];
-                            var x2 = current['width'] / current['scale'] * scale;
-                            var y2 = current['height'] / current['scale'] * scale;
-                            var x1 = current['X'] / current['scale'] * scale;
-                            var y1 = current['Y'] / current['scale'] * scale;
-                            create(x1, y1, x2 + x1, y2 + y1, function (piece, current) {
-                                var index = parseInt(piece.replace('piece', ''));
+            setTimeout(function () {
+                console.log(obj.pieces)
+                var pieces = obj.pieces;
+                var os = pieces['piece0']['original_size'];
+                var scale = puzzle_canvas.offsetWidth / os['width'];
+                for (var piece in pieces) {
+                    var current = pieces[piece];
+                    var x2 = current['width'] / current['scale'] * scale;
+                    var y2 = current['height'] / current['scale'] * scale;
+                    var x1 = current['X'] / current['scale'] * scale;
+                    var y1 = current['Y'] / current['scale'] * scale;
+                    create(x1, y1, x2 + x1, y2 + y1, function (piece, current) {
+                        var index = parseInt(piece.replace('piece', ''));
 
-                                if ("hide_origin" in current) {
-                                    $('#whiteCvr' + index).prop("checked", true);
-                                    rectCvr(true, piece);
-                                }
+                        if ("hide_origin" in current) {
+                            $('#whiteCvr' + index).prop("checked", true);
+                            rectCvr(true, piece);
+                        }
 
-                                if ("text" in current) {
-                                    updateTxt(current['text'], piece, 'a_preview');
+                        if ("text" in current) {
+                            updateTxt(current['text'], piece, 'a_preview');
+                            document.getElementById("a_preview_col" + index).style.display = 'unset';
+                            document.getElementById("a_col" + index).style.display = 'none';
+                        }
+                        questions.getItem(id + '_pieces_piece' + index + '_image')
+                            .then(function (res) {
+                                if (res != null) {
+                                    console.log(true);
+                                    updateImgfromFile(res, piece, 'a_preview');
                                     document.getElementById("a_preview_col" + index).style.display = 'unset';
                                     document.getElementById("a_col" + index).style.display = 'none';
                                 }
-                                questions.getItem(id + '_pieces_piece' + index + '_image')
-                                    .then(function (res) {
-                                        if (res != null) {
-                                            console.log(true);
-                                            updateImgfromFile(res, piece, 'a_preview');
-                                            document.getElementById("a_preview_col" + index).style.display = 'unset';
-                                            document.getElementById("a_col" + index).style.display = 'none';
-                                        }
-                                    })
-                            }, piece, current)
-                        }
+                            })
+                    }, piece, current)
+                }
 
-                    }, 2000);
-                })
-                    .catch(function (err) {
-                        console.log(err);
-                    })
-            }
+            }, 2000);
         })
-        .catch(function (err) {
-            console.log(err);
-        })
+            .catch(function (err) {
+                console.log(err);
+            })
+    }
+}
+
+)
+.
+catch(function (err) {
+    console.log(err);
+})
 }
 
 function deleteQuestionDraft(id) { //NOTE: id is DBkey
