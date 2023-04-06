@@ -2406,12 +2406,10 @@ function publishExam(draft = false) {
             return Promise.all([questions.setItem('Exam', exam), [promises[0], promises[1], promises[2]]]);
         })
         .then(function (orders_and_keys) {
-            console.log(orders_and_keys);
             orders_and_keys = orders_and_keys[1];
             var keys2 = orders_and_keys[2];
             var intro_sort = orders_and_keys[0] || [];
             var qsort = orders_and_keys[1] || [];
-            console.log(keys2, intro_sort, qsort);
             var keys_to_be_removed = ['Intro_sort', 'Questions_sort', 'data', 'data_copy_with_urls']; //keys used on front end to organize data and not needed on backend
             for (var i = 0; i < keys_to_be_removed.length; i++) {
                 var key = keys_to_be_removed[i];
@@ -2420,8 +2418,6 @@ function publishExam(draft = false) {
                 }
             }
 
-            console.log(keys2);
-            console.log(keys2['Exam']);
             var promises = [];
             for (var element in keys2) {
                 var m = keys2[element].split('_')[0].replace(/\d+/gi, '');

@@ -96,7 +96,6 @@ class ExamController extends Controller
         $validated = $request->all();//validated();
         $validated['Exams'] = json_decode($validated['Exams'], true);
         //print_r($validated['Exams']['Exam1']);
-
         $this->map_files_to_columns($request, $validated);
 
         //dd($validated['Exams']);
@@ -257,9 +256,9 @@ class ExamController extends Controller
     {
         $validated = $request->all();//validated();
         $validated['Exams'] = json_decode($validated['Exams'], true);
+
         //print_r($validated['Exams']['Exam1']);
         $this->map_files_to_columns($request, $validated);
-
         $media_to_be_deleted = [];
         $empty_array = [];
         $exams = $validated['Exams'];
@@ -782,7 +781,8 @@ class ExamController extends Controller
                 if (is_array($array[$element])) {
                     $array[$element][] = $value;
                 } else {
-                    $array[$element] = [$array[$element], $value];
+//                    $array[$element] = [$array[$element], $value];
+                    $array[$element] = $value;
                 }
             }
         }
