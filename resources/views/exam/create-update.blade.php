@@ -382,19 +382,19 @@
                                         <select class="infld rew_type swiper-no-swiping"
                                                 onchange="showRewardMsg(this.value)">
                                             <option value="0">Bluetooth</option>
-                                            <option value="1" selected>Show Text Message</option>
+                                            <option value="1">Show Text Message</option>
                                             <option value="2">Show Image</option>
-                                            <option value="3">Play Video</option>
+                                            <option value="3" >Play Video</option>
                                             <option value="4">Certificate</option>
                                         </select>
                                     </div>
 
-                                    <div class="inSet ble_reward">
+                                    <div class="inSet ble_reward" style="display:none">
                                         <h6><span> Ebot Name</span> <span class="qinfo">?</span></h6>
                                         <input type="text" class="infld hardware_name">
                                     </div>
 
-                                    <div class="inSet ble_reward">
+                                    <div class="inSet ble_reward" style="display:none">
                                         <h6><span> Color Code</span> <span class="qinfo">?</span></h6>
                                         <select class="infld charectar swiper-no-swiping">
                                             <option value="$Q9R">Red</option>
@@ -1508,8 +1508,6 @@
         if (typeof document.getElementsByTagName != 'undefined') {
             elements = document.getElementsByTagName('*');
         }
-        console.log(elements);
-
         //loop over all element
         for (var i = 0; i < elements.length; i++) {
 
@@ -1587,7 +1585,7 @@
                 $('#popB2').fadeOut();
                 $('.eyeBtn').fadeOut();
 
-                $('.rew_type').val(1).change();
+                 // $('.rew_type').val(3).change();
                 $('.header_name').text("Result and reward");
 
                 $('.count').val($('.quest_list_item').length);

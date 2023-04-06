@@ -90,6 +90,7 @@ function restoreExam() {
             $('.rew_text').val(res.reward_message || 0);
             $('.rew_video').val(res.reward_video || 0);
             $('.cert_lang').val(res.cert_lang || 0);
+            showRewardMsg(res.reward_type);
         }
     }
 

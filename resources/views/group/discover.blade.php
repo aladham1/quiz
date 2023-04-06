@@ -23,7 +23,7 @@
             $q->where('private', 0)->withCount(['followers', 'exams',])->with(['owner:id,name']);
             }]);
             //$groupCategories = App\Models\GroupCategory::where('private', 0)->withCount(['followers','exams',])->with( ['owner:id,name'])->get();
-            $user_subs = App\User::find(Auth()->id())->load('following:id')->following->pluck('id')->toArray();
+            $user_subs = App\User::find(Auth()->id())->load('following')->following->pluck('id')->toArray();
         @endphp
         @foreach($groupCategories as $category)
             <h4 class="my-2">{{ $category->category }}</h4>
