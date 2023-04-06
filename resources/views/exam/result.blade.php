@@ -110,7 +110,8 @@
                         @elseif($exam->reward_type == 2)
                             <img src="{{ Storage::url($exam->reward_image) }}" />';
                         @elseif($exam->reward_type == 3)
-                            <iframe src="https://www.youtube.com/embed/{{ $exam->reward_video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>
+                            <?php $service = new App\Services\MyServices() ?>
+                            <iframe src="https://www.youtube.com/embed/{{ $service->getVideoId($exam->reward_video) }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"></iframe>
                         @elseif($exam->reward_type == 4)
                             @auth
                                 <div @if($exam->cert_lang == 'en' || $exam->cert_lang == 'english')

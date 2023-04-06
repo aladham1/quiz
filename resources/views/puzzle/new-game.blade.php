@@ -50,10 +50,10 @@
 
       <div  class="card-body pieceSelection p-0 m-0 overflow-hidden text-center d-none">
         <div class="card-header">
-          <div class="text-center">
-            <h5 class="text-center m-0">Click on area and drag to specify the region</h5>
-            <h5 class="text-center m-0" style="color: red">Don't click done until all your chosen parts are fully visible in the preview</h5>
-          </div>
+{{--          <div class="text-center">--}}
+{{--            <h5 class="text-center m-0">Click on area and drag to specify the region</h5>--}}
+{{--            <h5 class="text-center m-0" style="color: red">Don't click done until all your chosen parts are fully visible in the preview</h5>--}}
+{{--          </div>--}}
           <div class="form-group col-12 text-center mb-0" style="font-size: 18px !important">
             <textarea name="keys" hidden id="keys"></textarea>
           </div>
