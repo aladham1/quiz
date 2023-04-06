@@ -254,11 +254,14 @@ class ExamController extends Controller
      */
     public function update(Request $request, Exam $original_exam)
     {
+
         $validated = $request->all();//validated();
+
         $validated['Exams'] = json_decode($validated['Exams'], true);
 
         //print_r($validated['Exams']['Exam1']);
         $this->map_files_to_columns($request, $validated);
+
         $media_to_be_deleted = [];
         $empty_array = [];
         $exams = $validated['Exams'];
@@ -284,21 +287,30 @@ class ExamController extends Controller
             unset($exam['Exam']);
 
             if (isset($exam['Intro'])) {
+
                 $exam['Intro'] = array_map(array($this, 'json_array_vars'), $exam['Intro']);
+
                 //$exam['Intro']['exam_id'] = $exam_model->id;
                 //$exam_model->Intro()->upsert(array_diff_key($exam['Intro'], ['created_at' => null, 'updated_at' => null, 'deleted_at' => null]), 'id', array_diff(array_keys($exam['Intro']), ['id', 'created_at', 'updated_at', 'deleted_at']));
                 $exam_model->load('Intro');
                 $intro = $exam_model->Intro;
-                foreach ($exam['Intro'] as $column => $value) {
-                    $intro->$column = $value;
-                }
-
+                //foreach ($exam['Intro'] as $column => $value) {
+                    $intro->title = $exam['Intro']['title'] ?? null;
+                    $intro->image = $exam['Intro']['image'] ?? null;
+                    $intro->table = $exam['Intro']['table'] ?? null;
+                    $intro->image = $exam['Intro']['image'] ?? $intro->getOriginal('audio');
+                    $intro->file = $exam['Intro']['file'] ?? $intro->getOriginal('file');
+                    $intro->audio = $exam['Intro']['audio'] ?? $intro->getOriginal('audio');
+                    $intro->paragraph = $exam['Intro']['paragraph'] ?? null;
+               // }
                 $original_media = ['audio' => $intro->getOriginal('audio'), 'image' => $intro->getOriginal('image'), 'file' => $intro->getOriginal('file')];
                 $new_data = ['audio' => $intro->audio, 'image' => $intro->image, 'file' => $intro->file];
                 $this->order_with_type($original_media, $original_media, null);
                 $this->order_with_type($new_data, $new_data, null);
                 $this->check_discarded($new_data, $original_media, $media_to_be_deleted);
+
                 $intro->save();
+
                 unset($exam['Intro']);
 
             } else {
