@@ -718,11 +718,11 @@
 
 
     <footer class="ftrmnu">
-        <div class="fmnuclm">
-            <a href='{{ route('discover') }}'>
-                <div class="icnSrch">SEARCH</div>
-            </a>
-        </div>
+{{--        <div class="fmnuclm">--}}
+{{--            <a href='{{ route('discover') }}'>--}}
+{{--                <div class="icnSrch">SEARCH</div>--}}
+{{--            </a>--}}
+{{--        </div>--}}
         <div class="fmnuclm">
             <a href="{{ route('home') }}">
                 <div class="icnHom"
