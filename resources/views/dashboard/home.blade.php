@@ -21,7 +21,7 @@ $latest_exams = DB::table('exams')
 //});*/
 //dd($subscriptions_latest_exams);
 @endphp
-{{--@extends('dashboard.layouts.master')--}}
+@extends('dashboard.layouts.master')
 
 @section('css')
 <style>
@@ -96,11 +96,11 @@ $latest_exams = DB::table('exams')
                                     </a>
                                 </div>
                                 <div class="exam-pass">
-{{--                                    @if($exam->have_preq_exam)--}}
-{{--                                        <img src="{{asset('images/lock.png')}}" width="20" alt="">--}}
-{{--                                        <span--}}
-{{--                                            style="font-size: 12px">Exam number: {{$exam->have_preq_exam}}</span>--}}
-{{--                                    @endif--}}
+                                    @if($exam->have_preq_exam)
+                                        <img src="{{asset('images/lock.png')}}" width="20" alt="">
+                                        <span
+                                            style="font-size: 12px">Exam number: {{$exam->have_preq_exam}}</span>
+                                    @endif
                                 </div>
 
                             </div>
