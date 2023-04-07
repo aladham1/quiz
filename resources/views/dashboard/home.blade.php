@@ -8,6 +8,13 @@
     .grpTxt6 img{
         width: 20px;
     }
+    #preview {
+        width: 100%;
+        height: auto;
+        margin: 20px 0;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 5px #ccc;
+    }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 
@@ -24,7 +31,6 @@
     </div>
 
     <div class="rgtIcn">
-        <video id="preview"></video>
         <div onclick="startScan()" class="qricn">QR</div>
         <div id="result"></div>
     </div>
@@ -32,6 +38,7 @@
 
 
 <section class="pageBody">
+    <video id="preview"></video>
 
     <aside class="nhLst">
         <ul>
