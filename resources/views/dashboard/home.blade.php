@@ -61,6 +61,7 @@ $latest_exams = DB::table('exams')
 
     <aside class="nhLst">
         <ul>
+            @dd($latest_exams)
             @forelse ($latest_exams as $exam)
                 <li>
                     <div class="nhlBx">
