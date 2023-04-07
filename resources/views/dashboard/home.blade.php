@@ -58,8 +58,10 @@
         </a>
      </div>
 </footer>
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
 <script>
+
     const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
         alert('Scanned: ' + content);
