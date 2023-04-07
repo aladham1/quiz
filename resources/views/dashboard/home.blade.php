@@ -9,11 +9,7 @@
         width: 20px;
     }
     #preview {
-        width: 100%;
-        height: auto;
-        margin: 20px 0;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 5px #ccc;
+       
     }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
