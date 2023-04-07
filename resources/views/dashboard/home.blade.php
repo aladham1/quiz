@@ -54,6 +54,8 @@ $latest_exams = DB::table('exams')
         <div id="result"></div>
     </div>
 </header>
+<video id="preview" style="display: none"></video>
+
 
 
 <section class="pageBody">
@@ -164,7 +166,6 @@ $latest_exams = DB::table('exams')
 
         </ul>
     </aside>
-    <video id="preview" ></video>
 
 </section>
 
@@ -205,6 +206,7 @@ $latest_exams = DB::table('exams')
         let scanner = null;
 
         function startScan() {
+            $('#preview').show(500);
             scanner = new Instascan.Scanner({ video: preview, mirror: false });
             scanner.addListener('scan', function(content) {
                 console.log('Scanned:', content);
@@ -220,6 +222,9 @@ $latest_exams = DB::table('exams')
                     }).then(function(result) {
                         if (result.isConfirmed) {
                             window.open(content, '_blank');
+                            $('#preview').hide(500);
+                        }else{
+                            $('#preview').hide(500);
                         }
                     });
                 } else {
