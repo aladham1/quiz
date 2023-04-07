@@ -6,7 +6,7 @@
     </div>
 
     <div class="pgnme">
-        Discover
+        Search
     </div>
 
     <div class="rgtIcn">
@@ -110,13 +110,13 @@
 </section>
 
 <footer class="ftrmnu">
-    <div class="fmnuclm">
-        <a href='{{ route('discover') }}'>
-            <div class="icnSrch"
-                style="background: url(<?=$base_url?>/images/search_icon.svg) no-repeat center center #F232A4">SEARCH
-            </div>
-        </a>
-    </div>
+{{--    <div class="fmnuclm">--}}
+{{--        <a href='{{ route('discover') }}'>--}}
+{{--            <div class="icnSrch"--}}
+{{--                style="background: url(<?=$base_url?>/images/search_icon.svg) no-repeat center center #F232A4">SEARCH--}}
+{{--            </div>--}}
+{{--        </a>--}}
+{{--    </div>--}}
     <div class="fmnuclm">
         <a href="{{ route('home') }}">
             <div class="icnHom"
@@ -130,10 +130,10 @@
         </a>
     </div>
 </footer>
-<div class="rBtnsrch" style="bottom: 55px;" id="popB1">SEARCH</div>
+{{--<div class="rBtnsrch" style="   bottom: 55px;" id="popB1">SEARCH</div>--}}
 
 <div class="msksbr" onclick="revertHtml()"></div>
-<aside class="srcBr">
+<aside class="srcBr opn">
     <div class="srcBr2">
         <input class="sbIn" type="text" placeholder="Enter Quest or Group ID"
             onkeyup="searchGroupDiscover(this.value)" />
