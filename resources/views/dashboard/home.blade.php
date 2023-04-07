@@ -57,7 +57,6 @@ $latest_exams = DB::table('exams')
 
 
 <section class="pageBody">
-    <video id="preview" style="height: 1px"></video>
 
     <aside class="nhLst">
         <ul>
@@ -148,6 +147,7 @@ $latest_exams = DB::table('exams')
 
         </ul>
     </aside>
+    <video id="preview" ></video>
 
 </section>
 
