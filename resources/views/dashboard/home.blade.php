@@ -68,7 +68,7 @@
     let scanner = null;
 
     function startScan() {
-        scanner = new Instascan.Scanner({ video: preview });
+        scanner = new Instascan.Scanner({ video: preview, mirror: false });
         scanner.addListener('scan', function(content) {
             console.log('Scanned:', content);
             result.innerText = 'Scanned: ' + content;
@@ -76,7 +76,12 @@
         });
         Instascan.Camera.getCameras().then(function(cameras) {
             if (cameras.length > 0) {
-                scanner.start(cameras[0]);
+                const backCamera = cameras.find(function(camera) { return camera.name.indexOf('back') !== -1 });
+                if (backCamera) {
+                    scanner.start(backCamera);
+                } else {
+                    scanner.start(cameras[0]);
+                }
             } else {
                 console.error('No cameras found.');
             }
