@@ -94,6 +94,20 @@ $latest_exams = DB::table('exams')
                                         {{ $exam->title }}
                                     </a>
                                 </div>
+                                <div class="exam-pass">
+                                    <?php
+                                        $exam_requirement = json_decode($exam->preq, true);
+
+                                        if ($exam_requirement['type'] == 1){
+                                            $preq = $exam_requirement['value'];
+                                        }
+                                        ?>
+                                    @if($preq)
+                                        <img src="{{asset('images/lock.png')}}" width="20" alt="">
+                                        <span
+                                                style="font-size: 12px">Exam number: {{$preq}}</span>
+                                    @endif
+                                </div>
 
                             </div>
 
