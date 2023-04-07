@@ -70,7 +70,8 @@ a {text-decoration:none;}
     left: 0;
 }
 .fmnuclm {
-    width: 33.3333%;
+    /*width: 33.3333%;*/
+    width: 50%;
     float: left;
 }
 .icnSrch {width: 100%;    height: 50px;
