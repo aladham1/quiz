@@ -9,6 +9,8 @@
         width: 20px;
     }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+
 @endsection
 
 @section('content')
@@ -62,10 +64,7 @@
 <script src="https://rawcdn.githack.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
 <script>
-
-
     const preview = document.getElementById('preview');
     const result = document.getElementById('result');
     let scanner = null;
@@ -76,18 +75,20 @@
             console.log('Scanned:', content);
             scanner.stop();
             if (isLink(content)) {
-                swal({
+                Swal.fire({
                     title: "Scanned Link",
                     text: content,
                     icon: "success",
-                    buttons: ["Cancel", "Open Link"],
-                }).then(function(isConfirm) {
-                    if (isConfirm) {
+                    showCancelButton: true,
+                    confirmButtonText: "Open Link",
+                    cancelButtonText: "Cancel",
+                }).then(function(result) {
+                    if (result.isConfirmed) {
                         window.open(content, '_blank');
                     }
                 });
             } else {
-                swal({
+                Swal.fire({
                     title: "Scanned Result",
                     text: content,
                     icon: "success",
@@ -114,7 +115,4 @@
         return /^https?:\/\//i.test(content);
     }
 </script>
-
-</script>
-
 @endsection
