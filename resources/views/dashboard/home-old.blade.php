@@ -1,12 +1,36 @@
+@php //joining user subscribed groups, their exams and the exams owner in one query
+            
+$user_subs = \App\User::find(auth()->id())->load('following');
+//dd($user_subs->following->pluck('id')->toArray());
+$latest_exams = DB::table('exams')
+        ->join('groupables', function($join) use($user_subs) {
+            $join->on('exams.id', '=', 'groupables.groupable_id')
+            ->where('groupables.groupable_type', '=', 'App\Models\Exam')
+            ->whereIn('groupables.group_id', $user_subs->following->pluck('id')->toArray());
+        })
+        ->join('users', 'exams.user_id', '=', 'users.id')
+        ->select('exams.*', 'groupables.groupable_type', 'groupables.groupable_id', 'groupables.group_id', 'users.name as owner_name')->latest()->get();
+        //dd($latest_exams);
+//dd($dd);
+/*$dd = DB::table('groupables')
+        ->where('groupables.groupable_id', '=', auth()->id())->where('groupables.groupable_type', '=', '\App\User')
+        ->join('groups', '')
+//->join('exams', function($join) {
+  //$join->on('groupables.groupable_id', '=', 'exams.id')->where('groupables.groupable_type', '=', 'App\Models\Exam');
+  //->join('users', 'exams.user_id', '=', 'users.id');  
+//});*/
+//dd($subscriptions_latest_exams);
+@endphp
+
 @extends('dashboard.layouts.master')
 
 @section('css')
 <style>
     .qsTxt5 img {
-         width: 20px;
+         width: 20px; 
     }
     .grpTxt6 img{
-        width: 20px;
+        width: 20px;  
     }
 </style>
 @endsection
@@ -22,8 +46,7 @@
     </div>
 
     <div class="rgtIcn">
-        <video id="preview"></video>
-        <div onclick="startScan()" class="qricn">QR</div>
+        <div class="qricn">QR</div>
     </div>
 </header>
 
@@ -55,18 +78,18 @@
                         <div class="magic"></div>
                     </div>
                     <div class="qsRow1 q4c">
-                    <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span class="clqBx"></span> </a>
+                    <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span class="clqBx"></span> </a>   
                         <div class="nh1img">
-                            <img src="{{ isset($exam->icon) ? Storage::url($exam->icon) : 'images/placeholder.jpeg' }}"/>
+                            <img src="{{ isset($exam->icon) ? Storage::url($exam->icon) : 'images/placeholder.jpeg' }}"/>                       
                         </div>
                         <div class="qs1Rbx">
-
+                            
                             <div class="nhT2">
                             <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}" style="color: #000">
                                {{ $exam->title }}
                             </a>
                             </div>
-
+                            
                         </div>
 
                         <div class="clBtn">
@@ -80,7 +103,7 @@
                                 <div class="dtMlst">
                                     <ul class="dmlist">
                                         <li>
-                                            <span class="dtmi dt_play"></span>
+                                            <span class="dtmi dt_play"></span> 
                                             <span>Play</span>
                                         </li>
                                         <li>
@@ -114,9 +137,9 @@
                 </div>
             </li>
             @empty
-
+                
             @endforelse
-
+            
         </ul>
     </aside>
 
@@ -127,24 +150,24 @@
 <footer class="ftrmnu">
     <div class="fmnuclm">
         <a href='{{ route('discover') }}'>
-            <div class="icnSrch">SEARCH</div>
+            <div class="icnSrch">SEARCH</div> 
         </a>
     </div>
     <div class="fmnuclm">
         <a href="{{ route('home') }}">
-            <div class="icnHom">SEARCH</div>
+            <div class="icnHom">SEARCH</div> 
         </a>
      </div>
      <div class="fmnuclm">
          <a href="{{ route('profile') }}">
-            <div class="icnUsr">SEARCH <span class="icnp" style="">P</span></div>
+            <div class="icnUsr">SEARCH <span class="icnp" style="">P</span></div> 
         </a>
      </div>
 </footer>
-
-<!--
+    
+<!-- 
 <div id="mask" class="mask" style="display: none;"></div>
-<div class="popBttom" id="popP1">
+<div class="popBttom" id="popP1"> 
     <div class="popSet1">
         <div class="mxWd2">
         <ul class="newBtnLst">
@@ -164,22 +187,4 @@
         </div>
     </div>
 </div> -->
-<script>
-    const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        alert('Scanned: ' + content);
-    });
-    function startScan() {
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[0]);
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
-</script>
-
 @endsection
