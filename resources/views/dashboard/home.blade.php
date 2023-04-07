@@ -60,6 +60,8 @@
      </div>
 </footer>
 <script src="https://rawcdn.githack.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 <script>
 
