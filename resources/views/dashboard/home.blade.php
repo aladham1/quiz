@@ -63,6 +63,7 @@
 
 <script>
 
+
     const preview = document.getElementById('preview');
     const result = document.getElementById('result');
     let scanner = null;
@@ -71,10 +72,24 @@
         scanner = new Instascan.Scanner({ video: preview, mirror: false });
         scanner.addListener('scan', function(content) {
             console.log('Scanned:', content);
-            result.innerText = 'Scanned: ' + content;
             scanner.stop();
             if (isLink(content)) {
-                window.open(content, '_blank');
+                swal({
+                    title: "Scanned Link",
+                    text: content,
+                    icon: "success",
+                    buttons: ["Cancel", "Open Link"],
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        window.open(content, '_blank');
+                    }
+                });
+            } else {
+                swal({
+                    title: "Scanned Result",
+                    text: content,
+                    icon: "success",
+                });
             }
         });
         Instascan.Camera.getCameras().then(function(cameras) {
@@ -96,6 +111,8 @@
     function isLink(content) {
         return /^https?:\/\//i.test(content);
     }
+</script>
+
 </script>
 
 @endsection
