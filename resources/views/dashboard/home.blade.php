@@ -21,7 +21,7 @@ $latest_exams = DB::table('exams')
 //});*/
 //dd($subscriptions_latest_exams);
 @endphp
-@extends('dashboard.layouts.master')
+{{--@extends('dashboard.layouts.master')--}}
 
 @section('css')
 <style>
@@ -61,7 +61,6 @@ $latest_exams = DB::table('exams')
 
     <aside class="nhLst">
         <ul>
-            @dd($latest_exams)
             @forelse ($latest_exams as $exam)
                 <li>
                     <div class="nhlBx">
