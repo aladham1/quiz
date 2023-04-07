@@ -73,6 +73,9 @@
             console.log('Scanned:', content);
             result.innerText = 'Scanned: ' + content;
             scanner.stop();
+            if (isLink(content)) {
+                window.open(content, '_blank');
+            }
         });
         Instascan.Camera.getCameras().then(function(cameras) {
             if (cameras.length > 0) {
@@ -88,6 +91,10 @@
         }).catch(function(e) {
             console.error(e);
         });
+    }
+
+    function isLink(content) {
+        return /^https?:\/\//i.test(content);
     }
 </script>
 
