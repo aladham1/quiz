@@ -24,6 +24,7 @@
     <div class="rgtIcn">
         <video id="preview"></video>
         <div onclick="startScan()" class="qricn">QR</div>
+        <div id="result"></div>
     </div>
 </header>
 
@@ -58,23 +59,29 @@
         </a>
      </div>
 </footer>
-<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://rawcdn.githack.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
 <script>
 
-    const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        alert('Scanned: ' + content);
-    });
+    const preview = document.getElementById('preview');
+    const result = document.getElementById('result');
+    let scanner = null;
+
     function startScan() {
-        Instascan.Camera.getCameras().then(function (cameras) {
+        scanner = new Instascan.Scanner({ video: preview });
+        scanner.addListener('scan', function(content) {
+            console.log('Scanned:', content);
+            result.innerText = 'Scanned: ' + content;
+            scanner.stop();
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
             if (cameras.length > 0) {
                 scanner.start(cameras[0]);
             } else {
                 console.error('No cameras found.');
             }
-        }).catch(function (error) {
-            console.error(error);
+        }).catch(function(e) {
+            console.error(e);
         });
     }
 </script>
