@@ -19,7 +19,7 @@
         <div class="row justify-content-center">
           <div class="col-md-8">
             <div class="form-group">
-              <label for="name" class="form-label" style="color: #511285">Question Text:</label>
+              <label for="name" class="form-label" style="color: #1f5373">Question Text:</label>
               <input type="text" class="form-control" placeholder="name" name="puzzle_name" id="puzzle_name">
             </div>
             <div class="form-group col-12 text-center">

@@ -18,17 +18,17 @@
     </div>
 
     <div class="rgtIcn">
-        
+
     </div>
 </header>
 
-<section class="pageBody" style="height: calc(100% - 50px) !important"> 
+<section class="pageBody" style="height: calc(100% - 50px) !important">
     <div style="max-width:800px !important; margin: auto !important">
     <aside class="whtBx1" style="border-radius: 0px !important">
         <div class="inSet">
             <h6 style="font-size: 1.5rem;"><span>Users</span></h6>
         </div>
-        
+
         <div class="inSet ml-2">
             <h6 style="color: black"><span>Registered: {{ $registered_count }}</span></h6>
             <div class="progress ml-2" style="height: 5px;">
@@ -55,19 +55,19 @@
         <div class="inSet ml-2">
             <h6 style="color: black"><span>Passed: {{ $passed_count }}</span></h6>
             <div class="progress ml-2" style="height: 5px;">
-                <div class="progress-bar passed" role="progressbar" style="width: 0%; background-color: #F232A4;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar passed" role="progressbar" style="width: 0%; background-color: #66b8d9;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
         <div class="inSet ml-2">
             <h6 style="color: black"><span>Failed: {{ $failed_count }}</span></h6>
             <div class="progress ml-2" style="height: 5px;">
-                <div class="progress-bar failed" role="progressbar" style="width: 0%; background-color: #F232A4;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar failed" role="progressbar" style="width: 0%; background-color: #66b8d9;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
         <div class="inSet ml-2">
             <h6 style="color: black"><span>Total: {{ $total_attempts_count }}</span></h6>
             <div class="progress ml-2" style="height: 5px;">
-                <div class="progress-bar total" role="progressbar" style="width: 0%; background-color: #F232A4;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar total" role="progressbar" style="width: 0%; background-color: #66b8d9;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </aside>

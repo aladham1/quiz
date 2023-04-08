@@ -83,7 +83,7 @@
                 </div>
                 @csrf
                 <div class="lgfrgt">
-                    <a style="color:#F232A4" href="{{ route('password.request') }}">
+                    <a style="color:#66b8d9" href="{{ route('password.request') }}">
                         <span>Forgot your password?</span>
                     </a>
                 </div>

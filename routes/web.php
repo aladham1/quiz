@@ -127,6 +127,7 @@ Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () 
 
         $u->name = request()->input('user_name');
         $u->phone = request()->input('phone');
+        $u->type = request()->input('type');
         $u->avatar = $path;
         $u->save();
         return redirect(route('home'));

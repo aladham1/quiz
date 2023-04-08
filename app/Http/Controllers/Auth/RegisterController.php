@@ -68,12 +68,13 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'type' => $data['type'],
             'password' => Hash::make($data['password']),
         ]);
         if (isset($data['avatar'])) {
             $path = \Storage::putFileAs('users', request()->file('avatar'), $user->id . "." . request()->file('avatar')->getClientOriginalExtension());
             $user->update(['avatar' => $path]);
         }
-        return $user; 
+        return $user;
     }
 }

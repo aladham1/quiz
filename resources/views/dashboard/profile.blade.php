@@ -113,29 +113,35 @@
         </div>
         <div class="ptBox2">
             <ul class="ulicn">
-                <!-- TODO: try to figure out what clone is -->
-                <li class="actv" onclick="tabMove(this,'my_quest')">
-                    <a href="#" style="color:#511285">
-                        <span class="icnm icni"></span><span class="icnTxt">Lessons</span>
-                    </a>
-                </li>
-                <li onclick="tabMove(this,'my_group')" class="group_li">
-                    <a href="#group" style="color:#511285">
-                        <span class="icng icni"></span><span class="icnTxt">My groups</span>
-                    </a>
-                </li>
+                @if(auth()->user()->type == 1)
+                    <!-- TODO: try to figure out what clone is -->
+                    <li class="actv" onclick="tabMove(this,'my_quest')">
+                        <a href="#" style="color:#4181a7">
+                            <span class="icnm icni"></span><span class="icnTxt">Lessons</span>
+                        </a>
+                    </li>
+                    <li onclick="tabMove(this,'my_group')" class="group_li">
+                        <a href="#group" style="color:#4181a7">
+                            <span class="icng icni"></span><span class="icnTxt">My groups</span>
+                        </a>
+                    </li>
+                @endif
                 @if ($id == Auth::id())
-                    <li onclick="tabMove(this,'history')" class="history_li">
-                        <a href="#history" style="color:#511285"><span
+                    <li onclick="tabMove(this,'history')"
+                        class="history_li {{auth()->user()->type == 0 ? 'actv' : ''}}">
+                        <a href="#history" style="color:#4181a7"><span
                                 class="icnh icni"></span><span class="icnTxt">History</span>
                         </a>
                     </li>
-                    <li onclick="tabMove(this,'projects')" class="project_li">
-                        <a href="#project" style="color:#511285">
-                            <span class="icnp icni"></span><span class="icnTxt">Projects</span><span class="another_cls"
-                                                                                                     class="icnp">P</span>
-                        </a>
-                    </li>
+                    @if(auth()->user()->type == 1)
+                        <li onclick="tabMove(this,'projects')" class="project_li ">
+                            <a href="#project" style="color:#4181a7">
+                                <span class="icnp icni"></span><span class="icnTxt">Projects</span><span
+                                    class="another_cls"
+                                    class="icnp">P</span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </div>
@@ -143,50 +149,50 @@
 
 
     <section class="usrpg">
+        @if(auth()->user()->type == 1)
+            <aside class="setN7 gpSetHS" style="display:none">
+                <!-- <div class="setNbtn"><span class="btNblu" onclick="javascript:$('.gpSetHS').hide(); $('.xmSetHS').show();">SHOW QUESTS</span></div> -->
+                <div class="fIcnBx">
+                    <aside class="flTitl">
+                        #Groups: {{ count($groups) }}
+                    </aside>
+                </div>
+                <aside class="qsLst">
+                    <input type="hidden" id="g_pageno" value="1">
+                    <ul id="group_list">
 
-        <aside class="setN7 gpSetHS" style="display:none">
-            <!-- <div class="setNbtn"><span class="btNblu" onclick="javascript:$('.gpSetHS').hide(); $('.xmSetHS').show();">SHOW QUESTS</span></div> -->
-            <div class="fIcnBx">
-                <aside class="flTitl">
-                    #Groups: {{ count($groups) }}
-                </aside>
-            </div>
-            <aside class="qsLst">
-                <input type="hidden" id="g_pageno" value="1">
-                <ul id="group_list">
+                        @foreach ($groups as $group)
+                            <li class="rmv_{{ $group->id }}">
+                                <div class="qsWbx" style="padding: 0 10px 0 0;">
 
-                    @foreach ($groups as $group)
-                        <li class="rmv_{{ $group->id }}">
-                            <div class="qsWbx" style="padding: 0 10px 0 0;">
-
-                                <div class="qsRow1 q4c">
-                                    <a href="{{ route('groups.show', ['group' => $group->id]) }}">
-                                        <span class="clqBx" style="right: 120px;"></span>
-                                    </a>
-                                    <div class="qs1img" style="border-radius: 5px 0 0 5px;">
-                                        <img
-                                            src="@if ($group->image != null || $group->image != '') {{ url(Storage::url($group->image)) }} @else {{ $default_grp_img }} @endif">
-                                    </div>
-                                    <div class="qs1Rbx">
-{{--                                        <div class="plan_i" onclick="showGroupNotiPop({{ $group->id }})"--}}
-{{--                                             style="background: url({{ url('images/gbrdcst.svg') }}) no-repeat center center; margin:5px 0 6px 0">--}}
-{{--                                        </div>--}}
-                                        <div class="qsTxt2 q4a">
-                                            CODE: <b>{{ $group->code }}</b> <span class="q4Pass">Password:
+                                    <div class="qsRow1 q4c">
+                                        <a href="{{ route('groups.show', ['group' => $group->id]) }}">
+                                            <span class="clqBx" style="right: 120px;"></span>
+                                        </a>
+                                        <div class="qs1img" style="border-radius: 5px 0 0 5px;">
+                                            <img
+                                                src="@if ($group->image != null || $group->image != '') {{ url(Storage::url($group->image)) }} @else {{ $default_grp_img }} @endif">
+                                        </div>
+                                        <div class="qs1Rbx">
+                                            {{--                                        <div class="plan_i" onclick="showGroupNotiPop({{ $group->id }})"--}}
+                                            {{--                                             style="background: url({{ url('images/gbrdcst.svg') }}) no-repeat center center; margin:5px 0 6px 0">--}}
+                                            {{--                                        </div>--}}
+                                            <div class="qsTxt2 q4a">
+                                                CODE: <b>{{ $group->code }}</b> <span class="q4Pass">Password:
                                             <b>{{ $group->password }}</b></span>
-                                        </div>
-                                        <div class="q4d">
-                                            {{ $group->title }}
-                                        </div>
+                                            </div>
+                                            <div class="q4d">
+                                                {{ $group->title }}
+                                            </div>
 
 
-                                        <div class="s7btm">
-                                            <aside class="q4f">
-                                                <b><{{ $group->exams_count }}</b> Quest <br/>
-                                                <b>{{ $group->followers_count }}</b> Followers
-                                            </aside>
+                                            <div class="s7btm">
+                                                <aside class="q4f">
+                                                    <b><{{ $group->exams_count }}</b> Quest <br/>
+                                                    <b>{{ $group->followers_count }}</b> Followers
+                                                </aside>
 
-                                            <aside class="setRnew q4e">
+                                                <aside class="setRnew q4e">
                                             <span class="lckIcns">
                                             @if($group->private==false)
                                                     <img src="{{ url('images/lock_gray.svg') }}"
@@ -194,11 +200,12 @@
                                                 @else
                                                     <img src="{{ url('images/lock_pink.svg') }}"
                                                          onclick="makeGroupPrivacy(this,1,'{{ $group->id }}', '{{ route('groups.togglePrivacy', ['group' => $group->id]) }}')"></span>
-                                                @endif
-                                                <span class="btnIc"
-                                                      onclick="shareData('{{ $group->title }}','{{ $group->title }} - {{ $user->id }}','{{route('groups.show', $group->id) }}')"><img
-                                                        src="{{ url('images/share_pink.svg') }}"></span>
-                                                <span class="btnIc q4Dot"><img src="{{ url('images/dot_pink.svg') }}">
+                                                    @endif
+                                                    <span class="btnIc"
+                                                          onclick="shareData('{{ $group->title }}','{{ $group->title }} - {{ $user->id }}','{{route('groups.show', $group->id) }}')"><img
+                                                            src="{{ url('images/share_pink.svg') }}"></span>
+                                                    <span class="btnIc q4Dot"><img
+                                                            src="{{ url('images/dot_pink.svg') }}">
                                                 <div class="dtMlst">
                                                     <ul class="dmlist">
                                                         <li>
@@ -206,7 +213,7 @@
                                                                 <span class="dtmi dt_info"
                                                                       style="background: url(<?=$base_url?>/images/edtGrp.svg) no-repeat center center; background-size: contain;"
                                                                       onclick="showPopGropInfo('{{ $group->id }}')"></span>
-                                                                <span style="color:#511285">Edit</span>
+                                                                <span style="color:#4181a7">Edit</span>
                                                             </a>
                                                         </li>
                                                         <li onclick="showPopGropInfo('{{ $group->id }}')">
@@ -223,78 +230,78 @@
                                                         <li onclick="deletGroup('{{ route('groups.destroy', ['group' => $group->id]) }}', '{{ $group->id }}')">
                                                             <!-- <a href="<?= $base_url ?>delete_group/{{ $group->id }}" onclick="return confirm('Are you sure?')"> -->
                                                             <span class="dtmi dt_dlt"></span>
-                                                            <span style="color:#511285">Delete</span>
+                                                            <span style="color:#4181a7">Delete</span>
                                                             <!-- </a> -->
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </span>
-                                            </aside>
+                                                </aside>
+                                            </div>
+
                                         </div>
 
-                                    </div>
 
+                                    </div>
 
                                 </div>
-
-                            </div>
-                        </li>
-                    @endforeach
+                            </li>
+                        @endforeach
 
 
-                </ul>
-                <div class="gloader"></div>
-            </aside>
-        </aside>
-
-        <aside class="setN4 xmSetHS">
-            <!-- <div class="setNbtn"><span class="btNpink" onclick="javascript:$('.gpSetHS').show(); $('.xmSetHS').hide();">SHOW GROUPS</span></div> -->
-            <div class="fIcnBx">
-                <aside class="flTitl">
-                    #Quests: {{ count($exams) }}
+                    </ul>
+                    <div class="gloader"></div>
                 </aside>
-            </div>
-            <aside class="qsLst">
-                <input type="hidden" id="q_pageno" value="1">
-                <ul id="quest_list">
-                    @foreach ($exams as $exam)
-                        <li>
-                            <div class="qsWbx" style="padding: 0 10px 0 0;">
+            </aside>
 
-                                <div class="qsRow1 q4c">
-                                    {{--                                <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}"> <span class="clqBx"></span></a>--}}
-                                    <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span
-                                            class="clqBx"></span></a>
-                                    <div class="qs1img" style="border-radius: 5px 0 0 5px;">
-                                        <img
-                                            src="@if ($exam->icon != null || $exam->icon != ''){{ Storage::url($exam->icon, true) }}@else{{ $default_grp_img }}@endif">
-                                    </div>
-                                    <div class="qs1Rbx">
-                                        <div class="qsTxt2 q4a" style="color:#000">
+            <aside class="setN4 xmSetHS" style="{{auth()->user()->type == 0 ? 'display:none' : ''}}">
+                <!-- <div class="setNbtn"><span class="btNpink" onclick="javascript:$('.gpSetHS').show(); $('.xmSetHS').hide();">SHOW GROUPS</span></div> -->
+                <div class="fIcnBx">
+                    <aside class="flTitl">
+                        #Quests: {{ count($exams) }}
+                    </aside>
+                </div>
+                <aside class="qsLst">
+                    <input type="hidden" id="q_pageno" value="1">
+                    <ul id="quest_list">
+                        @foreach ($exams as $exam)
+                            <li>
+                                <div class="qsWbx" style="padding: 0 10px 0 0;">
 
-                                            CODE: <b>{{ $exam->id + 1000 }}</b>
-                                            <span
-                                                class="badge badge-pill badge-danger">{{ $exam->draft ? 'DRAFT' : '' }}</span>
+                                    <div class="qsRow1 q4c">
+                                        {{--                                <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}"> <span class="clqBx"></span></a>--}}
+                                        <a href="{{ route('exams.intro', ['exam' => $exam->id]) }}"> <span
+                                                class="clqBx"></span></a>
+                                        <div class="qs1img" style="border-radius: 5px 0 0 5px;">
+                                            <img
+                                                src="@if ($exam->icon != null || $exam->icon != ''){{ Storage::url($exam->icon, true) }}@else{{ $default_grp_img }}@endif">
                                         </div>
-                                        <div class="qsTxt3 q4b" style="margin-bottom: 5px">
-                                            {{ $exam->title }}
-                                        </div>
-                                        <div class="exam-pass">
-                                            @if($exam->have_preq_exam)
-                                                <img src="{{asset('images/lock.png')}}" width="20" alt="">
+                                        <div class="qs1Rbx">
+                                            <div class="qsTxt2 q4a" style="color:#000">
+
+                                                CODE: <b>{{ $exam->id + 1000 }}</b>
                                                 <span
-                                                    style="font-size: 12px">Exam number: {{$exam->have_preq_exam}}</span>
-                                            @endif
-                                        </div>
+                                                    class="badge badge-pill badge-danger">{{ $exam->draft ? 'DRAFT' : '' }}</span>
+                                            </div>
+                                            <div class="qsTxt3 q4b" style="margin-bottom: 5px">
+                                                {{ $exam->title }}
+                                            </div>
+                                            <div class="exam-pass">
+                                                @if($exam->have_preq_exam)
+                                                    <img src="{{asset('images/lock.png')}}" width="20" alt="">
+                                                    <span
+                                                        style="font-size: 12px">Exam number: {{$exam->have_preq_exam}}</span>
+                                                @endif
+                                            </div>
 
-                                    </div>
-                                    <!-- </a> -->
-                                    <aside class="setRnew q4d">
+                                        </div>
+                                        <!-- </a> -->
+                                        <aside class="setRnew q4d">
                                     <span class="qricn"
-                                          style="vertical-align: middle;background-color: #511285;border-radius: 8px"
+                                          style="vertical-align: middle;background-color: #4181a7;border-radius: 8px"
                                           data-original-title="" title="">QR</span>
-                                        <span class="btnIc q4Dot"><img
-                                                src="{{ url('images/share_v.svg') }}">
+                                            <span class="btnIc q4Dot"><img
+                                                    src="{{ url('images/share_v.svg') }}">
                                           <div class="dtMlst" style="margin-top: 30px">
                                             <ul class="dmlist">
                                                 <li onclick="qrCodeData('{!!  base64_encode(QrCode::format('png')->size(200)
@@ -310,14 +317,14 @@
                                         </div>
 
                                     </span>
-                                        <span class="btnIc q4Dot"><img src="{{ url('images/dot_vio.svg') }}">
+                                            <span class="btnIc q4Dot"><img src="{{ url('images/dot_vio.svg') }}">
                                         <div class="dtMlst">
                                             <ul class="dmlist">
                                                 <li>
                                                     <a href="{{ route('exams.edit', ['exam' => $exam->id]) }}">
                                                       <span class="dtmi dt_play"
                                                             style="background: url({{ url('images/edtGrp.svg') }}) no-repeat center center; background-size: contain;"></span>
-                                                        <span style="color: #511285">Edit</span>
+                                                        <span style="color: #4181a7">Edit</span>
                                                     </a>
                                                 </li>
                                                 <li>
@@ -330,12 +337,12 @@
                                                 {{--                                                    @if($exam->chat==false)--}}
                                                 {{--                                                <a href="<?=$base_url?>enable-chat-exam/{{ $exam->id }}">--}}
                                                 {{--                                                    <span class="dtmi dt_chat"></span>--}}
-                                                {{--                                                    <span style="color: #511285">Chat on</span>--}}
+                                                {{--                                                    <span style="color: #4181a7">Chat on</span>--}}
                                                 {{--                                                </a>--}}
                                                 {{--                                                @else--}}
                                                 {{--                                                <a href="<?=$base_url?>disable-chat-exam/{{ $exam->id }}">--}}
                                                 {{--                                                            <span class="dtmi dt_chat"></span>--}}
-                                                {{--                                                            <span style="color: #511285">Chat off</span>--}}
+                                                {{--                                                            <span style="color: #4181a7">Chat off</span>--}}
                                                 {{--                                                        </a>--}}
 
                                                 {{--                                                </li>--}}
@@ -355,29 +362,30 @@
                                                         method="POST">
                                                                @csrf
                                                       @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure?')" type="submit" style="background: none; border: 0">
+                                                    <button onclick="return confirm('Are you sure?')" type="submit"
+                                                            style="background: none; border: 0">
                                                         <span class="dtmi dt_dlt"></span>
-                                                        <span style="color: #511285">Delete</span>
+                                                        <span style="color: #4181a7">Delete</span>
                                                     </button>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </div>
                                     </span>
-                                    </aside>
+                                        </aside>
+                                    </div>
+
                                 </div>
+                            </li>
+                        @endforeach
 
-                            </div>
-                        </li>
-                    @endforeach
-
-                </ul>
-                <div class="qloader"></div>
+                    </ul>
+                    <div class="qloader"></div>
+                </aside>
             </aside>
-        </aside>
-
+        @endif
         @if ($id == Auth::id())
-            <aside class="setN3 hstryTab" style="display:none">
+            <aside class="setN3 hstryTab" style="{{auth()->user()->type == 1 ? 'display:none' : ''}}">
                 <!-- history -->
                 <div class="fltrBr">
 
@@ -535,14 +543,14 @@
                                                                               onclick="openComment('{{ route('exams.project_submits.showComment', ['projectSubmit' => $ps->id ]) }}')">comment</span>
                                                                     @endif
                                                                     <a href="{{ route('exams.project_submits.create', ['exam' => $exam->id]) }}"><span
-                                                                            class="pasT" style="background: #F232A4">Re-Submit</span></a>
+                                                                            class="pasT" style="background: #66b8d9">Re-Submit</span></a>
                                                                 @endif
                                                                 @break
                                                             @endforeach
                                                         @else
                                                             @if($exam->projects_count > 0 /*check if exam has project*/)
                                                                 <a href="{{ route('exams.project_submits.create', ['exam' => $exam->id]) }}"><span
-                                                                        class="pasT" style="background: #F232A4">Submit project</span></a>
+                                                                        class="pasT" style="background: #66b8d9">Submit project</span></a>
                                                             @else
                                                                 <span class="pass_i"
                                                                       onclick="showHistryReward('{{ route('exams.showReward', ['exam' => $exam->id]) }}')">PASS</span>
@@ -595,68 +603,69 @@
                                         $project = $hItm;
                                         $parent_exam = $project->exam;
                                     @endphp
-                                @if($parent_exam)
-                                    <li status="{{ $project->remark }}" class="hstBx">
-                                        <div class="qsWbx">
-                                            <div class="qsRow1">
-                                                <!-- <span class="clqBx" ></span> -->
-                                                <div class="qs1img">
-                                                    <img
-                                                        src="@if ($parent_exam && ($parent_exam->icon != null || $parent_exam->icon != '')){{ Storage::url($parent_exam->icon, true) }}@else{{ $default_grp_img }}@endif">
+                                    @if($parent_exam)
+                                        <li status="{{ $project->remark }}" class="hstBx">
+                                            <div class="qsWbx">
+                                                <div class="qsRow1">
+                                                    <!-- <span class="clqBx" ></span> -->
+                                                    <div class="qs1img">
+                                                        <img
+                                                            src="@if ($parent_exam && ($parent_exam->icon != null || $parent_exam->icon != '')){{ Storage::url($parent_exam->icon, true) }}@else{{ $default_grp_img }}@endif">
+                                                    </div>
+                                                    <div class="qs1Rbx">
+                                                        <div class="qsTxt2">
+                                                            CODE: <b>{{ $parent_exam->id + 1000 }}</b>
+                                                            <div class="dteBx">{{ $project->created_at }}</div>
+                                                        </div>
+                                                        <div class="qsTxt3">
+                                                            {{ $parent_exam->title }}
+                                                        </div>
+                                                        <div class="qsTxt4">
+                                                            <div class="qsTxt5">
+
+                                                                <!-- <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star_b.svg') }}"> -->
+                                                            </div>
+                                                            <div class="qsTxt6">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="qs1Rbx">
-                                                    <div class="qsTxt2">
-                                                        CODE: <b>{{ $parent_exam->id + 1000 }}</b>
-                                                        <div class="dteBx">{{ $project->created_at }}</div>
-                                                    </div>
-                                                    <div class="qsTxt3">
-                                                        {{ $parent_exam->title }}
-                                                    </div>
-                                                    <div class="qsTxt4">
-                                                        <div class="qsTxt5">
-
-                                                            <!-- <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star.svg') }}"> <img src="{{ url('images/star_b.svg') }}"> -->
+                                                <div class="qsRow2">
+                                                    <div class="qs2Lbx">
+                                                        <div class="qsTxt1">
+                                                            By: <b>{{ $parent_exam->owner->name}}</b>
                                                         </div>
-                                                        <div class="qsTxt6">
+                                                    </div>
+                                                    <div class="qs2Rbx">
 
-                                                        </div>
+                                                        @if($project->remark_== 2 || $project->remark == null)
+                                                            <span class="pasT"
+                                                                  style="background: #B0B0B0">Pending</span>
+                                                        @elseif($project->remark==1)
+                                                            @if($project->remark_notes != '' || $project->remark_notes != null )
+                                                                <span class="cmmnt_i"
+                                                                      onclick="openComment('{{ route('exams.project_submits.showComment', ['projectSubmit' => $project->id ]) }}')">comment</span>
+                                                            @endif
+                                                            <span class="pass_i"
+                                                                  onclick="showHistryReward('{{ route('exams.showReward', ['exam' => $parent_exam->id]) }}')">PASS</span>
+                                                        @elseif($project->remark==0)
+                                                            @if($project->remark_notes != '' || $project->remark_notes != null )
+                                                                <span class="cmmnt_i"
+                                                                      onclick="openComment('{{ route('exams.project_submits.showComment', ['projectSubmit' => $project->id ]) }}')">comment</span>
+                                                            @endif
+                                                            <a href="{{ route('exams.project_submits.create', ['exam' => $parent_exam->id]) }}"><span
+                                                                    class="pasT"
+                                                                    style="background: #66b8d9">Re-Submit</span></a>
+                                                        @endif
+
+
+                                                        <!-- <span class="pass_i" >PASS</span> -->
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="qsRow2">
-                                                <div class="qs2Lbx">
-                                                    <div class="qsTxt1">
-                                                        By: <b>{{ $parent_exam->owner->name}}</b>
-                                                    </div>
-                                                </div>
-                                                <div class="qs2Rbx">
-
-                                                    @if($project->remark_== 2 || $project->remark == null)
-                                                        <span class="pasT" style="background: #B0B0B0">Pending</span>
-                                                    @elseif($project->remark==1)
-                                                        @if($project->remark_notes != '' || $project->remark_notes != null )
-                                                            <span class="cmmnt_i"
-                                                                  onclick="openComment('{{ route('exams.project_submits.showComment', ['projectSubmit' => $project->id ]) }}')">comment</span>
-                                                        @endif
-                                                        <span class="pass_i"
-                                                              onclick="showHistryReward('{{ route('exams.showReward', ['exam' => $parent_exam->id]) }}')">PASS</span>
-                                                    @elseif($project->remark==0)
-                                                        @if($project->remark_notes != '' || $project->remark_notes != null )
-                                                            <span class="cmmnt_i"
-                                                                  onclick="openComment('{{ route('exams.project_submits.showComment', ['projectSubmit' => $project->id ]) }}')">comment</span>
-                                                        @endif
-                                                        <a href="{{ route('exams.project_submits.create', ['exam' => $parent_exam->id]) }}"><span
-                                                                class="pasT"
-                                                                style="background: #F232A4">Re-Submit</span></a>
-                                                    @endif
-
-
-                                                    <!-- <span class="pass_i" >PASS</span> -->
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     @endif
                                 @endif
 
@@ -667,77 +676,80 @@
 
                 </div>
             </aside>
+            @if(auth()->user()->type == 1)
+                <aside class="setN6 projectTab" style="display:none">
+                    <!-- Projects -->
 
-            <aside class="setN6 projectTab" style="display:none">
-                <!-- Projects -->
+                    <aside class="qsLst">
+                        <ul>
+                            @foreach ($exams as $exam)
+                                @foreach ($exam->project_submits as $project)
+                                    @if($project->remark_== null && $project->pending == 1)
 
-                <aside class="qsLst">
-                    <ul>
-                        @foreach ($exams as $exam)
-                            @foreach ($exam->project_submits as $project)
-                                @if($project->remark_== null && $project->pending == 1)
-
-                                    <li>
-                                        <div class="qsWbx">
-                                            <div class="prjB1">
-                                                <a style="color:#5939C6"
-                                                   href="{{ route('exams.project_submits.show', ['exam' => $exam->id, 'project_submit' => $project->id]) }}">
-                                                    {{ $exam->title }}
-                                                </a>
+                                        <li>
+                                            <div class="qsWbx">
+                                                <div class="prjB1">
+                                                    <a style="color:#5939C6"
+                                                       href="{{ route('exams.project_submits.show', ['exam' => $exam->id, 'project_submit' => $project->id]) }}">
+                                                        {{ $exam->title }}
+                                                    </a>
+                                                </div>
+                                                <div class="prjB2">
+                                                    <a style="color:#000000"
+                                                       href="{{ route('exams.project_submits.show', ['exam' => $exam->id, 'project_submit' => $project->id]) }}">
+                                                        {{ $project->student->name }}
+                                                    </a>
+                                                </div>
+                                                <div class="prjB3">
+                                                    <div class="prjFl"><a href="#"
+                                                                          onclick="markSubmission(0, '{{ route('exams.project_submits.update', ['exam' => $exam->id, 'project_submit' => $project->id]) }}')"
+                                                                          style="color:#ffff">FAIL</a></div>
+                                                    <div class="prjPs"><a href="#"
+                                                                          onclick="markSubmission(1, '{{ route('exams.project_submits.update', ['exam' => $exam->id, 'project_submit' => $project->id]) }}')"
+                                                                          style="color:#ffff">PASS</a></div>
+                                                </div>
                                             </div>
-                                            <div class="prjB2">
-                                                <a style="color:#000000"
-                                                   href="{{ route('exams.project_submits.show', ['exam' => $exam->id, 'project_submit' => $project->id]) }}">
-                                                    {{ $project->student->name }}
-                                                </a>
-                                            </div>
-                                            <div class="prjB3">
-                                                <div class="prjFl"><a href="#"
-                                                                      onclick="markSubmission(0, '{{ route('exams.project_submits.update', ['exam' => $exam->id, 'project_submit' => $project->id]) }}')"
-                                                                      style="color:#ffff">FAIL</a></div>
-                                                <div class="prjPs"><a href="#"
-                                                                      onclick="markSubmission(1, '{{ route('exams.project_submits.update', ['exam' => $exam->id, 'project_submit' => $project->id]) }}')"
-                                                                      style="color:#ffff">PASS</a></div>
-                                            </div>
-                                        </div>
 
-                                    </li>
+                                        </li>
 
-                                @endif
+                                    @endif
+                                @endforeach
                             @endforeach
-                        @endforeach
 
 
-                        <!--//cehck if user has any clone project-->
-                    </ul>
+                            <!--//cehck if user has any clone project-->
+                        </ul>
+                    </aside>
+
                 </aside>
-
-            </aside>
+            @endif
         @endif
     </section>
 
 
     <footer class="ftrmnu">
-{{--        <div class="fmnuclm">--}}
-{{--            <a href='{{ route('discover') }}'>--}}
-{{--                <div class="icnSrch">SEARCH</div>--}}
-{{--            </a>--}}
-{{--        </div>--}}
-        <div class="fmnuclm">
+        {{--        <div class="fmnuclm">--}}
+        {{--            <a href='{{ route('discover') }}'>--}}
+        {{--                <div class="icnSrch">SEARCH</div>--}}
+        {{--            </a>--}}
+        {{--        </div>--}}
+        <div class="fmnuclm" style="{{auth()->user()->type == 0 ? 'width:100%' : ''}}">
             <a href="{{ route('home') }}">
                 <div class="icnHom"
-                     style="background: url(<?=$base_url?>/images/home_icon.svg) no-repeat center center #511285">HOME
+                     style="background: url(<?=$base_url?>/images/home_icon.svg) no-repeat center center #4181a7">HOME
                 </div>
             </a>
         </div>
-        <div class="fmnuclm">
-            <a href="{{ route('profile') }}">
-                <div class="icnUsr"
-                     style="background: url(<?=$base_url?>/images/user_icon.svg) no-repeat center center #F232A4">
-                    PROFILE
-                    <span class="icnp" class="Picn">P</span></div>
-            </a>
-        </div>
+        @if(auth()->user()->type == 1)
+            <div class="fmnuclm">
+                <a href="{{ route('profile') }}">
+                    <div class="icnUsr"
+                         style="background: url(<?=$base_url?>/images/user_icon.svg) no-repeat center center #66b8d9">
+                        PROFILE
+                        <span class="icnp" class="Picn">P</span></div>
+                </a>
+            </div>
+        @endif
     </footer>
 
     <!--
@@ -954,7 +966,7 @@
                         <div class="srtfVew " id="printFrist"
                              onclick="print_cert(<?=\Auth::user()->id/*$_SESSION['linces_id']*/?>)"
                              style="background: #fff; padding: 15px;">
-                            <div class="crt1" style="border: 1px solid #511285; padding: 15px;">
+                            <div class="crt1" style="border: 1px solid #4181a7; padding: 15px;">
                                 <div class="crt2" style="text-align: center; position: relative;">
 
                                     <div class="spnrLgo sponsor_img" style="float: left; width: 100%">
@@ -1056,7 +1068,7 @@
                                         </div>
                                         <div class="crLne41">
                                             <div class="crLne42"><span class="cert_exam_name"
-                                                                       style="font-weight: bold;"><?= \Auth::user()->id//$_SESSION['exam_name']  ?></span>
+                                                                       style="font-weight: bold;"><?= \Auth::user()->id//$_SESSION['exam_name']     ?></span>
                                             </div>
                                         </div>
                                         <div class="crLne41">
@@ -1108,7 +1120,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="text-center" style="color: #F232A4">Share the Qr code</h3>
+                    <h3 class="text-center" style="color: #66b8d9">Share the Qr code</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -1341,7 +1353,7 @@
         })
 
         function print_cert(licens_id) {
-            var win = window.open('https://quiz.bursacenneti.com/certificates/certificate_web.php?license='+licens_id, '_blank');
+            var win = window.open('https://quiz.bursacenneti.com/certificates/certificate_web.php?license=' + licens_id, '_blank');
         }
 
         function hideReBox() {

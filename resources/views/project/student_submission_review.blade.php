@@ -25,7 +25,7 @@
             display: inline-block;
             width: 60px;
             height: 60px;
-            background: url( '{{ url('/images/audio.svg') }}' ) no-repeat center center #f232a4;
+            background: url( '{{ url('/images/audio.svg') }}' ) no-repeat center center #66b8d9;
             background-size: auto auto;
             background-size: 22px;
             border-radius: 50%;
@@ -35,7 +35,7 @@
 @endsection
 
 @section('content')
-    
+
     <header class="clrhdr">
         <div class="leftIcn">
 
@@ -53,7 +53,7 @@
 
     <section class="pge8">
         <div class="q1t2 mt-2" >
-            <img id="blah" style="border-radius: 50%; border: 3px solid #511285" src="{{ isset($project->student->avatar) ? Storage::url($project->student->avatar) : url('images/prf.png') }}">
+            <img id="blah" style="border-radius: 50%; border: 3px solid #1f5373" src="{{ isset($project->student->avatar) ? Storage::url($project->student->avatar) : url('images/prf.png') }}">
         </div>
         <h6 class="text-center my-3">Submitter: {{ $project->student->name }}</h6>
         <aside class="whtBx1">
@@ -69,11 +69,11 @@
 	        			@foreach ($project->image as $img)
 	        				<img style="height:100px" src="{{ Storage::url($img) }}"/>
 	        			@endforeach
-                        
+
 	        		@else
 	        			<img style="height:100px" src="{{ Storage::url($project->image) }}"/>
                     @endif
-                        
+
                 @elseif (isset($project->video))
                     @if( is_array($project->video))
 	        			@foreach ($project->video as $video)
@@ -81,16 +81,16 @@
                                 <iframe src="https://www.youtube.com/embed/{{ $video['video_id'] ?? $video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $video['width'] ?? '100%' }}' height='{{ $video['height'] ?? '' }}' allowfullscreen></iframe>
                                 <br>
                             </div>
-                    
+
 	        			@endforeach
 	        		@else
                         <div class="qsimg1" style="height: 190px;">
                             <iframe src="https://www.youtube.com/embed/{{ $project->video['video_id'] ?? $project->video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $project->video['width'] ?? '100%' }}' height='{{ $project->video['height'] ?? '' }}' allowfullscreen></iframe>
                             <br>
                         </div>
-                
+
                     @endif
-                    
+
                 @elseif (isset($project->audio))
                     @if( is_array($project->audio))
 	        		    @foreach ($project->audio as $track)
@@ -107,7 +107,7 @@
                                 <source src="{{ Storage::url($project->audio) }}">
                                 Your browser does not support the audio element.
                             </audio>
-                        </div>    
+                        </div>
                     @endif
 	        	@endif
             </div>
@@ -139,7 +139,7 @@
         </div>
 
     <div id="mask2" class="mask"  style="display:none; z-index:9999999" onclick="popp1close()"></div>
-    
+
 
     <div class="loader" style="display:none"></div>
 @endsection
@@ -153,19 +153,19 @@
             readURL(this);
         });
 
-        function readURL(input) { 
+        function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
                     OpenCroperPop('project_submit',e.target.result);
-                    $('.cropDImage').attr("onclick","cropImage('project_submit')"); 
+                    $('.cropDImage').attr("onclick","cropImage('project_submit')");
                     return false;
                 }
             }
             reader.readAsDataURL(input.files[0]);
         }
-      
+
     </script>
 
 @endsection

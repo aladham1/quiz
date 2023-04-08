@@ -61,7 +61,7 @@
                                                     onclick="unfollowGroupThis('{{ $group->id }}','{{ Auth::id() }}',this)">UNFOLLOW</span>
                                             @else
                                                 <span class="rcmPbx7"
-                                                    style="background:#F232A4; color: #fff; border: 1px solid #F232A4"
+                                                    style="background:#66b8d9; color: #fff; border: 1px solid #F232A4"
                                                     onclick="followGroupThis('{{ $group->id }}','{{ Auth::id() }}',this)">FOLLOW</span>
                                             @endif
                                             <!-- query was here to check whether the user following the group
@@ -120,7 +120,7 @@
     <div class="fmnuclm">
         <a href="{{ route('home') }}">
             <div class="icnHom"
-                style="background: url(<?=$base_url?>/images/home_icon.svg) no-repeat center center #511285">HOME</div>
+                style="background: url(<?=$base_url?>/images/home_icon.svg) no-repeat center center #1f5373">HOME</div>
         </a>
     </div>
     <div class="fmnuclm">

@@ -149,7 +149,7 @@ function unfollowGroupThis(gid,myid,obj){
         axios.post(unfollow_cmd_link, {group:gid})
         .then(function(rs){
 
-                $(obj).attr("style","background:#F232A4; color: #fff; border: 1px solid #F232A4");
+                $(obj).attr("style","background:#66b8d9; color: #fff; border: 1px solid #F232A4");
                 $(obj).removeAttr("onclick");
                 $(obj).attr("onclick","followGroupThis("+gid+","+myid+",this)");
                 $(obj).text("FOLLOW");

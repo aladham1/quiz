@@ -25,7 +25,7 @@
             display: inline-block;
             width: 60px;
             height: 60px;
-            background: url( '{{ url('/images/audio.svg') }}' ) no-repeat center center #f232a4;
+            background: url( '{{ url('/images/audio.svg') }}' ) no-repeat center center #66b8d9;
             background-size: auto auto;
             background-size: 22px;
             border-radius: 50%;
@@ -35,7 +35,7 @@
 @endsection
 
 @section('content')
-    
+
     <header class="clrhdr">
         <div class="leftIcn">
 
@@ -67,7 +67,7 @@
 	        			@foreach ($project->image as $img)
 	        				<img style="height:100px" src="{{ Storage::url($img) }}"/>
 	        			@endforeach
-                        
+
 	        		@else
 	        			<img style="height:100px" src="{{ Storage::url($project->image) }}"/>
                     @endif
@@ -80,14 +80,14 @@
                                 <iframe src="https://www.youtube.com/embed/{{ $video['video_id'] ?? $video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $video['width'] ?? '100%' }}' height='{{ $video['height'] ?? '' }}' allowfullscreen></iframe>
                                 <br>
                             </div>
-                    
+
 	        			@endforeach
 	        		@else
                         <div class="qsimg1">
                             <iframe src="https://www.youtube.com/embed/{{ $project->video['video_id'] ?? $project->video }}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0\" allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' width='{{ $project->video['width'] ?? '100%' }}' height='{{ $project->video['height'] ?? '' }}' allowfullscreen></iframe>
                             <br>
                         </div>
-                
+
                     @endif
                 @endif
                 <hr>
@@ -107,7 +107,7 @@
                                 <source src="{{ Storage::url($project->audio) }}">
                                 Your browser does not support the audio element.
                             </audio>
-                        </div>    
+                        </div>
                     @endif
 	        	@endif
                 <hr>
@@ -121,10 +121,10 @@
                     @else
                         <div class="qsimg1">
                             <a href="{{ Storage::url($project->file) }}" download>Download file</a>
-                        </div>    
+                        </div>
                     @endif
 	        	@endif
-                
+
             </div>
             <hr>
             <div class="audtxt">{!! $project->description !!}</div>
@@ -148,7 +148,7 @@
                         </aside>
 
                     </li>
-                    
+
                     <li id="vdoPopB1" onclick="openIntroPop('projects_video')">
                         <aside class="vdoBtn" >
                             <img src="{{ url('images/p_video.svg') }}">
@@ -156,15 +156,15 @@
                         </aside>
 
                     </li>
-                    
+
                     <li id="audioPB1" onclick="openIntroPop('projects_audio')">
                         <aside class="adoBtn">
                             <img src="{{ url('images/p_audio.svg') }}">
                             <h6>Audio</h6>
                         </aside>
-                        
+
                     </li>
-                
+
                 </ul>
             </div>
 
@@ -216,8 +216,8 @@
                         <span class="audicn_btn" onclick="$('#hide_on_audio_record').hide();$('.audioSet.record').show();"></span>
                         <p class="my-1">OR</p>
                     </div>
-                    <button class="btn font-weight-bold" style="background-color: #F232A4; color: white;" role="button" onclick="$('#audio_file_upload').trigger('click')"><i class="fas fa-upload"></i> Upload</button>
-                    <input type="file" accept="audio/*" style="display: none" id="audio_file_upload" 
+                    <button class="btn font-weight-bold" style="background-color: #66b8d9; color: white;" role="button" onclick="$('#audio_file_upload').trigger('click')"><i class="fas fa-upload"></i> Upload</button>
+                    <input type="file" accept="audio/*" style="display: none" id="audio_file_upload"
                     onchange="recorded_audio = this.files[0]; $('#hide_on_audio_upload').hide(); $('#audio_file_name').text(this.files[0].name);">
                     <p><b id="audio_file_name"></b></p>
                 </div>
@@ -232,7 +232,7 @@
                 <div class="donBtn audio_svbtn" onclick="saveDataPopIntro('audio')">Done</div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- Cropper Image Popup -->
     <div class="imgPopBx cropperJsPop" id="" style="display: none;">
@@ -240,11 +240,11 @@
             <div class="leftIcn">
                 <div class="backicn pcancel">BACK</div>
             </div>
-        
+
             <div class="pgnme">
                 Select Image
             </div>
-        
+
             <div class="rgtIcn">
 
             </div>
@@ -256,13 +256,13 @@
         <div class="imgbx">
             <img class="cropperJs" id="crpImg" src="{{ url('images/1.png') }}"/>
             <canvas id="canvasArea"  >
-        </div>    
+        </div>
 
         <div class="tblPbtnBr">
             <div id="" class="canBtn2 pcancel" onclick="javascript: $('.cropperJsPop').hide();">Cancel</div>
             <div class="donBtn2 cropDImage" onclick="cropImageEdit()">Done</div>
-        </div>    
-    </div> 
+        </div>
+    </div>
 
     <div class="loader" style="display:none"></div>
 @endsection
@@ -272,7 +272,7 @@
 <script src="{{ asset("ckeditor/ckeditor.js") }}"></script>
     <script>
         var offlineDBname = "project_submit";
-        
+
     </script>
 @endsection
 
@@ -284,32 +284,32 @@
             readURL(this);
         });
 
-        function readURL(input) { 
+        function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
                     OpenCroperPop('project_submit',e.target.result);
-                    $('.cropDImage').attr("onclick","cropImage('project_submit')"); 
+                    $('.cropDImage').attr("onclick","cropImage('project_submit')");
                     return false;
                 }
             }
             reader.readAsDataURL(input.files[0]);
         }
-      
+
     </script>
 
     <script>
         var submission_editor;
         //CKEDITOR.replace('editor2');
         //CKEDITOR.replace('editor3');
-        
+
             //submission_editor.config.baseFloatZIndex = 99999999;
-        submission_editor = CKEDITOR.replace('editor');     
-            
+        submission_editor = CKEDITOR.replace('editor');
+
             /*
                 .create( document.querySelector( '#editor' ),{
-                
+
                     toolbar: {
     					items: [
     						'heading',
