@@ -81,7 +81,7 @@ a {text-decoration:none;}
 .icnHom {width: 100%;    height: 50px;
     background: url(../images/home_icon.svg) no-repeat center center #66b8d9;
 	background-size: 32px; 	font-size: 0;}
-	.icnHom:active {background-color:rgb(233, 39, 155);}
+	.icnHom:active {background-color:#4181a7;}
 .icnUsr {width: 100%;    height: 50px;
     background: url(../images/user_icon.svg) no-repeat center center #4181a7;
 	background-size: 32px; 	font-size: 0;}
@@ -90,11 +90,11 @@ a {text-decoration:none;}
 
 .roundBtn {bottom:60px; right:10px;  width: 50px;    height: 50px;  position: absolute; z-index: 999999;  border-radius:50%;
 	background: url(../images/plus.svg) no-repeat center center #66b8d9; font-size:0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);}
-.roundBtn:active {background-color:rgb(233, 39, 155);}
+.roundBtn:active {background-color:#4181a7;}
 
 .roundBtn2 {bottom:80px; right:30px;  width: 50px;    height: 50px;  position: absolute; z-index: 999999;  border-radius:50%;
 	background: url(../images/plus.svg) no-repeat center center #66b8d9; font-size:0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);}
-.roundBtn2:active {background-color:rgb(233, 39, 155);}
+.roundBtn2:active {background-color:#4181a7;}
 
 
 .pageBody {background: #E5E5E5; height:calc(100% - 50px - 50px); padding:10px;    overflow: auto;}
@@ -1245,7 +1245,7 @@ aside.rqGap img {
     font-size: 0;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.roundBtn3:active {background-color:rgb(233, 39, 155);}
+.roundBtn3:active {background-color:#4181a7;}
 
 .grupPg {
     background: #F4F4F4;
@@ -1620,7 +1620,7 @@ span.redRund {width: 12px;height: 12px;border-radius: 50%;background: #66b8d9;ma
             .profbtn {background: #66b8d9;font-size: 14px;color: #FFFFFF;
                 border-radius: 5px;display: inline-block;
                 padding: 6px 30px;}
-            .profbtn:active {background: #d4288e;}
+            .profbtn:active {background: #4181a7;}
     .ptBox2 {}
 
 
@@ -2684,7 +2684,7 @@ div#mchPop {
     font-size: 12px;
     padding: 4px 10px 4px 26px;
     border-radius: 20px;}
-    .cmmnt_i:active {background-color:rgb(233, 39, 155);}
+    .cmmnt_i:active {background-color:#4181a7;}
 
 
     .flwoPge {
