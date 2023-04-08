@@ -3325,7 +3325,6 @@ function showHistryReward(url) {
     showLoader();
     axios.get(url)
         .then(function (rs) {
-            console.log(rs);
             var reward_type = rs.data.reward_type;
             var reward_data = rs.data.reward_data;
 
