@@ -1045,13 +1045,13 @@
                             <div class="crt1">
                                 <div class="crt2">
                                     <div class="spnrLgo sponsor_img" style="float: left;  width: 100%">
-                                            <?php if ($result_exam['cert_sponsor_img'] != '' && $result_exam['cert_sponsor_img'] != 'undefined'){ ?>
+                                            <?php if ($result_exam['cert_sponsor_img']  && $result_exam['cert_sponsor_img'] != 'undefined'){ ?>
                                         <img src="<?=$base_url?>api/uploads/<?=$result_exam['cert_sponsor_img']?>">
                                         <?php } ?>
                                     </div>
 
                                     <div class="crLne1 " style="margin: 0 auto 20px; width: 25%; float: right">
-                                        <img src="{{ url('images/logo5.svg') }}" style="max-width: 100%;">
+{{--                                        <img src="{{ url('images/logo5.svg') }}" style="max-width: 100%;">--}}
                                     </div>
 
                                     <div class="crLne2">شهــــــــــــادة</div>
