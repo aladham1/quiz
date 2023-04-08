@@ -181,6 +181,33 @@ class ExamController extends Controller
             'reward_data' => $reward_data,
         ]);
     }
+    public function printReward(Exam $exam)
+    {
+        $reward_type = $exam->reward_type;
+        $reward_data = ['coupon_list' => $exam->coupon_list,
+            'hardware_name' => $exam->hardware_name,
+            'special_control_char' => $exam->special_control_char,
+            "reward_message" => $exam->reward_message,
+            'reward_video' => $exam->reward_video,
+            'reward_image' => isset($exam->reward_message) ? Storage::url($exam->reward_message) : null,
+            'cert_lang' => $exam->cert_lang,
+            'sponser' => isset($exam->sponser) ? Storage::url($exam->sponser) : null,
+
+        ];
+        if ($reward_type == 4) {
+            $reward_data['user_name'] = auth()->user()->name;
+            $reward_data['exam_owner'] = $exam->owner->name;
+            $reward_data['exam_title'] = $exam->title;
+            $analysis_data = $exam->owner->solved;
+            $reward_data['cert_id'] = $analysis_data->first()->analysis->pivot_cert_serial;
+            $reward_data['creation_time'] = $analysis_data->first()->analysis->created_at->format('h:i:s A');
+            $reward_data['creation_date'] = $analysis_data->first()->analysis->created_at->format('d-m-Y');
+        }
+        return response()->json([
+            'reward_type' => $reward_type,
+            'reward_data' => $reward_data,
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.

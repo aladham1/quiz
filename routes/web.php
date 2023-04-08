@@ -149,6 +149,7 @@ Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () 
 
     Route::get('/exam-info/{exam}', 'ExamController@show')->name('exams.show');
     Route::get('/exams/{exam}/showReward', 'ExamController@showReward')->name('exams.showReward');
+    Route::get('/exams/{exam}/printReward', 'ExamController@printReward')->name('exams.printReward');
 
     Route::get('/create-group', 'GroupController@create')->name('groups.create');
     Route::get('/edit-group/{group}', 'GroupController@edit')->name('groups.edit');
