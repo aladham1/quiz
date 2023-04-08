@@ -124,12 +124,12 @@
                                                 <div class="crt2" style="text-align: center; position: relative;">
 
                                                     <div class="spnrLgo sponsor_img" style="float: left; width: 100%">
-                                                    @if(isset($exam->sponser))
+                                                    @if($exam->sponser)
                                                         <img src="{{ Storage::url($exam->sponser) }}">
                                                     @endif
                                                     </div>
                                                     <div class="crLne1 " style="margin: 0 auto 20px; width: 25%; float: right">
-                                                        <img src="{{ url('images/logo5.svg') }}" style="max-width: 100%;">
+{{--                                                        <img src="{{ url('images/logo5.svg') }}" style="max-width: 100%;">--}}
                                                     </div>
                                                     @if($exam->cert_lang == 'en' || $exam->cert_lang == 'english')
                                                       <!--English-->
