@@ -183,7 +183,7 @@ class ExamController extends Controller
     }
     public function printReward(Exam $exam)
     {
-        return view('print_reward', ['exam' => $exam]);
+        return view('print', ['exam' => $exam]);
         $reward_type = $exam->reward_type;
         $reward_data = ['coupon_list' => $exam->coupon_list,
             'hardware_name' => $exam->hardware_name,
