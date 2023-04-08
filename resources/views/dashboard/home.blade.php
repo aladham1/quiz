@@ -111,7 +111,7 @@ $latest_exams = DB::table('exams')
                                                     $preq = $exam_requirement['value'];
                                                 }
                                                 ?>
-                                            @if($preq)
+                                            @if(isset($preq))
                                                 <img src="{{asset('images/lock.png')}}" width="20" alt="">
                                                 <span
                                                     style="font-size: 12px">Exam number: {{$preq}}</span>
