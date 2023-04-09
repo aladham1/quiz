@@ -14,7 +14,7 @@
         @foreach($group->exams as $exam)
             <div class="col-3 mb-3">
                 <h3 style="color: #4181a7">{{$exam->title}}</h3>
-                <img src="data:image/png;base64,{!!  base64_encode(QrCode::format('png')->size(200)
+                <img height="100" src="data:image/png;base64,{!!  base64_encode(QrCode::format('png')->size(200)
                     ->generate(route('exams.intro', ['exam' => $exam->id]))); !!}" alt="">
             </div>
         @endforeach
