@@ -3346,7 +3346,8 @@ function showHistryReward(url) {
                     creation_time: reward_data.creation_time,
                     exam_title: reward_data.exam_title,
                     exam_owner: reward_data.exam_owner,
-                    cert_id: reward_data.cert_id
+                    cert_id: reward_data.cert_id,
+                    exam_id: reward_data.exam_id
                 });
             }
             $('.rewMsk').fadeIn();
@@ -3365,9 +3366,9 @@ function showHistryReward(url) {
         });
 }
 
-function renderCert({lang, sponser, name, creation_date, creation_time, exam_title, exam_owner, cert_id}) {
+function renderCert({lang, sponser, name, creation_date, creation_time, exam_title, exam_owner, cert_id, exam_id}) {
     var cert_cls = (lang == 'english' || lang == 'en') ? "certificate_en" : (lang == 'arabic' || lang == 'ar') ? "certificate_ab" : '';
-    var cert_html = '<div class=" ' + cert_cls + '" onclick="print_cert(' + cert_id + ')">';
+    var cert_html = '<div class=" ' + cert_cls + '" onclick="print_cert(' + exam_id + ')">';
     cert_html += `<!--certificate start-->
                                         <div class="srtfVew " id="printFrist" style="background: #fff; padding: 15px;">
                                             <div class="crt1" style="border: 1px solid #511285; padding: 15px;">

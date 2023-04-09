@@ -175,15 +175,18 @@ class ExamController extends Controller
             $reward_data['cert_id'] = $analysis_data->first()->analysis->pivot_cert_serial;
             $reward_data['creation_time'] = $analysis_data->first()->analysis->created_at->format('h:i:s A');
             $reward_data['creation_date'] = $analysis_data->first()->analysis->created_at->format('d-m-Y');
+            $reward_data['exam_id'] = $exam->id;
+
         }
         return response()->json([
             'reward_type' => $reward_type,
             'reward_data' => $reward_data,
         ]);
     }
+
     public function printReward(Exam $exam)
     {
-        return view('print', ['exam' => $exam]);
+
         $reward_type = $exam->reward_type;
         $reward_data = ['coupon_list' => $exam->coupon_list,
             'hardware_name' => $exam->hardware_name,
@@ -204,10 +207,7 @@ class ExamController extends Controller
             $reward_data['creation_time'] = $analysis_data->first()->analysis->created_at->format('h:i:s A');
             $reward_data['creation_date'] = $analysis_data->first()->analysis->created_at->format('d-m-Y');
         }
-        return response()->json([
-            'reward_type' => $reward_type,
-            'reward_data' => $reward_data,
-        ]);
+        return view('print', ['exam' => $exam, 'reward_data' => $reward_data]);
     }
 
     /**
@@ -323,14 +323,14 @@ class ExamController extends Controller
                 $exam_model->load('Intro');
                 $intro = $exam_model->Intro;
                 //foreach ($exam['Intro'] as $column => $value) {
-                    $intro->title = $exam['Intro']['title'] ?? null;
-                    $intro->image = $exam['Intro']['image'] ?? null;
-                    $intro->table = $exam['Intro']['table'] ?? null;
-                    $intro->image = $exam['Intro']['image'] ?? $intro->getOriginal('audio');
-                    $intro->file = $exam['Intro']['file'] ?? $intro->getOriginal('file');
-                    $intro->audio = $exam['Intro']['audio'] ?? $intro->getOriginal('audio');
-                    $intro->paragraph = $exam['Intro']['paragraph'] ?? null;
-               // }
+                $intro->title = $exam['Intro']['title'] ?? null;
+                $intro->image = $exam['Intro']['image'] ?? null;
+                $intro->table = $exam['Intro']['table'] ?? null;
+                $intro->image = $exam['Intro']['image'] ?? $intro->getOriginal('audio');
+                $intro->file = $exam['Intro']['file'] ?? $intro->getOriginal('file');
+                $intro->audio = $exam['Intro']['audio'] ?? $intro->getOriginal('audio');
+                $intro->paragraph = $exam['Intro']['paragraph'] ?? null;
+                // }
                 $original_media = ['audio' => $intro->getOriginal('audio'), 'image' => $intro->getOriginal('image'), 'file' => $intro->getOriginal('file')];
                 $new_data = ['audio' => $intro->audio, 'image' => $intro->image, 'file' => $intro->file];
                 $this->order_with_type($original_media, $original_media, null);
@@ -753,9 +753,9 @@ class ExamController extends Controller
                 $fullPath = $request->file($key)->storeAs(preg_replace('/\d+/', '', $levels[1]), $fullName, 'public');
                 if (strstr($key, 'Intro')) {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, true, $key);
-                } elseif(!strstr($key, 'Puzzle')) {
+                } elseif (!strstr($key, 'Puzzle')) {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, false, $key);
-                }else{
+                } else {
                     $this->dynamic_assign($validated['Exams'], $levels, $fullPath, false, $key, true);
                 }
 
@@ -828,9 +828,9 @@ class ExamController extends Controller
                 if (is_array($array[$element])) {
                     $array[$element][] = $value;
                 } else {
-                    if ($is_puzzle){
-                           $array[$element] = $value;
-                    }else{
+                    if ($is_puzzle) {
+                        $array[$element] = $value;
+                    } else {
                         $array[$element] = [$array[$element], $value];
                     }
 

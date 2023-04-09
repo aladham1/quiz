@@ -117,7 +117,7 @@
                                 <div @if($exam->cert_lang == 'en' || $exam->cert_lang == 'english')
                                      class="certificate_en"
                                      @elseif($exam->cert_lang == 'ar' || $exam->cert_lang == 'arabic')
-                                     class="certificate_ab" @endif onclick="print_cert({{ $cert_serial }})">
+                                     class="certificate_ab" @endif onclick="print_cert({{ $exam->id }})">
                                     <!--certificate start-->
                                         <div class="srtfVew " id="printFrist" style="background: #fff; padding: 15px;">
                                             <div class="crt1" style="border: 1px solid #511285; padding: 15px;">
@@ -247,7 +247,7 @@
         }
 
         function print_cert(licens_id){
-            var win = window.open('https://quiz.bursacenneti.com/certificates/certificate_web.php?license='+licens_id, '_blank');
+            var win = window.open('http://127.0.0.1:8000/printReward/'+licens_id+'/printReward', '_blank');
         }
     </script>
 @endsection

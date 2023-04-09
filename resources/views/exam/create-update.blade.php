@@ -280,18 +280,18 @@
 {{--                                    <input type="checkbox" value="1" id="set5" name="is_private">--}}
 {{--                                    <label for="set5"><span>Private</span> <span class="qinfo">?</span></label>--}}
 {{--                                </li>--}}
-{{--                                <li style="">--}}
-{{--                                    <input type="checkbox" value="1" id="set6" class="login_checkBox"--}}
-{{--                                           name="is_login_required" onclick="toggleFieldsBox()" checked>--}}
-{{--                                    <label for="set6"><span>Login Required</span></label>--}}
-{{--                                    <br/>--}}
+                                <li style="">
+                                    <input type="checkbox" value="1" id="set6" class="login_checkBox"
+                                           name="is_login_required" >
+                                    <label for="set6"><span>Registered users only</span></label>
+                                    <br/>
 {{--                                    <div class="fieldsBox">--}}
 {{--                                        <p style="margin-left: 31px" class="fieldsp"><span>Required Fields</span> <span--}}
 {{--                                                class="qinfo tooltip">?</span></p>--}}
 {{--                                        <input type="text" class="infld2 login_fields" style="min-width: 150px"--}}
 {{--                                               placeholder=""/>--}}
 {{--                                    </div>--}}
-{{--                                </li>--}}
+                                </li>
                                 <li>
                                     <input type="checkbox" id="set4" class="timeLimit" onclick="showtmBx()"
                                            name="settings">

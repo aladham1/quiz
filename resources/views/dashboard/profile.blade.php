@@ -1353,7 +1353,7 @@
         })
 
         function print_cert(licens_id) {
-            var win = window.open('https://quiz.bursacenneti.com/certificates/certificate_web.php?license=' + licens_id, '_blank');
+            var win = window.open('http://127.0.0.1:8000/printReward/'+licens_id+'/printReward', '_blank');
         }
 
         function hideReBox() {
