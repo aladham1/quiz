@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container-fluid mt-4">
-    <div class="row">
+    <div class="row text-center">
         @foreach($group->exams as $exam)
             <div class="col-md-3 mb-3">
                 <h3 style="color: #4181a7">{{$exam->title}}</h3>
