@@ -228,8 +228,8 @@
                                 <input type="text" class="infld exam_title" placeholder=""/>
                                 <!-- <span class="notTxt qs_mx_ttl">* Max length 40</span> -->
                             </div>
-
-                            <div class="inSet">
+<div class="preq_type">
+                            <div class="inSet ">
                                 <h6><span>Prerequisite</span> <span class="qinfo">?</span></h6>
 
                                 <select class="infld preq_type" onchange="getExtraPreqField(this.value)">
@@ -255,7 +255,7 @@
 
 
                             </div>
-
+</div>
                         </aside>
 
 
@@ -282,7 +282,7 @@
 {{--                                </li>--}}
                                 <li style="">
                                     <input type="checkbox" value="1" id="set6" class="login_checkBox"
-                                           name="is_login_required" >
+                                           name="is_login_required" checked onchange="toggleFieldsBox()">
                                     <label for="set6"><span>Registered users only</span></label>
                                     <br/>
 {{--                                    <div class="fieldsBox">--}}
@@ -483,10 +483,10 @@
                                             <label for="rvchk3"><span
                                                     class="xm_time">Time limit ( 00 minuts )</span></label>
                                         </li>
-                                        <li>
-                                            <input disabled type="checkbox" id="rvchk4" name="rev_check">
-                                            <label for="rvchk4"><span>Enable chat</span></label>
-                                        </li>
+{{--                                        <li>--}}
+{{--                                            <input disabled type="checkbox" id="rvchk4" name="rev_check">--}}
+{{--                                            <label for="rvchk4"><span>Enable chat</span></label>--}}
+{{--                                        </li>--}}
                                     </ul>
 
                                     <div class="edtBtnBx">
@@ -1989,12 +1989,14 @@
 
         function toggleFieldsBox() {
             if ($('.login_checkBox').is(":checked")) {
-                $('.fieldsBox').slideDown();
+                 $('.preq_type').slideDown();
+                // $('.fieldsBox').slideDown();
             } else {
-                $('.fieldsBox').slideUp();
+                $('.preq_type').slideUp();
+                // $('.fieldsBox').slideUp();
             }
         }
-
+        toggleFieldsBox();
         function showtmBx() {
             if ($('.timeLimit').is(":checked")) {
                 $('.tmBx').slideDown();

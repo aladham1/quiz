@@ -323,13 +323,15 @@ class ExamController extends Controller
                 $exam_model->load('Intro');
                 $intro = $exam_model->Intro;
                 //foreach ($exam['Intro'] as $column => $value) {
-                $intro->title = $exam['Intro']['title'] ?? null;
-                $intro->image = $exam['Intro']['image'] ?? null;
-                $intro->table = $exam['Intro']['table'] ?? null;
-                $intro->image = $exam['Intro']['image'] ?? $intro->getOriginal('audio');
-                $intro->file = $exam['Intro']['file'] ?? $intro->getOriginal('file');
-                $intro->audio = $exam['Intro']['audio'] ?? $intro->getOriginal('audio');
-                $intro->paragraph = $exam['Intro']['paragraph'] ?? null;
+                if ($intro) {
+                    $intro->title = $exam['Intro']['title'] ?? null;
+                    $intro->image = $exam['Intro']['image'] ?? null;
+                    $intro->table = $exam['Intro']['table'] ?? null;
+                    $intro->image = $exam['Intro']['image'] ?? $intro->getOriginal('audio');
+                    $intro->file = $exam['Intro']['file'] ?? $intro->getOriginal('file');
+                    $intro->audio = $exam['Intro']['audio'] ?? $intro->getOriginal('audio');
+                    $intro->paragraph = $exam['Intro']['paragraph'] ?? null;
+
                 // }
                 $original_media = ['audio' => $intro->getOriginal('audio'), 'image' => $intro->getOriginal('image'), 'file' => $intro->getOriginal('file')];
                 $new_data = ['audio' => $intro->audio, 'image' => $intro->image, 'file' => $intro->file];
@@ -338,7 +340,7 @@ class ExamController extends Controller
                 $this->check_discarded($new_data, $original_media, $media_to_be_deleted);
 
                 $intro->save();
-
+                }
                 unset($exam['Intro']);
 
             } else {
@@ -459,17 +461,20 @@ class ExamController extends Controller
      */
     public function attend(Request $request, Exam $exam = null)
     {
+        if ($exam->login_required && !\auth()->check()) {
+            abort(401);
+        }
         $intro = $questions = [];
         $questions_sum = 0;
         if (isset($exam)) {
             $user = \auth()->user();
             $examSolved = $exam->have_preq_exam - 1000;
-            $result = $user->solved()->wherePivot('exam_id', $examSolved)->latest()->first();
-            if ($exam->have_preq_exam && $user->id != $exam->user_id) {
-                if (!$result || $result->analysis->latest()->first()->percentage < $exam->pass_percentage) {
-//                    abort(404);
-                }
-            }
+    //            $result = $user->solved()->wherePivot('exam_id', $examSolved)->latest()->first();
+    //            if ($exam->have_preq_exam && $user->id != $exam->user_id) {
+    //                if (!$result || $result->analysis->latest()->first()->percentage < $exam->pass_percentage) {
+    //                    abort(404);
+    //                }
+    //            }
             $questions = $this->get_available_question_types($exam);
 
             if (($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id])) || ($request->route()->named('exams.attend', ['exam' => $exam->id]) && url()->previous() == route('exams.intro', ['exam' => $exam->id]))) {
