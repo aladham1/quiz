@@ -13,6 +13,7 @@
         </div>
 
         <div class="rgtIcn">
+
         </div>
     </header>
 
@@ -42,6 +43,7 @@
 
                         -->
                     </div>
+                    <a href="{{route('groups.qrcods', $group->id)}}" target="_blank" style="background-color: #4181a7;display: block" class="qricn">QR</a>
                 </div>
             </div>
 

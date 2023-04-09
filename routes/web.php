@@ -101,6 +101,8 @@ Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () 
         return view('group.discover');
     })->name('discover');
 
+
+
     Route::get('/profile', 'ProfileController@index')->name('profile');
 
     Route::get('/edit-profile', function () {
@@ -152,6 +154,7 @@ Route::group([/*'prefix' => 'dashboard',*/ 'middleware' => 'auth'], function () 
     Route::get('/printReward/{exam}/printReward', 'ExamController@printReward')->name('exams.printReward');
 
     Route::get('/create-group', 'GroupController@create')->name('groups.create');
+    Route::get('/groups_qrcods/{group}', 'GroupController@qrcods')->name('groups.qrcods');
     Route::get('/edit-group/{group}', 'GroupController@edit')->name('groups.edit');
     Route::post('/groups/{group}/privacy', 'GroupController@togglePrivacy')->name('groups.togglePrivacy');
     Route::get('/groups/{group}/desc', 'GroupController@showDesc')->name('groups.showDesc');

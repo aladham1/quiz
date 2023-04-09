@@ -362,4 +362,9 @@ class GroupController extends Controller
     {
         return $group->description;
     }
+
+    public function qrcods(Group $group)
+    {
+       return view('group.qrcodes', ['group' => $group->load('exams')]);
+    }
 }
