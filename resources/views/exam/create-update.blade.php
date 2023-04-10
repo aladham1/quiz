@@ -1367,7 +1367,7 @@
             </div>
             <div class="tfpBx2">
                 <div id="" class="canBtn pcancel" onclick="reset_audio_panel()">Cancel</div>
-                <div class="donBtn audio_svbtn" id="audio_svbtn" data-record="0" onclick="saveDataPopIntro('audio')">Done</div>
+                <div class="donBtn audio_svbtn" id="audio_svbtn" data-record="0" data-id="" onclick="saveDataPopIntro('audio')">Done</div>
             </div>
         </div>
     </div>
@@ -2873,7 +2873,7 @@
                         timer.textContent = "00:00";
 
                         // enable start button
-                        startBtn.disabled = false;
+
                     });
 
                     // event listener for stop event (after recording)
@@ -2889,6 +2889,10 @@
                       recorded_audio = file
 
                         chunks = []; // clear audio chunks for next recording
+                        var index = stopBtn2.dataset.id;
+                        if (index > 0) {
+                            saveDataPopIntro('quest_qo_audio', index);
+                        }
                     });
                 })
                 .catch(function (err) {

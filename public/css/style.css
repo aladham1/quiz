@@ -482,6 +482,14 @@ ul.chkList {
         background-size: 22px;
         border-radius: 50%;transition: all ease-in-out 0.05s;
     }
+    .audIcnBtnStop{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        background: url(../images/stop-button.svg) no-repeat center center #f232a4;
+        background-size: 22px;
+        border-radius: 50%;transition: all ease-in-out 0.05s;
+    }
     .audIcnBtn:active {transform: scale(0.9); }
 
 

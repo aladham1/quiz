@@ -355,8 +355,10 @@ function openIntroPop(type, index = "") {
         $("#mask2").fadeIn();
         $(".audio_svbtn").attr(
             "onclick",
-            "saveDataPopIntro('quest_qo_audio'," + index + ")"
+            ""
         );
+        //saveDataPopIntro('quest_qo_audio'," + index + ")
+        $(".audio_svbtn").attr('data-id',index);
     } else if (type == "quest_pr_vid") {
         if ($('.prVdoBx iframe').length > 0 && $('.prVdoBx').css('display') == 'none'){
             var cls = '.pr';
