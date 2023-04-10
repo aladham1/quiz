@@ -1367,7 +1367,7 @@
             </div>
             <div class="tfpBx2">
                 <div id="" class="canBtn pcancel" onclick="reset_audio_panel()">Cancel</div>
-                <div class="donBtn audio_svbtn" data-record="0" onclick="saveDataPopIntro('audio')">Done</div>
+                <div class="donBtn audio_svbtn" id="audio_svbtn" data-record="0" onclick="saveDataPopIntro('audio')">Done</div>
             </div>
         </div>
     </div>
@@ -2807,6 +2807,7 @@
         // get references to HTML elements
         const startBtn = document.getElementById("startBtn");
         const stopBtn = document.getElementById("stopBtn");
+        const stopBtn2 = document.getElementById("audio_svbtn");
         const timer = document.getElementById("timer");
         const audioPlayer = document.getElementById("audioPlayer");
         const inputFile = document.getElementById("audio_file_upload");
@@ -2849,6 +2850,19 @@
 
                     // event listener for stop button
                     stopBtn.addEventListener("click", function () {
+                        // disable stop button
+                        stopBtn.disabled = true;
+
+                        if (mediaRecorder.state === "recording") {
+                            mediaRecorder.stop();
+                        }
+                        clearInterval(timerInterval);
+                        timer.textContent = "00:00";
+
+                        // enable start button
+                        startBtn.disabled = false;
+                    });
+                    stopBtn2.addEventListener("click", function () {
                         // disable stop button
                         stopBtn.disabled = true;
 
