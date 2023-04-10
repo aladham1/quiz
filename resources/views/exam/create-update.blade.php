@@ -2817,6 +2817,7 @@
 
         // event listener for start button
         startBtn.addEventListener("click", function () {
+
             // disable start button
             startBtn.disabled = true;
 
@@ -2851,8 +2852,9 @@
                         // disable stop button
                         stopBtn.disabled = true;
 
-                        // stop recording and timer
-                        mediaRecorder.stop();
+                        if (mediaRecorder.state === "recording") {
+                            mediaRecorder.stop();
+                        }
                         clearInterval(timerInterval);
                         timer.textContent = "00:00";
 

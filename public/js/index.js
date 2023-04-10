@@ -1238,7 +1238,6 @@ function processTmp(key, store) {
 var options_media = {};
 
 function updateQuestionIfExists(id, attributes) {
-    console.log(id);
     var p = questions.getItem(id)
         .then(function (final_question) {
             var question = {};
@@ -1260,13 +1259,10 @@ function updateQuestionIfExists(id, attributes) {
                     }
                     question['image'] ? question['image'] = null : false;
                 } else { //if ($('.quest_image').val() && $('.quest_image').val() != '')
-                    media_delete_promises.push(questions.removeItem(id + '_audio'));
-                    console.log(true);
+                    // media_delete_promises.push(questions.removeItem(id + '_audio'));
                     question['audio'] ? question['audio'] = null : false;
                     console.log(temp_question_media_edits);
                     if (temp_question_media_edits.length > 0) {
-                        console.log("attrib:", attributes);
-                        console.log("q:", question)
                         if (question['image'] instanceof Array) {
                             for (var i = 0; i < temp_question_media_edits.length; i++) {
                                 delete question['image'][temp_question_media_edits[i]];
@@ -1382,7 +1378,6 @@ function saveMultipleChoiceQuest(exam, id, render = true) {
                     if (type == 'text') {
                         option = $(txtAnsCls).val();
                     } else if (type == 'image') {
-
                         if ($('.quest_image_option_' + i).val() == '' && $(txtAnsCls).val() != '') {
                             option = $(txtAnsCls).val();
                             option_type = 'text';
@@ -1442,7 +1437,7 @@ function saveMultipleChoiceQuest(exam, id, render = true) {
                         $('.mcAudBx').hide();
                         $('.mc_img_list').html('');
                         $('.mcImgBx').hide();
-                        console.log('done');
+
                     }
                 )
                 .catch(

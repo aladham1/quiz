@@ -94,6 +94,7 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $validated = $request->all();//validated();
+
         $validated['Exams'] = json_decode($validated['Exams'], true);
         //print_r($validated['Exams']['Exam1']);
         $this->map_files_to_columns($request, $validated);
