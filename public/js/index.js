@@ -856,25 +856,26 @@ function saveDataPopIntro(type, index = '', render = true, record = 0) {
             saveAudData(param);
         }
     } else if (type == 'quest_qo_audio') { // question options audio
+
         var id = getQuestionsListCount('.question_lists') + '_options_option' + index;
         id = 'MultipleChoiceQuestion' + id;
         options_media[id] = 'audio';
         id = id + '_audio_tmp';
         questions.setItem(id, recorded_audio)
-            .then(
-                function () {
-                    return questions.getItem(id);
-                }
-            )
+            // .then(
+            //     function () {
+            //         return questions.getItem(id);
+            //     }
+            // )
             .then(
                 function (res) {
                     recorded_audio = null;
 
                     var audio_name = localStorage.getItem("intro_draft_audio_name");
-                    if (audio_name == null) {
-                        $('.canBtn').click();
+                    // if (audio_name == null) {
+                    //     $('.canBtn').click();
                         //swal.fire("Error","Please fill the input area","error");
-                    } else {
+                    // } else {
                         showLoader();
                         $('.quest_voice_option_' + index).val(audio_name);
                         var audio = document.createElement('audio');
@@ -886,6 +887,7 @@ function saveDataPopIntro(type, index = '', render = true, record = 0) {
                         src.src = URL.createObjectURL(res);
                         audio.appendChild(src);
                         setTimeout(function () {
+                            console.log("F");
                             hideLoader();
                             $('.ansAud_' + index).html('');
                             $('.ansAud_' + index).append(audio);
@@ -895,7 +897,7 @@ function saveDataPopIntro(type, index = '', render = true, record = 0) {
                         $('.ansAud_' + index).fadeIn();
                         $('#mask2').click();
                         $('#recordingsList').html('');
-                    }
+                    // }
                 }
             )
 
