@@ -3021,7 +3021,9 @@ span.clrAl:active {  color: #7a7a7a;  background: rgb(243, 243, 243);}
     padding: 60px 10px 50px;
     border-bottom: 5px solid #C7C7C7;
     border-radius: 20px;}
-    .rpBx3 img {}
+    .rpBx3 img {
+        max-width: 90%;
+    }
 
     .rpBx4 {}
     .rpBx4 img {}
