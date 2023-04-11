@@ -116,12 +116,14 @@ function restoreExam() {
         if (res != null) {
             var img = URL.createObjectURL(res);
             $('#showReward').on('load', function () {
-                URL.revokeObjectURL(img)
+                console.log(img);
+                URL.revokeObjectURL(img);
             });
             $('#showReward').attr('src', img);
         } else {
             axios.get(getFileURL.replace('file_path', examObj['reward_image']))
                 .then(function (res) {
+                    console.log(res);
                     $('#showReward').attr('src', res.data);
                 });
         }
@@ -862,12 +864,12 @@ function saveDataPopIntro(type, index = '', render = true, record = 0) {
         id = id + '_audio_tmp';
         questions.setItem(id, recorded_audio)
             .then(function () {
-                    return questions.getItem(id);
-                })
+                return questions.getItem(id);
+            })
             .then(
                 function (res) {
                     recorded_audio = null;
-console.log(res);
+                    console.log(res);
                     var audio_name = res;
                     if (audio_name == null) {
                         $('.canBtn').click();
@@ -2236,17 +2238,14 @@ function fetchAlldata() {
                         if (exam['icon'] && exam['icon'] != 'Exam_icon') {
                             axios.get(getFileURL.replace('file_path', exam['icon']))
                                 .then(function (res) {
-                                    console.log(res.data);
                                     $('.revImg').html('<img src="' + res.data + '">');
                                 });
                         } else {
-                          //  $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
+                            $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
                         }
                     } else {
-                        console.log("a");
-                        console.log(res);
 
-                     //   $('.revImg').html('<img src="' + URL.createObjectURL(res) + '" style="max-height: 100%;">');
+                        $('.revImg').html('<img src="' + URL.createObjectURL(res) + '" style="max-height: 100%;">');
                     }
                 })
 
