@@ -1,6 +1,6 @@
-@php 
-    //include_once 'includes/system_connection.php'; 
-    //include_once 'includes/functions.php'; 
+@php
+    //include_once 'includes/system_connection.php';
+    //include_once 'includes/functions.php';
     //$scon = mysqli_connect("localhost","root","XpeoTi8GXV","quest_store") or die("store not connected");
     $guest_prefix = ''; //Auth::check() ? '' : 'guest.';
 @endphp
@@ -87,14 +87,14 @@
                         </li>
                     @elseif( Str::endswith($key, 'order') || (isset($item['type']) && $item['type'] == "order") )
                         @php
-                            $explode_url = explode('/',$item); 
+                            $explode_url = explode('/',$item);
                             $get_product = mysqli_query($scon,"SELECT * FROM wp_posts WHERE post_name='".mysqli_real_escape_string($scon,$explode_url[4])."'");
                             $result_product = mysqli_fetch_assoc($get_product);
 
                             $get_meta = mysqli_query($scon,"SELECT * FROM wp_postmeta WHERE post_id='".mysqli_real_escape_string($scon,$result_product['ID'])."' AND meta_key='_product_image_gallery'");
                             $result_meta = mysqli_fetch_assoc($get_meta);
 
-                            $explode_img = explode(',',$result_meta['meta_value']); 
+                            $explode_img = explode(',',$result_meta['meta_value']);
                             $get_img = mysqli_query($scon,"SELECT * FROM wp_postmeta WHERE post_id='".mysqli_real_escape_string($scon,$explode_img[0])."' AND meta_key='_wp_attached_file'");
                             $result_img = mysqli_fetch_assoc($get_img);
                         @endphp
@@ -108,12 +108,12 @@
                                         <!-- <a href="<?=$result_product['guid']?>" target="_blank">
                                             <span class="ordBtn">ORDER NOW</span>
                                         </a> -->
-                                    
+
                                         <a href="<?=$result_product['guid']?>" target="_blank" class="ordBtn">
                                             ORDER NOW
                                         </a>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                         </li>
                     @endif
@@ -132,8 +132,8 @@
                 @elseif ($exam->project_count > 0)
                     <a href="{{ route($guest_prefix . 'exams.project_submits.create', ['exam' => $exam->id]) }}"><div class="donBtn2 table_svbtn" style="width: 100%">Submit Project</div></a>
                 @endif
-            </div> 
-        @endif  
+            </div>
+        @endif
 
     </section>
 @endsection
@@ -155,7 +155,7 @@
             var offlineDBname = localStorage.getItem('offline_DB');
             $(document).ready(function(){
                 questions = localforage.createInstance({
-                    name: offlineDBname
+                    // name: offlineDBname
                 });
                 questions.getItem('Exam')
                 .then(function(exam) {
@@ -171,7 +171,7 @@
                 })
                 .then(function(obj) {
                     var keys = obj;
-                    
+
                     console.log(obj);
                     console.log(intro_items);
                     var promises = [];
@@ -254,12 +254,12 @@
                                         <!-- <a href="NOTE: PHP HERE" target="_blank">
                                             <span class="ordBtn">ORDER NOW</span>
                                         </a> -->
-                                    
+
                                         <a href="NOTE: PHP HERE" target="_blank"  class="ordBtn">
                                                 ORDER NOW
                                         </a>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                         </li>`;
                     }
