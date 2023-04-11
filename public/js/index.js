@@ -113,10 +113,13 @@ function restoreExam() {
     }
 
     function exam_reward_image(res) {
+        console.log(res);
+        console.log("f");
         if (res != null) {
             var img = URL.createObjectURL(res);
             $('#showReward').on('load', function () {
                 console.log(img);
+                console.log("a");
                 URL.revokeObjectURL(img);
             });
             $('#showReward').attr('src', img);
@@ -124,6 +127,7 @@ function restoreExam() {
             axios.get(getFileURL.replace('file_path', examObj['reward_image']))
                 .then(function (res) {
                     console.log(res);
+                    console.log("d");
                     $('#showReward').attr('src', res.data);
                 });
         }
@@ -181,7 +185,6 @@ function restore_Data() {
 }
 
 function populateDB(exam, intro, exam_questions, data_copy_with_urls) {
-    console.log(exam, intro, exam_questions);
 
     var promises = [questions.setItem('Exam', exam)];
     var intro_sort = [];
@@ -228,7 +231,6 @@ function sort_list(list_cls, dbkey) {
                 list.append($("div[data-id='" + res[i] + "']").parent());
             }
             var leftover = original_cnt - res.length;
-            console.log('len:' + res.length, 'last:' + original_cnt, 'leftov:' + leftover);
             for (var i = 0; i < leftover; i++) {
                 var element = document.createElement('li');
                 list.append(element);
