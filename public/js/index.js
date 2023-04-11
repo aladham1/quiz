@@ -2240,13 +2240,13 @@ function fetchAlldata() {
                                     $('.revImg').html('<img src="' + res + '">');
                                 });
                         } else {
-                            $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
+                          //  $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
                         }
                     } else {
                         console.log("a");
                         console.log(res);
 
-                        $('.revImg').html('<img src="' + URL.createObjectURL(res) + '" style="max-height: 100%;">');
+                     //   $('.revImg').html('<img src="' + URL.createObjectURL(res) + '" style="max-height: 100%;">');
                     }
                 })
 
