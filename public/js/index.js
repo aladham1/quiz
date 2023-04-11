@@ -2236,8 +2236,8 @@ function fetchAlldata() {
                         if (exam['icon'] && exam['icon'] != 'Exam_icon') {
                             axios.get(getFileURL.replace('file_path', exam['icon']))
                                 .then(function (res) {
-                                    console.log(res);
-                                    $('.revImg').html('<img src="' + res + '">');
+                                    console.log(res.data);
+                                    $('.revImg').html('<img src="' + res.data + '">');
                                 });
                         } else {
                           //  $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
