@@ -2236,12 +2236,16 @@ function fetchAlldata() {
                         if (exam['icon'] && exam['icon'] != 'Exam_icon') {
                             axios.get(getFileURL.replace('file_path', exam['icon']))
                                 .then(function (res) {
+                                    console.log(res);
                                     $('.revImg').html('<img src="' + res + '">');
                                 });
                         } else {
                             $('.revImg').html('<img src="' + rootURL + 'images/placeholder.jpeg">');
                         }
                     } else {
+                        console.log("a");
+                        console.log(res);
+
                         $('.revImg').html('<img src="' + URL.createObjectURL(res) + '" style="max-height: 100%;">');
                     }
                 })

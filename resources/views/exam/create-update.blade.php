@@ -451,7 +451,7 @@
                             <div class="rvwBox">
                                 <div class="rvwBox1">
 
-                                    <div class="revImg" class="xm_icon">
+                                    <div class="revImg xm_icon">
                                         <img src=" {{ asset("images/image.svg")  }} ">
                                     </div>
 
