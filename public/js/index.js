@@ -51,6 +51,8 @@ function restoreExam() {
             exam_data(res[0]);
             exam_icon(res[1]);
             exam_reward_image(res[2]);
+            console.log("s");
+            console.log(res);
         })
         .catch(function (err) {
             console.log(err);
